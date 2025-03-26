@@ -132,12 +132,10 @@ function App() {
           {drawer}
         </Drawer>
       </nav>
-      <Box sx={{ marginTop: 15 }}>
-        <BasicSwitch>
-          <Route path="/test" render={() => <Home />} />
-          <Route exact render={() => <Home />} />
-        </BasicSwitch>
-      </Box>
+      <BasicSwitch>
+        <Route path="/test" render={() => <Home />} />
+        <Route exact render={() => <Home />} />
+      </BasicSwitch>
     </Box>
   );
 }
