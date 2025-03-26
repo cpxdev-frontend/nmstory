@@ -45,7 +45,7 @@ function App() {
           whiteSpace: "nowrap",
           padding: 1,
         }}>
-        <Avatar src="https://pbs.twimg.com/profile_images/1888865584538075136/oOjgcNC__400x400.jpg" />{" "}
+        <Avatar src={process.env.REACT_APP_ICON} />{" "}
         <Typography className="d-flex align-items-center">
           &nbsp;&nbsp;Nammonn BNK48 TH FC
         </Typography>
@@ -81,7 +81,7 @@ function App() {
               flexGrow: 1,
               padding: 1,
             }}>
-            <Avatar src="https://pbs.twimg.com/profile_images/1888865584538075136/oOjgcNC__400x400.jpg" />{" "}
+            <Avatar src={process.env.REACT_APP_ICON} />{" "}
             <Typography className="d-flex align-items-center">
               &nbsp;&nbsp;Nammonn BNK48 TH FC
             </Typography>
@@ -128,7 +128,7 @@ function App() {
           {drawer}
         </Drawer>
       </nav>
-      <Box sx={{ marginTop: 10 }}>
+      <Box sx={{ marginTop: 15 }}>
         <BasicSwitch>
           <Route path="/test" render={() => <Home />} />
           <Route exact render={() => <Home />} />
