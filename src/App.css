@@ -38,7 +38,7 @@
 }
 
 .newnav{
-  background: linear-gradient(180deg, rgba(12,169,247,1) 0%, rgba(173,200,247,1) 90%, rgba(173,200,247,0.10127801120448177) 100%) !important;
+  background: linear-gradient(180deg, rgba(12,169,247,1) 0%, rgba(173, 200, 247, 0.767) 90%, rgba(173,200,247,0.10127801120448177) 100%) !important;
   box-shadow: 0px 5px 5px 0px rgba(87, 87, 87, 0.233) !important;
 }
 .bg-theme {

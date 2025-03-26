@@ -70,9 +70,13 @@ function App() {
     <Box className="bg-theme">
       {" "}
       <AppBar
-        component="nav"
+        data-aos="fade-down"
         className="newnav"
-        sx={{ borderRadius: 3, top: 5 }}>
+        sx={{
+          borderRadius: 3,
+          position: "fixed",
+          top: 3,
+        }}>
         <Toolbar>
           <Box
             sx={{
