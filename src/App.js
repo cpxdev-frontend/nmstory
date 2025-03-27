@@ -20,6 +20,7 @@ import { useLocation, Switch as BasicSwitch, Route } from "react-router-dom";
 import Aos from "aos";
 
 import Home from "./component/home";
+import moment from "moment";
 
 const drawerWidth = 290;
 const navItemsA = ["/"];
@@ -135,6 +136,19 @@ function App() {
         <Route path="/test" render={() => <Home />} />
         <Route exact render={() => <Home />} />
       </BasicSwitch>
+      <footer className="card text-center">
+        <div className="card-body">
+          <p className="card-title">
+            &copy; Copyright {moment().format("YYYY")} <b>CPXDev</b>, design and
+            maintain for <b>Nammonn BNK48 Thailand Fanclub</b>
+          </p>
+          <small className="card-text">
+            All BNK48 contents are licensed by Independent Artist Management
+            (iAM). These member images and all events poster is objective for
+            Nammonn BNK48 and other BNK48 members supporting only.
+          </small>
+        </div>
+      </footer>
     </Box>
   );
 }

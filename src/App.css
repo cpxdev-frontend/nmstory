@@ -28,6 +28,15 @@
   color: #61dafb;
 }
 
+.theme-core {
+  color: #0ca9f7 !important;
+}
+
+.icon-core {
+  background-color: #0ca9f7 !important;
+  color: #fff;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -77,7 +86,7 @@
   margin-bottom: 20px;
   margin-top: -50px;
 }
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 780px){
   .profile-info {
     padding: 90px 30px 20px 30px;
     margin-bottom: 20px;
@@ -97,4 +106,14 @@
 /* ส่วนเนื้อหาหลัก */
 .content {
   padding: 20px 30px;
+}
+.row{
+ margin-left: 0px !important;
+ margin-right: 0px !important;
+}
+.MuiListItemText-secondary {
+  color: #65676b !important;
+}
+ul {
+  max-width: 100% !important;
 }
