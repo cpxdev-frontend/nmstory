@@ -75,7 +75,6 @@ function App() {
         sx={{
           borderRadius: 3,
           position: "fixed",
-          top: 3,
         }}>
         <Toolbar>
           <Box

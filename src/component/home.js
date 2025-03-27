@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Avatar } from "@mui/material";
 
 const Home = () => {
+  const [data, setData] = React.useState(null);
+
   React.useEffect(() => {
     fetch(
       "https://cpxdevweb.runasp.net/bnk48/getmember?name=nammonn" +
@@ -12,44 +14,48 @@ const Home = () => {
       }
     )
       .then((response) => response.json())
-      .then((data) => {});
+      .then((data) => {
+        setData(data.response);
+      });
   }, []);
 
   return (
     <Box>
-      <div class="cover">
-        <div class="profile-pic col-3">
+      <div class="cover" data-aos="fade-in">
+        <div class="profile-pic col-md-4 justify-content-end">
           <Avatar
             src="https://d3hhrps04devi8.cloudfront.net/bnk48profile/nammonn.jpg"
-            className="w-75 w-md-100 h-100"
+            className="w-md-25 w-75 h-100"
           />
         </div>
       </div>
 
       <div class="container row profile-info">
-        <div className="col-4"></div>
+        <div className="col-md-5 col-sm-4"></div>
         <div className="col">
-          <h1>ชื่อผู้ใช้</h1>
-          <p>เมืองไทย</p>
+          <h1>
+            {data != null
+              ? data.fullnameEn[0] +
+                " " +
+                data.fullnameEn[1] +
+                " [" +
+                data.name +
+                "]"
+              : "กำลังโหลด"}
+          </h1>
+          <h5>
+            {data != null
+              ? data.fullnameTh[0] + " " + data.fullnameTh[1]
+              : "กำลังโหลด"}
+          </h5>
+          <p>{data != null ? data.province : "กำลังโหลด"}</p>
         </div>
       </div>
 
       <div class="content">
-        <h2>Posts</h2>
-        <p>นี่คือโพสต์ตัวอย่าง...</p>
+        <h2>Content</h2>
+        <p>Layout Draft</p>
       </div>
-
-      <div class="overlay"></div>
-      <section className="profile-info">
-        <div className="container">
-          <div className="row">
-            <div
-              className="col-md-5 col-12 d-flex justify-content-center"
-              data-aos="zoom-in"></div>
-            <div className="col-md col-12"></div>
-          </div>
-        </div>
-      </section>
     </Box>
   );
 };
