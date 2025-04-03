@@ -516,7 +516,9 @@ const Home = () => {
                       onerror="var a=document.createElement('script');a.src='https://iframely.net/files/tiktok-embed.js';document.body.appendChild(a);"
                       src="https://www.tiktok.com/embed.js"></script>
                   </div>
-                  <div className="col-lg-6" data-aos="zoom-in">
+                  <div
+                    className="col-lg-6 d-flex justify-content-center"
+                    data-aos="zoom-in">
                     <iframe
                       width="100%"
                       height="400"
@@ -526,6 +528,15 @@ const Home = () => {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerpolicy="strict-origin-when-cross-origin"
                       allowfullscreen></iframe>
+                    <Button
+                      variant="outlined"
+                      onClick={() =>
+                        HyLink(
+                          "https://youtube.com/playlist?list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz&si=VCH6WS6wRBDIs6UA"
+                        )
+                      }>
+                      View on playlist
+                    </Button>
                   </div>
                   <div className="col-md-6" data-aos="zoom-in">
                     <iframe
