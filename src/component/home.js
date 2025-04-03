@@ -517,7 +517,7 @@ const Home = () => {
                       src="https://www.tiktok.com/embed.js"></script>
                   </div>
                   <div
-                    className="col-lg-6 pb-4 text-center"
+                    className="col-lg-6 text-center"
                     data-aos="zoom-in">
                     <div className="col-12">
                        <iframe
@@ -533,7 +533,7 @@ const Home = () => {
                     <br/>
                     <Button
                       variant="outlined"
-                      className="text-light border-light"
+                      className="text-light border-light mb-5"
                       sx={{ display: { xs: "initial", md: "none" } }}
                       onClick={() =>
                         HyLink(
