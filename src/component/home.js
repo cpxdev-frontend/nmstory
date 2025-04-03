@@ -520,7 +520,7 @@ const Home = () => {
                     <iframe
                       width="100%"
                       height="400"
-                      src="https://www.youtube.com/embed/videoseries?si=IR58DGfCh7LrNYNG&amp;list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
+                      src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
                       title="YouTube video player"
                       frameborder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
