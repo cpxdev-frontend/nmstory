@@ -50,7 +50,8 @@
   background: linear-gradient(
     180deg,
     rgba(12, 169, 247, 1) 0%,
-    rgba(173, 200, 247, 0.767) 90%,
+    rgba(86, 145, 247, 0.856) 60%,
+    rgba(173, 200, 247, 0.312) 90%,
     rgba(173, 200, 247, 0.10127801120448177) 100%
   ) !important;
   box-shadow: 0px 5px 5px 0px rgba(87, 87, 87, 0.233) !important;
@@ -136,7 +137,7 @@
 ul {
   max-width: 100% !important;
 }
-.MuiPaper-root,
+.MuiCard-root,
 blockquote,
 iframe {
   border-radius: 15px !important;

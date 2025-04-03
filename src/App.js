@@ -74,7 +74,8 @@ function App() {
         data-aos="fade-down"
         className="newnav"
         sx={{
-          borderRadius: 3,
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
           position: "fixed",
         }}>
         <Toolbar>

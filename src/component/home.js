@@ -533,8 +533,8 @@ const Home = () => {
                     <br/>
                     <Button
                       variant="outlined"
-                      className="text-dark border-dark mb-5"
-                      sx={{ display: { xs: "initial", md: "none" } }}
+                      className="text-dark border-dark mb-3"
+                      sx={{ display: { xs: "initial", md: "none" }, marginTop: -3 }}
                       onClick={() =>
                         HyLink(
                           "https://youtube.com/playlist?list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz&si=VCH6WS6wRBDIs6UA"
