@@ -447,14 +447,14 @@ const Home = () => {
                 <h5 className="card-title">Nammonn Update</h5>
                 <hr />
                 <div className="row mt-3">
-                  <div className="col-lg-6" data-aos="zoom-out">
+                  <div className="col-lg-6" data-aos="zoom-in">
                     <iframe
                       src="https://instagram.com/nammonn.bnk48official/embed"
                       height="400px"
                       width="100%"
                     />
                   </div>
-                  <div className="col-lg-6" data-aos="zoom-out">
+                  <div className="col-lg-6" data-aos="zoom-in">
                     <blockquote
                       className="tiktok-embed m-0"
                       cite="https://www.tiktok.com/@nammonn.bnk48official"
