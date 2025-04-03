@@ -527,7 +527,7 @@ const Home = () => {
                       referrerpolicy="strict-origin-when-cross-origin"
                       allowfullscreen></iframe>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-6" data-aos="zoom-in">
                     <iframe
                       src="https://open.spotify.com/embed/playlist/7MGjeDqqWAM7HjCWBtX6gm?utm_source=generator"
                       width="100%"
