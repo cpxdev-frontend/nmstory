@@ -108,6 +108,9 @@
   .prof {
     width: 65% !important;
   }
+  .content {
+    padding: 8px 15px !important;
+  }
 }
 
 .profile-info h1 {
