@@ -458,7 +458,9 @@ const Home = () => {
                     data-aos="fade-right"
                     className="link"
                     onClick={() =>
-                      HyLink("https://line.me/ti/g2/YXDDHDlDgbq7MxAN0yuDMNDQupyLuWMc6GvzQg")
+                      HyLink(
+                        "https://line.me/ti/g2/YXDDHDlDgbq7MxAN0yuDMNDQupyLuWMc6GvzQg"
+                      )
                     }>
                     <ListItemAvatar>
                       <Avatar className="icon-core">
@@ -513,6 +515,27 @@ const Home = () => {
                       async
                       onerror="var a=document.createElement('script');a.src='https://iframely.net/files/tiktok-embed.js';document.body.appendChild(a);"
                       src="https://www.tiktok.com/embed.js"></script>
+                  </div>
+                  <div className="col-lg-6" data-aos="zoom-in">
+                    <iframe
+                      width="100%"
+                      height="400"
+                      src="https://www.youtube.com/embed/videoseries?si=IR58DGfCh7LrNYNG&amp;list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen></iframe>
+                  </div>
+                  <div className="col-md-6">
+                    <iframe
+                      src="https://open.spotify.com/embed/playlist/7MGjeDqqWAM7HjCWBtX6gm?utm_source=generator"
+                      width="100%"
+                      height="400"
+                      frameBorder="0"
+                      allowfullscreen=""
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy"></iframe>
                   </div>
                 </div>
 
