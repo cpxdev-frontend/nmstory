@@ -517,7 +517,7 @@ const Home = () => {
                       src="https://www.tiktok.com/embed.js"></script>
                   </div>
                   <div
-                    className="col-lg-6 d-flex justify-content-center"
+                    className="col-lg-6 text-center"
                     data-aos="zoom-in">
                     <iframe
                       width="100%"
