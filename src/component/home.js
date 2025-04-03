@@ -533,6 +533,7 @@ const Home = () => {
                     <br/>
                     <Button
                       variant="outlined"
+                      className="text-light border-light"
                       sx={{ display: { xs: "initial", md: "none" } }}
                       onClick={() =>
                         HyLink(
