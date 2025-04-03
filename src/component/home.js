@@ -14,6 +14,11 @@ import {
   CardHeader,
   LinearProgress,
   Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  ListItemButton,
 } from "@mui/material";
 import moment from "moment";
 import getAge from "get-age";
@@ -62,14 +67,9 @@ const Home = () => {
   const launch = moment().unix();
 
   React.useEffect(() => {
-    fetch(
-      "https://cpxdevweb.runasp.net/bnk48/getmember?name=nammonn" +
-        "&tstamp=" +
-        Math.floor(new Date().getTime() / 1000),
-      {
-        method: "post",
-      }
-    )
+    fetch("https://cpxdevweb.runasp.net/api/nm/getmember", {
+      method: "post",
+    })
       .then((response) => response.json())
       .then((data) => {
         setData(data.response);
@@ -176,6 +176,10 @@ const Home = () => {
       prepare: 0,
       launch: 0,
     };
+  };
+
+  const HyLink = (link) => {
+    window.open(link, "_blank");
   };
 
   return (
@@ -295,6 +299,96 @@ const Home = () => {
             </div>
             <div className="card mt-3">
               <div className="card-body">
+                <h5 className="card-title">Follow Nammonn</h5>
+                <List
+                  sx={{
+                    width: "100%",
+                    maxWidth: 360,
+                    bgcolor: "background.paper",
+                  }}>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() => HyLink(data.follow[0])}>
+                    <ListItemAvatar>
+                      <Avatar className="icon-core">
+                        <i class="bi bi-facebook"></i>
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Facebook"
+                      secondary={data != null ? "Nammonn BNK48" : <Skeleton />}
+                    />
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() => HyLink(data.follow[1])}>
+                    <ListItemAvatar>
+                      <Avatar className="icon-core">
+                        <i class="bi bi-instagram"></i>
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Instagram"
+                      secondary={
+                        data != null ? "nammonn.bnk48official" : <Skeleton />
+                      }
+                    />
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() =>
+                      HyLink("https://www.tiktok.com/@nammonn.bnk48official")
+                    }>
+                    <ListItemAvatar>
+                      <Avatar className="icon-core">
+                        <i class="bi bi-tiktok"></i>
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="TikTok"
+                      secondary={
+                        data != null ? "@nammonn.bnk48official" : <Skeleton />
+                      }
+                    />
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() =>
+                      HyLink("https://app.bnk48.com/members/bnk48/nammonn")
+                    }>
+                    <ListItemAvatar>
+                      <Avatar className="icon-core">
+                        <i class="bi bi-phone"></i>
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="IAM48 Application"
+                      secondary={data != null ? "Nammonn" : <Skeleton />}
+                    />
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() => HyLink(data.ref)}>
+                    <ListItemAvatar>
+                      <Avatar className="icon-core">
+                        <i class="bi bi-globe-asia-australia"></i>
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="BNK48 Official Website"
+                      secondary={data != null ? "Nammonn BNK48" : <Skeleton />}
+                    />
+                  </ListItemButton>
+                </List>
+              </div>
+            </div>
+            <div className="card mt-3">
+              <div className="card-body">
                 <h5 className="card-title">For Nammonn BNK48 Fanclub</h5>
                 <List
                   sx={{
@@ -302,7 +396,12 @@ const Home = () => {
                     maxWidth: 360,
                     bgcolor: "background.paper",
                   }}>
-                  <ListItem data-aos="fade-right">
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() =>
+                      HyLink("https://cp-bnk48.pages.dev/member/nammonn")
+                    }>
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-globe-asia-australia"></i>
@@ -312,8 +411,15 @@ const Home = () => {
                       primary="BNK48 Fan Space"
                       secondary={data != null ? "Nammonn" : <Skeleton />}
                     />
-                  </ListItem>
-                  <ListItem data-aos="fade-right">
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() =>
+                      HyLink(
+                        "https://facebook.com/people/Nammonn-BNK48-Thailand-Fanclub/61562375447820                                    "
+                      )
+                    }>
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-facebook"></i>
@@ -329,8 +435,13 @@ const Home = () => {
                         )
                       }
                     />
-                  </ListItem>
-                  <ListItem data-aos="fade-right">
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() =>
+                      HyLink("https://twitter.com/NammonnBNK48Fc")
+                    }>
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-twitter-x"></i>
@@ -342,8 +453,13 @@ const Home = () => {
                         data != null ? "@NammonnBNK48FC" : <Skeleton />
                       }
                     />
-                  </ListItem>
-                  <ListItem data-aos="fade-right">
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
+                    onClick={() =>
+                      HyLink("https://line.me/ti/g2/YXDDHDlDgbq7MxAN0yuDMNDQupyLuWMc6GvzQg")
+                    }>
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-line"></i>
@@ -359,79 +475,7 @@ const Home = () => {
                         )
                       }
                     />
-                  </ListItem>
-                </List>
-              </div>
-            </div>
-
-            <div className="card mt-3">
-              <div className="card-body">
-                <h5 className="card-title">Follow Nammonn</h5>
-                <List
-                  sx={{
-                    width: "100%",
-                    maxWidth: 360,
-                    bgcolor: "background.paper",
-                  }}>
-                  <ListItem data-aos="fade-right">
-                    <ListItemAvatar>
-                      <Avatar className="icon-core">
-                        <i class="bi bi-facebook"></i>
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="Facebook"
-                      secondary={data != null ? "Nammonn BNK48" : <Skeleton />}
-                    />
-                  </ListItem>
-                  <ListItem data-aos="fade-right">
-                    <ListItemAvatar>
-                      <Avatar className="icon-core">
-                        <i class="bi bi-instagram"></i>
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="Instagram"
-                      secondary={
-                        data != null ? "nammonn.bnk48official" : <Skeleton />
-                      }
-                    />
-                  </ListItem>
-                  <ListItem data-aos="fade-right">
-                    <ListItemAvatar>
-                      <Avatar className="icon-core">
-                        <i class="bi bi-tiktok"></i>
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="TikTok"
-                      secondary={
-                        data != null ? "@nammonn.bnk48official" : <Skeleton />
-                      }
-                    />
-                  </ListItem>
-                  <ListItem data-aos="fade-right">
-                    <ListItemAvatar>
-                      <Avatar className="icon-core">
-                        <i class="bi bi-phone"></i>
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="IAM48 Application"
-                      secondary={data != null ? "Nammonn" : <Skeleton />}
-                    />
-                  </ListItem>
-                  <ListItem data-aos="fade-right">
-                    <ListItemAvatar>
-                      <Avatar className="icon-core">
-                        <i class="bi bi-globe-asia-australia"></i>
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="BNK48 Official Website"
-                      secondary={data != null ? "Nammonn BNK48" : <Skeleton />}
-                    />
-                  </ListItem>
+                  </ListItemButton>
                 </List>
               </div>
             </div>
@@ -766,6 +810,54 @@ const Home = () => {
           </Grid>
         </Grid>
       </section>
+
+      <Dialog open={getData != undefined} maxWidth="xl">
+        <DialogTitle id="alert-dialog-title">Event Location</DialogTitle>
+        <DialogContent>
+          {getData != undefined && getData != null ? (
+            <>
+              <iframe
+                width="100%"
+                height="450"
+                style={{ border: "none" }}
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src={
+                  "https://www.google.com/maps/embed/v1/place?key=AIzaSyAL0rpaALNBZalhJuywgqWl4sgFDvXVSz4&q=" +
+                  getData.locate[0] +
+                  "," +
+                  getData.locate[1]
+                }></iframe>
+            </>
+          ) : (
+            <>
+              <Skeleton variant="text" className="bg-m" sx={{ height: 400 }} />
+              <Skeleton
+                variant="text"
+                className="bg-m"
+                sx={{ fontSize: "1rem" }}
+              />
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setGetData(null);
+            }}>
+            Close
+          </Button>
+          <Button
+            onClick={() =>
+              getData != null && getData != undefined
+                ? window.open(getData.place, "_blank")
+                : null
+            }>
+            View on Google Maps
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

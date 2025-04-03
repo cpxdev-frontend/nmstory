@@ -66,17 +66,17 @@
 
 .cover {
   width: 100%;
-  height:75vh;
-  background-image: url('https://d3hhrps04devi8.cloudfront.net/nmstory/nm_pcbg.jpg'); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
+  height: 75vh;
+  background-image: url("https://d3hhrps04devi8.cloudfront.net/nmstory/nm_pcbg.jpg"); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
   background-size: cover;
   background-position: center;
   position: relative;
 }
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 800px) {
   .cover {
     width: 100%;
-    height:70vh;
-    background-image: url('https://d3hhrps04devi8.cloudfront.net/nmstory/nm_mobilebg.jpg'); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
+    height: 60vh;
+    background-image: url("https://d3hhrps04devi8.cloudfront.net/nmstory/nm_mobilebg.jpg"); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
     background-size: cover;
     background-position: center;
     position: relative;
@@ -99,7 +99,7 @@
 .prof {
   width: 75% !important;
 }
-@media only screen and (max-width: 780px){
+@media only screen and (max-width: 780px) {
   .profile-info {
     padding: 90px 30px 20px 30px;
     margin-bottom: 20px;
@@ -109,7 +109,7 @@
     width: 65% !important;
   }
   .content {
-    padding: 8px 15px !important;
+    padding: 8px 10px !important;
   }
 }
 
@@ -126,13 +126,22 @@
 .content {
   padding: 20px 30px;
 }
-.row{
- margin-left: 0px !important;
- margin-right: 0px !important;
+.row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 .MuiListItemText-secondary {
   color: #65676b !important;
 }
 ul {
   max-width: 100% !important;
+}
+.MuiPaper-root,
+blockquote,
+iframe {
+  border-radius: 15px !important;
+}
+
+.link {
+  cursor: pointer !important;
 }
