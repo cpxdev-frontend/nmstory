@@ -519,7 +519,8 @@ const Home = () => {
                   <div
                     className="col-lg-6 text-center"
                     data-aos="zoom-in">
-                    <iframe
+                    <div className="col-12">
+                       <iframe
                       width="100%"
                       height="400"
                       src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
@@ -528,6 +529,7 @@ const Home = () => {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerpolicy="strict-origin-when-cross-origin"
                       allowfullscreen></iframe>
+                    </div>
                     <br/>
                     <Button
                       variant="outlined"
