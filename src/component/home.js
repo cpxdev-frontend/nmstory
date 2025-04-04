@@ -545,7 +545,7 @@ const Home = () => {
                           "https://youtube.com/playlist?list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz&si=VCH6WS6wRBDIs6UA"
                         )
                       }>
-                      View on playlist
+                      View on Youtube playlist
                     </Button>
                   </div>
                   <div className="col-md-6" data-aos="zoom-in">
