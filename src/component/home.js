@@ -64,9 +64,10 @@ const Home = () => {
   const [data, setData] = React.useState(null);
   const [news, setNews] = React.useState(null);
   const [getData, setGetData] = React.useState(null);
-  const launch = moment().unix();
-
+  const [launch, setUnix] = React.useState(0);
   React.useEffect(() => {
+    console.log(moment().unix());
+    setUnix(moment().unix());
     fetch("https://cpxdevweb.runasp.net/api/nm/getmember", {
       method: "post",
     })
@@ -145,6 +146,7 @@ const Home = () => {
         ((launch - (obj.timerange[0] - 432000)) /
           (obj.timerange[0] - (obj.timerange[0] - 432000))) *
         100;
+      alert(1);
       return {
         prepare: buffer,
         launch: 0,
@@ -158,6 +160,7 @@ const Home = () => {
       const ready =
         ((launch - obj.timerange[0]) / (obj.timerange[1] - obj.timerange[0])) *
         100;
+      alert(2);
       return {
         prepare: 100,
         launch: ready,
@@ -167,6 +170,7 @@ const Home = () => {
       obj.timerange[1] > 0 &&
       launch > obj.timerange[1]
     ) {
+      alert(3);
       return {
         prepare: 100,
         launch: 100,
@@ -516,31 +520,32 @@ const Home = () => {
                       onerror="var a=document.createElement('script');a.src='https://iframely.net/files/tiktok-embed.js';document.body.appendChild(a);"
                       src="https://www.tiktok.com/embed.js"></script>
                   </div>
-                  <div
-                    className="col-lg-6 text-center"
-                    data-aos="zoom-in">
+                  <div className="col-lg-6 text-center" data-aos="zoom-in">
                     <div className="col-12">
-                       <iframe
-                      width="100%"
-                      height="400"
-                      src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin"
-                      allowfullscreen></iframe>
+                      <iframe
+                        width="100%"
+                        height="400"
+                        src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
                     </div>
-                    <br/>
+                    <br />
                     <Button
                       variant="outlined"
                       className="text-dark border-dark mb-3"
-                      sx={{ display: { xs: "initial", md: "none" }, marginTop: -3 }}
+                      sx={{
+                        display: { xs: "initial", md: "none" },
+                        marginTop: -3,
+                      }}
                       onClick={() =>
                         HyLink(
                           "https://youtube.com/playlist?list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz&si=VCH6WS6wRBDIs6UA"
                         )
                       }>
-                      View on playlist
+                      View on Youtube playlist
                     </Button>
                   </div>
                   <div className="col-md-6" data-aos="zoom-in">
@@ -783,16 +788,14 @@ const Home = () => {
                           </Grid>
                         </Grid>
                       </CardContent>
-                      {!(
-                        checktime(item).prepare == 0 &&
-                        checktime(item).unix == 0
-                      ) &&
+                      {(checktime(item).prepare > 0 ||
+                        checktime(item).unix > 0) &&
                         item.timerange[1] > 0 &&
                         launch <= item.timerange[1] && (
                           <LinearProgress
                             sx={{
                               width: "100%",
-                              height: window.innerHeight * 0.02,
+                              height: { xs: window.innerHeight * 0.02, md: 20 },
                             }}
                             variant="buffer"
                             value={checktime(item).unix}
