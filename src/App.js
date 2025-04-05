@@ -72,6 +72,7 @@ function App() {
       {" "}
       <AppBar
         data-aos="fade-down"
+        data-aos-delay="1500"
         className="newnav"
         sx={{
           borderBottomLeftRadius: 20,
