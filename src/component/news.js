@@ -323,7 +323,7 @@ const Event = ({}) => {
                               .unix(item.timerange[0])
                               .local()
                               .format("MMMM DD, YYYY HH:mm")}
-                            {lang == "th" ? " ถึง " : " to "}
+                            {" to "}
                             {moment
                               .unix(item.timerange[1])
                               .local()
