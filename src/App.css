@@ -25,7 +25,8 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #034ebe;
+  text-decoration: none;
 }
 
 .theme-core {
@@ -145,4 +146,7 @@ iframe {
 
 .link {
   cursor: pointer !important;
+}
+.MuiButton-root{
+  border-radius: 15px !important;
 }

@@ -16,19 +16,28 @@ import {
   Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useLocation, Switch as BasicSwitch, Route } from "react-router-dom";
+import {
+  useLocation,
+  Switch as BasicSwitch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import Aos from "aos";
 
 import Home from "./component/home";
+import NMPlay from "./component/ytplay";
+import Events from "./component/news";
+
 import moment from "moment";
 
 const drawerWidth = 290;
-const navItemsA = ["/"];
-const navItems = ["Biography"];
+const navItemsA = ["/", "/nmplay", "/events"];
+const navItems = ["Biography", "Nammonn Play", "All Events"];
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const location = useLocation();
+  const his = useHistory();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -39,13 +48,14 @@ function App() {
   }, []);
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }} data-aos="fade-in">
       <Box
         sx={{
           display: "inline-flex",
           whiteSpace: "nowrap",
           padding: 1,
-        }}>
+        }}
+      >
         <Avatar src={process.env.REACT_APP_ICON} />{" "}
         <Typography className="d-flex align-items-center">
           &nbsp;&nbsp;Nammonn BNK48 TH FC
@@ -57,8 +67,12 @@ function App() {
           <ListItem
             key={item}
             disablePadding
-            className={location.pathname == navItemsA[i] ? "Menuactive" : ""}>
-            <ListItemButton sx={{ textAlign: "center" }}>
+            className={location.pathname == navItemsA[i] ? "Menuactive" : ""}
+          >
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              onClick={() => his.push(navItemsA[i])}
+            >
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -72,13 +86,14 @@ function App() {
       {" "}
       <AppBar
         data-aos="fade-down"
-        data-aos-delay="1500"
+        data-aos-delay={location.pathname === "/" ? "1500" : "200"}
         className="newnav"
         sx={{
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           position: "fixed",
-        }}>
+        }}
+      >
         <Toolbar>
           <Box
             sx={{
@@ -86,7 +101,8 @@ function App() {
               whiteSpace: "nowrap",
               flexGrow: 1,
               padding: 1,
-            }}>
+            }}
+          >
             <Avatar src={process.env.REACT_APP_ICON} />{" "}
             <Typography className="d-flex align-items-center">
               &nbsp;&nbsp;Nammonn BNK48 TH FC
@@ -98,7 +114,9 @@ function App() {
                 key={item}
                 sx={{
                   color: location.pathname === navItemsA[i] ? "#fff" : "#000",
-                }}>
+                }}
+                onClick={() => his.push(navItemsA[i])}
+              >
                 {item}
               </Button>
             ))}
@@ -108,7 +126,8 @@ function App() {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 1, display: { sm: "none" } }}>
+            sx={{ mr: 1, display: { sm: "none" } }}
+          >
             <MenuIcon />
           </IconButton>
         </Toolbar>
@@ -130,12 +149,15 @@ function App() {
               backgroundColor: "#ade9f7",
               width: drawerWidth,
             },
-          }}>
+          }}
+        >
           {drawer}
         </Drawer>
       </nav>
       <BasicSwitch>
         <Route path="/test" render={() => <Home />} />
+        <Route path="/events" render={() => <Events />} />
+        <Route path="/nmplay" render={() => <NMPlay />} />
         <Route exact render={() => <Home />} />
       </BasicSwitch>
       <footer className="card text-center">

@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import getAge from "get-age";
+import { useHistory } from "react-router-dom";
 
 function compareTimestamps(timestamp1, timestamp2) {
   // Get the difference in milliseconds
@@ -61,9 +62,12 @@ function compareTimestamps(timestamp1, timestamp2) {
 }
 
 const Home = () => {
+  const his = useHistory();
   const [data, setData] = React.useState(null);
   const [news, setNews] = React.useState(null);
   const [getData, setGetData] = React.useState(null);
+  const [getnews, setNewsi] = React.useState(null);
+  const [getnewsready, setReady] = React.useState(false);
   const [launch, setUnix] = React.useState(0);
   React.useEffect(() => {
     console.log(moment().unix());
@@ -82,6 +86,13 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => {
         setNews(data);
+        setNewsi(Math.floor(Math.random() * data.length));
+        setTimeout(() => {
+          setReady(true);
+        }, 1000);
+        setInterval(() => {
+          setNewsi(Math.floor(Math.random() * data.length));
+        }, 10000);
         console.log(data);
       });
   }, []);
@@ -234,7 +245,8 @@ const Home = () => {
                     width: "100%",
                     maxWidth: 360,
                     bgcolor: "background.paper",
-                  }}>
+                  }}
+                >
                   <ListItem data-aos="fade-right">
                     <ListItemAvatar>
                       <Avatar className="icon-core">
@@ -309,11 +321,13 @@ const Home = () => {
                     width: "100%",
                     maxWidth: 360,
                     bgcolor: "background.paper",
-                  }}>
+                  }}
+                >
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() => HyLink(data.follow[0])}>
+                    onClick={() => HyLink(data.follow[0])}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-facebook"></i>
@@ -327,7 +341,8 @@ const Home = () => {
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() => HyLink(data.follow[1])}>
+                    onClick={() => HyLink(data.follow[1])}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-instagram"></i>
@@ -345,7 +360,8 @@ const Home = () => {
                     className="link"
                     onClick={() =>
                       HyLink("https://www.tiktok.com/@nammonn.bnk48official")
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-tiktok"></i>
@@ -363,7 +379,8 @@ const Home = () => {
                     className="link"
                     onClick={() =>
                       HyLink("https://app.bnk48.com/members/bnk48/nammonn")
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-phone"></i>
@@ -377,7 +394,8 @@ const Home = () => {
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() => HyLink(data.ref)}>
+                    onClick={() => HyLink(data.ref)}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-globe-asia-australia"></i>
@@ -399,13 +417,15 @@ const Home = () => {
                     width: "100%",
                     maxWidth: 360,
                     bgcolor: "background.paper",
-                  }}>
+                  }}
+                >
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
                     onClick={() =>
                       HyLink("https://cp-bnk48.pages.dev/member/nammonn")
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-globe-asia-australia"></i>
@@ -423,7 +443,8 @@ const Home = () => {
                       HyLink(
                         "https://facebook.com/people/Nammonn-BNK48-Thailand-Fanclub/61562375447820                                    "
                       )
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-facebook"></i>
@@ -443,9 +464,8 @@ const Home = () => {
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() =>
-                      HyLink("https://twitter.com/NammonnBNK48Fc")
-                    }>
+                    onClick={() => HyLink("https://twitter.com/NammonnBNK48Fc")}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-twitter-x"></i>
@@ -465,7 +485,8 @@ const Home = () => {
                       HyLink(
                         "https://line.me/ti/g2/YXDDHDlDgbq7MxAN0yuDMNDQupyLuWMc6GvzQg"
                       )
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-line"></i>
@@ -492,7 +513,8 @@ const Home = () => {
               style={{
                 backgroundColor: "rgba(116, 222, 248, 0.31)",
                 border: "none",
-              }}>
+              }}
+            >
               <div className="card-body">
                 <h5 className="card-title">Nammonn Update</h5>
                 <hr />
@@ -506,45 +528,44 @@ const Home = () => {
                   </div>
                   <div className="col-lg-6" data-aos="zoom-in">
                     <blockquote
-                      className="tiktok-embed m-0"
+                      class="tiktok-embed"
                       cite="https://www.tiktok.com/@nammonn.bnk48official"
                       data-unique-id="nammonn.bnk48official"
                       data-embed-from="oembed"
-                      style={{ height: 400 }}
-                      data-embed-type="creator">
+                      data-embed-type="creator"
+                      style={{ height: 400, marginTop: -2 }}
+                    >
                       {" "}
-                      <section></section>{" "}
+                      <section> </section>{" "}
                     </blockquote>{" "}
                     <script
                       async
                       onerror="var a=document.createElement('script');a.src='https://iframely.net/files/tiktok-embed.js';document.body.appendChild(a);"
-                      src="https://www.tiktok.com/embed.js"></script>
+                      src="https://www.tiktok.com/embed.js"
+                    ></script>
                   </div>
                   <div className="col-lg-6 text-center" data-aos="zoom-in">
                     <div className="col-12">
                       <iframe
                         width="100%"
-                        height="400"
+                        height="360"
                         src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
                         title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen></iframe>
+                        allowfullscreen
+                      ></iframe>
                     </div>
                     <br />
                     <Button
                       variant="outlined"
                       className="text-dark border-dark mb-3"
                       sx={{
-                        display: { xs: "initial", md: "none" },
                         marginTop: -3,
                       }}
-                      onClick={() =>
-                        HyLink(
-                          "https://youtube.com/playlist?list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz&si=VCH6WS6wRBDIs6UA"
-                        )
-                      }>
+                      onClick={() => his.push("/nmplay")}
+                    >
                       View on Youtube playlist
                     </Button>
                   </div>
@@ -556,98 +577,122 @@ const Home = () => {
                       frameBorder="0"
                       allowfullscreen=""
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"></iframe>
+                      loading="lazy"
+                    ></iframe>
                   </div>
                 </div>
+                <hr />
+                <h3 className="card-title">Highlight Event</h3>
 
                 {news != null && news.length > 0 ? (
-                  news.map((item, i) => (
-                    <Card
-                      key={item.newsId}
-                      className="mt-3"
-                      data-aos="zoom-in-right">
-                      <CardContent
-                        sx={{
-                          opacity:
-                            item.timerange[1] > 0 && launch >= item.timerange[1]
-                              ? 0.4
-                              : 1,
-                        }}>
-                        <CardHeader
-                          className="pl-0 pb-0"
-                          title={<h4>{item.title.replaceAll('\\"', '"')}</h4>}
-                          subheader={
-                            <Chip
-                              label={"Event status: " + checkeventstatus(item)}
-                              color="primary"
-                              variant="outlined"
-                            />
-                          }
-                          action={
-                            item.timerange[0] > 0 &&
-                            item.timerange[1] > 0 &&
-                            launch >= item.timerange[0] - 432000 &&
-                            launch < item.timerange[0] && (
-                              <Chip
-                                className="p-1"
-                                sx={{ display: { xs: "none", lg: "initial" } }}
-                                label={
-                                  "Event start in " +
-                                  compareTimestamps(launch, item.timerange[0])
-                                    .days +
-                                  " day(s) " +
-                                  compareTimestamps(launch, item.timerange[0])
-                                    .hours +
-                                  " hr(s) " +
-                                  compareTimestamps(launch, item.timerange[0])
-                                    .minutes +
-                                  " minute(s)"
-                                }
-                                color="primary"
-                              />
-                            )
-                          }
-                        />
-                        {item.timerange[0] > 0 &&
-                          item.timerange[1] > 0 &&
-                          launch >= item.timerange[0] - 432000 &&
-                          launch < item.timerange[0] && (
-                            <Chip
-                              sx={{
-                                display: { xs: "inline-block", lg: "none" },
-                                marginTop: 1,
-                                padding: 0,
-                                paddingTop: ".4rem",
-                              }}
-                              label={
-                                "Event start in " +
-                                compareTimestamps(launch, item.timerange[0])
-                                  .days +
-                                " day(s) " +
-                                compareTimestamps(launch, item.timerange[0])
-                                  .hours +
-                                " hr(s) " +
-                                compareTimestamps(launch, item.timerange[0])
-                                  .minutes +
-                                " minute(s)"
+                  news.map(
+                    (item, i) =>
+                      i == getnews && (
+                        <Card
+                          key={item.newsId}
+                          className="mt-3"
+                          data-aos={getnewsready ? "fade-in" : "zoom-in-right"}
+                        >
+                          <CardContent
+                            sx={{
+                              opacity:
+                                item.timerange[1] > 0 &&
+                                launch >= item.timerange[1]
+                                  ? 0.4
+                                  : 1,
+                            }}
+                          >
+                            <CardHeader
+                              className="pl-0 pb-0"
+                              title={
+                                <h5>{item.title.replaceAll('\\"', '"')}</h5>
                               }
-                              color="primary"
+                              subheader={
+                                <Chip
+                                  label={
+                                    "Event status: " + checkeventstatus(item)
+                                  }
+                                  color="primary"
+                                  variant="outlined"
+                                />
+                              }
+                              action={
+                                item.timerange[0] > 0 &&
+                                item.timerange[1] > 0 &&
+                                launch >= item.timerange[0] - 432000 &&
+                                launch < item.timerange[0] && (
+                                  <Chip
+                                    className="p-1"
+                                    sx={{
+                                      display: { xs: "none", lg: "initial" },
+                                    }}
+                                    label={
+                                      "Event start in " +
+                                      compareTimestamps(
+                                        launch,
+                                        item.timerange[0]
+                                      ).days +
+                                      " day(s) " +
+                                      compareTimestamps(
+                                        launch,
+                                        item.timerange[0]
+                                      ).hours +
+                                      " hr(s) " +
+                                      compareTimestamps(
+                                        launch,
+                                        item.timerange[0]
+                                      ).minutes +
+                                      " minute(s)"
+                                    }
+                                    color="primary"
+                                  />
+                                )
+                              }
                             />
-                          )}
-                        <hr />
-                        <Grid container spacing={1}>
-                          <Grid item size={{ xs: 12, md: 5 }}>
-                            <Avatar
-                              src={item.src}
-                              variant="rounded"
-                              sx={{
-                                width: { lg: "400px", xs: "100%" },
-                                height: "100%",
-                              }}
-                            />
-                          </Grid>
-                          <Grid item size={{ xs: 12, md: 7 }}>
-                            {/* {item.video != "" && (
+                            {item.timerange[0] > 0 &&
+                              item.timerange[1] > 0 &&
+                              launch >= item.timerange[0] - 432000 &&
+                              launch < item.timerange[0] && (
+                                <Chip
+                                  sx={{
+                                    display: { xs: "inline-block", lg: "none" },
+                                    marginTop: 1,
+                                    padding: 0,
+                                    paddingTop: ".4rem",
+                                  }}
+                                  label={
+                                    "Event start in " +
+                                    compareTimestamps(launch, item.timerange[0])
+                                      .days +
+                                    " day(s) " +
+                                    compareTimestamps(launch, item.timerange[0])
+                                      .hours +
+                                    " hr(s) " +
+                                    compareTimestamps(launch, item.timerange[0])
+                                      .minutes +
+                                    " minute(s)"
+                                  }
+                                  color="primary"
+                                />
+                              )}
+                            <hr />
+                            <Grid container spacing={1}>
+                              <Grid item size={{ xs: 12, md: 6 }}>
+                                <Avatar
+                                  src={item.src}
+                                  variant="rounded"
+                                  sx={{
+                                    width: "100%",
+                                    height: { md: 300, xs: "100%" },
+                                  }}
+                                />
+                              </Grid>
+                              <Grid
+                                item
+                                size={{ xs: 12, md: 6 }}
+                                sx={{ paddingLeft: { md: 2, xs: 0 } }}
+                              >
+                                {/* {item.video != "" && (
                               <Chip
                                 sx={{
                                   display: "inline-block",
@@ -671,139 +716,154 @@ const Home = () => {
                                 color="primary"
                               />
                             )} */}
-                            <h6 className="text-muted">
-                              {"Event Type"}: {checkeventtype(item)}
-                            </h6>
+                                <h6 className="text-muted">
+                                  {"Event Type"}: {checkeventtype(item)}
+                                </h6>
 
-                            {item.timerange[0] > 0 &&
-                            item.timerange[1] > 0 &&
-                            moment
-                              .unix(item.timerange[0])
-                              .local()
-                              .format("MMMM DD, YYYY") ===
-                              moment
-                                .unix(item.timerange[1])
-                                .local()
-                                .format("MMMM DD, YYYY") ? (
-                              <p>
-                                {"Event duration"}:{" "}
-                                {moment
-                                  .unix(item.timerange[0])
-                                  .local()
-                                  .format("MMMM DD, YYYY HH:mm")}
-                                {" to "}
-                                {moment
-                                  .unix(item.timerange[1])
-                                  .local()
-                                  .format("HH:mm")}
-                              </p>
-                            ) : item.timerange[0] > 0 &&
-                              item.timerange[1] > 0 &&
-                              moment
-                                .unix(item.timerange[0])
-                                .local()
-                                .format("MMMM DD, YYYY") !==
+                                {item.timerange[0] > 0 &&
+                                item.timerange[1] > 0 &&
                                 moment
-                                  .unix(item.timerange[1])
-                                  .local()
-                                  .format("MMMM DD, YYYY") ? (
-                              <p>
-                                {"Event duration"}:{" "}
-                                {moment
                                   .unix(item.timerange[0])
                                   .local()
-                                  .format("MMMM DD, YYYY HH:mm")}
-                                {" to "}
-                                {moment
-                                  .unix(item.timerange[1])
-                                  .local()
-                                  .format("MMMM DD, YYYY HH:mm")}
-                              </p>
-                            ) : (
-                              <p>
-                                Event start on{" "}
-                                {moment
-                                  .unix(item.timerange[0])
-                                  .local()
-                                  .format("MMMM DD, YYYY")}
-                              </p>
-                            )}
-                            <p className="mt-4">
-                              {"Description"}:{" "}
-                              {item.desc2.replaceAll('\\"', '"')}
-                            </p>
-                            {item.timerange[0] > 0 && item.timerange[1] > 0 && (
-                              <small>
-                                <i>
-                                  {"Notes"}:{" "}
-                                  {
-                                    "Event time duration are based on device timezone."
-                                  }
-                                </i>
-                              </small>
-                            )}
-                            <br />
-                            {!(item.locate == null && item.place == "") && (
-                              <Button
-                                onClick={() => getMap(item)}
-                                disabled={
+                                  .format("MMMM DD, YYYY") ===
+                                  moment
+                                    .unix(item.timerange[1])
+                                    .local()
+                                    .format("MMMM DD, YYYY") ? (
+                                  <p>
+                                    {"Event duration"}:{" "}
+                                    {moment
+                                      .unix(item.timerange[0])
+                                      .local()
+                                      .format("MMMM DD, YYYY HH:mm")}
+                                    {" to "}
+                                    {moment
+                                      .unix(item.timerange[1])
+                                      .local()
+                                      .format("HH:mm")}
+                                  </p>
+                                ) : item.timerange[0] > 0 &&
                                   item.timerange[1] > 0 &&
-                                  launch >= item.timerange[1]
-                                }
-                                variant="outlined"
-                                className="mt-3 mr-1">
-                                {"Event location"}
-                              </Button>
-                            )}
-                            {item.link != "" && (
-                              <Button
-                                variant="outlined"
-                                disabled={
-                                  item.timerange[1] > 0 &&
-                                  launch >= item.timerange[1]
-                                }
-                                onClick={() =>
-                                  window.open(
-                                    item.link.includes("http")
-                                      ? item.link
-                                      : "https://cp-bnk48.pages.dev/" +
-                                          item.link,
-                                    "_blank"
-                                  )
-                                }
-                                className="mt-3">
-                                {"View more"}
-                              </Button>
-                            )}
-                            {item.timerange[1] > 0 &&
-                              launch >= item.timerange[1] && (
-                                <p className="mt-3 text-info">
-                                  <b>
-                                    {
-                                      "This event will be remove from list in midnight of tomorrow. (Based on Asia/Bangkok timezone)"
-                                    }
-                                  </b>
+                                  moment
+                                    .unix(item.timerange[0])
+                                    .local()
+                                    .format("MMMM DD, YYYY") !==
+                                    moment
+                                      .unix(item.timerange[1])
+                                      .local()
+                                      .format("MMMM DD, YYYY") ? (
+                                  <p>
+                                    {"Event duration"}:{" "}
+                                    {moment
+                                      .unix(item.timerange[0])
+                                      .local()
+                                      .format("MMMM DD, YYYY HH:mm")}
+                                    {" to "}
+                                    {moment
+                                      .unix(item.timerange[1])
+                                      .local()
+                                      .format("MMMM DD, YYYY HH:mm")}
+                                  </p>
+                                ) : (
+                                  <p>
+                                    Event start on{" "}
+                                    {moment
+                                      .unix(item.timerange[0])
+                                      .local()
+                                      .format("MMMM DD, YYYY")}
+                                  </p>
+                                )}
+                                <p className="mt-4">
+                                  {"Description"}:{" "}
+                                  {item.desc2.replaceAll('\\"', '"')}
                                 </p>
-                              )}
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                      {(checktime(item).prepare > 0 ||
-                        checktime(item).unix > 0) &&
-                        item.timerange[1] > 0 &&
-                        launch <= item.timerange[1] && (
-                          <LinearProgress
-                            sx={{
-                              width: "100%",
-                              height: { xs: window.innerHeight * 0.02, md: 20 },
-                            }}
-                            variant="buffer"
-                            value={checktime(item).unix}
-                            valueBuffer={checktime(item).prepare}
-                          />
-                        )}
-                    </Card>
-                  ))
+                                {item.timerange[0] > 0 &&
+                                  item.timerange[1] > 0 && (
+                                    <small>
+                                      <i>
+                                        {"Notes"}:{" "}
+                                        {
+                                          "Event time duration are based on device timezone."
+                                        }
+                                      </i>
+                                    </small>
+                                  )}
+                                <br />
+                                {!(item.locate == null && item.place == "") && (
+                                  <Button
+                                    onClick={() => getMap(item)}
+                                    disabled={
+                                      item.timerange[1] > 0 &&
+                                      launch >= item.timerange[1]
+                                    }
+                                    variant="outlined"
+                                    className="mt-3 mr-1"
+                                  >
+                                    {"Event location"}
+                                  </Button>
+                                )}
+                                {item.link != "" && (
+                                  <Button
+                                    variant="outlined"
+                                    disabled={
+                                      item.timerange[1] > 0 &&
+                                      launch >= item.timerange[1]
+                                    }
+                                    onClick={() =>
+                                      window.open(
+                                        item.link.includes("http")
+                                          ? item.link
+                                          : "https://cp-bnk48.pages.dev/" +
+                                              item.link,
+                                        "_blank"
+                                      )
+                                    }
+                                    className="ml-2 mt-3"
+                                  >
+                                    {"View more"}
+                                  </Button>
+                                )}
+                                {item.timerange[1] > 0 &&
+                                  launch >= item.timerange[1] && (
+                                    <p className="mt-3 text-info">
+                                      <b>
+                                        {
+                                          "This event will be remove from list in midnight of tomorrow. (Based on Asia/Bangkok timezone)"
+                                        }
+                                      </b>
+                                    </p>
+                                  )}
+                                <br />
+                                <Button
+                                  className="mt-2"
+                                  variant="contained"
+                                  onClick={() => his.push("/events")}
+                                >
+                                  View more upcoming event
+                                </Button>
+                              </Grid>
+                            </Grid>
+                          </CardContent>
+                          {(checktime(item).prepare > 0 ||
+                            checktime(item).unix > 0) &&
+                            item.timerange[1] > 0 &&
+                            launch <= item.timerange[1] && (
+                              <LinearProgress
+                                sx={{
+                                  width: "100%",
+                                  height: {
+                                    xs: window.innerHeight * 0.02,
+                                    md: 20,
+                                  },
+                                }}
+                                variant="buffer"
+                                value={checktime(item).unix}
+                                valueBuffer={checktime(item).prepare}
+                              />
+                            )}
+                        </Card>
+                      )
+                  )
                 ) : news != null && news.length == 0 ? (
                   <Card className="mt-3" data-aos="fade-right">
                     <CardContent className="text-center">
@@ -870,7 +930,8 @@ const Home = () => {
                   getData.locate[0] +
                   "," +
                   getData.locate[1]
-                }></iframe>
+                }
+              ></iframe>
             </>
           ) : (
             <>
@@ -887,7 +948,8 @@ const Home = () => {
           <Button
             onClick={() => {
               setGetData(null);
-            }}>
+            }}
+          >
             Close
           </Button>
           <Button
@@ -895,7 +957,8 @@ const Home = () => {
               getData != null && getData != undefined
                 ? window.open(getData.place, "_blank")
                 : null
-            }>
+            }
+          >
             View on Google Maps
           </Button>
         </DialogActions>
