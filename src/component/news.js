@@ -301,7 +301,7 @@ const Event = ({}) => {
                               .unix(item.timerange[0])
                               .local()
                               .format("MMMM DD, YYYY HH:mm")}
-                            to
+                            &nbsp;to&nbsp;
                             {moment
                               .unix(item.timerange[1])
                               .local()
