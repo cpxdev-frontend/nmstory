@@ -48,14 +48,16 @@ function App() {
   }, []);
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }} data-aos="fade-in">
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{ textAlign: "center" }}
+      data-aos="fade-in">
       <Box
         sx={{
           display: "inline-flex",
           whiteSpace: "nowrap",
           padding: 1,
-        }}
-      >
+        }}>
         <Avatar src={process.env.REACT_APP_ICON} />{" "}
         <Typography className="d-flex align-items-center">
           &nbsp;&nbsp;Nammonn BNK48 TH FC
@@ -63,20 +65,23 @@ function App() {
       </Box>
       <Divider />
       <List>
-        {navItems.map((item, i) => (
-          <ListItem
-            key={item}
-            disablePadding
-            className={location.pathname == navItemsA[i] ? "Menuactive" : ""}
-          >
-            <ListItemButton
-              sx={{ textAlign: "center" }}
-              onClick={() => his.push(navItemsA[i])}
-            >
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {navItems.map(
+          (item, i) =>
+            i > 0 && (
+              <ListItem
+                key={item}
+                disablePadding
+                className={
+                  location.pathname == navItemsA[i] ? "Menuactive" : ""
+                }>
+                <ListItemButton
+                  sx={{ textAlign: "center" }}
+                  onClick={() => his.push(navItemsA[i])}>
+                  <ListItemText primary={item} />
+                </ListItemButton>
+              </ListItem>
+            )
+        )}
       </List>
     </Box>
   );
@@ -92,8 +97,7 @@ function App() {
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           position: "fixed",
-        }}
-      >
+        }}>
         <Toolbar>
           <Box
             sx={{
@@ -101,33 +105,36 @@ function App() {
               whiteSpace: "nowrap",
               flexGrow: 1,
               padding: 1,
-            }}
-          >
+            }}>
             <Avatar src={process.env.REACT_APP_ICON} />{" "}
-            <Typography className="d-flex align-items-center">
+            <Typography
+              className="d-flex align-items-center link"
+              onClick={() => his.push("/")}>
               &nbsp;&nbsp;Nammonn BNK48 TH FC
             </Typography>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item, i) => (
-              <Button
-                key={item}
-                sx={{
-                  color: location.pathname === navItemsA[i] ? "#fff" : "#000",
-                }}
-                onClick={() => his.push(navItemsA[i])}
-              >
-                {item}
-              </Button>
-            ))}
+            {navItems.map(
+              (item, i) =>
+                i > 0 && (
+                  <Button
+                    key={item}
+                    sx={{
+                      color:
+                        location.pathname === navItemsA[i] ? "#fff" : "#000",
+                    }}
+                    onClick={() => his.push(navItemsA[i])}>
+                    {item}
+                  </Button>
+                )
+            )}
           </Box>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 1, display: { sm: "none" } }}
-          >
+            sx={{ mr: 1, display: { sm: "none" } }}>
             <MenuIcon />
           </IconButton>
         </Toolbar>
@@ -149,8 +156,7 @@ function App() {
               backgroundColor: "#ade9f7",
               width: drawerWidth,
             },
-          }}
-        >
+          }}>
           {drawer}
         </Drawer>
       </nav>
