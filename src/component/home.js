@@ -765,7 +765,7 @@ const Home = () => {
                                         )
                                       }
                                       className="ml-2 mt-3">
-                                      {"View more"}
+                                      {"More Description"}
                                     </Button>
                                   )}
                                   {item.timerange[1] > 0 &&
@@ -783,7 +783,7 @@ const Home = () => {
                                     className="mt-2"
                                     variant="contained"
                                     onClick={() => his.push("/events")}>
-                                    View more upcoming event
+                                    All upcoming event
                                   </Button>
                                 </Grid>
                               </Grid>

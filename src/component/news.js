@@ -382,7 +382,7 @@ const Event = ({}) => {
                             }
                             className="mt-3"
                           >
-                            {"View more"}
+                            {"More Description"}
                           </Button>
                         )}
                         {item.timerange[1] > 0 &&
