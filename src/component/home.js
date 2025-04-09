@@ -78,7 +78,7 @@ const Home = () => {
         break;
       }
     }
-  }
+  };
 
   React.useEffect(() => {
     console.log(moment().unix());
@@ -871,10 +871,6 @@ const Home = () => {
                       {" "}
                       <section> </section>{" "}
                     </blockquote>{" "}
-                    <script
-                      async
-                      onerror="var a=document.createElement('script');a.src='https://iframely.net/files/tiktok-embed.js';document.body.appendChild(a);"
-                      src="https://www.tiktok.com/embed.js"></script>
                   </div>
                   <div className="col-lg-6 text-center" data-aos="zoom-in">
                     <div className="col-12">
