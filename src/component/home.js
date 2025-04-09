@@ -81,17 +81,6 @@ const Home = () => {
   };
 
   React.useEffect(() => {
-    var script = document.createElement('script');
-    script.src = 'https://www.tiktok.com/embed.js';
-    script.async = true;
-    var rootElement = document.getElementById('root');
-
-    if (rootElement) {
-      rootElement.appendChild(script);
-    } else {
-      console.error("Element with id 'root' was not found.");
-    }
-    
     setUnix(moment().unix());
     fetch("https://cpxdevweb.runasp.net/api/nm/getmember", {
       method: "post",
@@ -871,16 +860,12 @@ const Home = () => {
                     />
                   </div>
                   <div className="col-lg-6" data-aos="zoom-in">
-                    <blockquote
-                      class="tiktok-embed"
-                      cite="https://www.tiktok.com/@nammonn.bnk48official"
-                      data-unique-id="nammonn.bnk48official"
-                      data-embed-from="oembed"
-                      data-embed-type="creator"
-                      style={{ height: 400, marginTop: -2 }}>
-                      {" "}
-                      <section> </section>{" "}
-                    </blockquote>{" "}
+                    <iframe
+                      src="https://www.tiktok.com/embed/@nammonn.bnk48official"
+                      height="400px"
+                      width="100%"
+                      style={{ marginTop: -2 }}
+                    />
                   </div>
                   <div className="col-lg-6 text-center" data-aos="zoom-in">
                     <div className="col-12">
