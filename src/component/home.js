@@ -892,7 +892,7 @@ const Home = () => {
                   </div>
                   <div className="col-md-6" data-aos="zoom-in">
                     <iframe
-                      src="https://open.spotify.com/embed/playlist/7MGjeDqqWAM7HjCWBtX6gm?utm_source=generator"
+                      src="https://open.spotify.com/embed/playlist/0G9srwf10s3QC0lObFXhQe?utm_source=generator"
                       width="100%"
                       height="400"
                       frameBorder="0"
