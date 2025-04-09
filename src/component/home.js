@@ -81,7 +81,17 @@ const Home = () => {
   };
 
   React.useEffect(() => {
-    console.log(moment().unix());
+    var script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    var rootElement = document.getElementById('root');
+
+    if (rootElement) {
+      rootElement.appendChild(script);
+    } else {
+      console.error("Element with id 'root' was not found.");
+    }
+    
     setUnix(moment().unix());
     fetch("https://cpxdevweb.runasp.net/api/nm/getmember", {
       method: "post",
