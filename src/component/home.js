@@ -887,7 +887,7 @@ const Home = () => {
                         marginTop: -3,
                       }}
                       onClick={() => his.push("/nmplay")}>
-                      View on Youtube playlist
+                      View on Nammonn Play
                     </Button>
                   </div>
                   <div className="col-md-6" data-aos="zoom-in">
