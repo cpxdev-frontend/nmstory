@@ -246,7 +246,7 @@ const Home = () => {
 
       <section id="home" className="content">
         <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 5, lg: 4 }}>
             <div className="card ">
               <div className="card-body">
                 <h3 className="card-title">About Nammonn</h3>
@@ -507,7 +507,7 @@ const Home = () => {
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }}>
+          <Grid size={{ xs: 12, md: 7, lg: 8 }}>
             <div
               className="card"
               style={{
@@ -851,15 +851,22 @@ const Home = () => {
                       </CardContent>
                     </Card>
                   )}
-                  <hr />
-                  <div className="col-lg-6" data-aos="zoom-in">
+                  <hr className="mt-3" />
+                  <div className="col-lg-4 col-md-6" data-aos="zoom-in-right">
+                    <iframe
+                      src="https://www.facebook.com/plugins/page.php?href=https://facebook.com/nammonn.bnk48official&tabs=timeline&&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                      height="400px"
+                      width="100%"
+                    />
+                  </div>
+                  <div className="col-lg-4 col-md-6" data-aos="zoom-in-up">
                     <iframe
                       src="https://instagram.com/nammonn.bnk48official/embed"
                       height="400px"
                       width="100%"
                     />
                   </div>
-                  <div className="col-lg-6" data-aos="zoom-in">
+                  <div className="col-lg-4 col-md-12" data-aos="zoom-in">
                     <iframe
                       src="https://www.tiktok.com/embed/@nammonn.bnk48official"
                       height="400px"
@@ -867,7 +874,7 @@ const Home = () => {
                       style={{ marginTop: -2 }}
                     />
                   </div>
-                  <div className="col-lg-6 text-center" data-aos="zoom-in">
+                  <div className="col-lg-6 col-sm-12 text-center" data-aos="zoom-in">
                     <div className="col-12">
                       <iframe
                         width="100%"
@@ -895,6 +902,7 @@ const Home = () => {
                       src="https://open.spotify.com/embed/playlist/0G9srwf10s3QC0lObFXhQe?utm_source=generator"
                       width="100%"
                       height="400"
+                      className="spot"
                       frameBorder="0"
                       allowfullscreen=""
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"

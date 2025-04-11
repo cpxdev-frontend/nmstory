@@ -65,6 +65,9 @@
   color: #414040;
   border-radius: 10px;
 }
+.spot{
+  min-width: 100% !important;
+}
 
 .cover {
   width: 100%;
@@ -82,6 +85,11 @@
     background-size: cover;
     background-position: center;
     position: relative;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .spot{
+    width: 40vw !important;
   }
 }
 
@@ -112,6 +120,9 @@
   }
   .content {
     padding: 8px 10px !important;
+  }
+  .spot{
+    min-width: 86vw !important;
   }
 }
 
