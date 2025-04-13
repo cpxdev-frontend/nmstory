@@ -82,7 +82,7 @@ const Home = () => {
 
   React.useEffect(() => {
     setUnix(moment().unix());
-    fetch("https://cpxdevweb.runasp.net/api/nm/getmember", {
+    fetch("https://cpxdevweb.koyeb.app/api/nm/getmember", {
       method: "post",
     })
       .then((response) => response.json())

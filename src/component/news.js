@@ -169,7 +169,7 @@ const Event = ({}) => {
       method: "POST",
     };
 
-    fetch("https://cpxdevweb.runasp.net/api/nm/listevent", requestOptions)
+    fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setGetData(undefined);
