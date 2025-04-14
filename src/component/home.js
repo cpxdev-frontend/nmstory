@@ -167,7 +167,6 @@ const Home = () => {
         ((launch - (obj.timerange[0] - 432000)) /
           (obj.timerange[0] - (obj.timerange[0] - 432000))) *
         100;
-      alert(1);
       return {
         prepare: buffer,
         launch: 0,
@@ -181,7 +180,6 @@ const Home = () => {
       const ready =
         ((launch - obj.timerange[0]) / (obj.timerange[1] - obj.timerange[0])) *
         100;
-      alert(2);
       return {
         prepare: 100,
         launch: ready,
@@ -191,7 +189,6 @@ const Home = () => {
       obj.timerange[1] > 0 &&
       launch > obj.timerange[1]
     ) {
-      alert(3);
       return {
         prepare: 100,
         launch: 100,
