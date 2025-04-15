@@ -255,6 +255,7 @@ const Event = ({}) => {
                             marginTop: 1,
                             padding: 0,
                             paddingTop: ".4rem",
+                            marginLeft: 2,
                           }}
                           label={
                             "Event start in " +

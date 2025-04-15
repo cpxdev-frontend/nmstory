@@ -177,3 +177,12 @@ iframe {
 .MuiButton-root{
   border-radius: 15px !important;
 }
+
+.newssam {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.MuiChip-filled > .MuiChip-label{
+  color: #fff;
+}
