@@ -14,6 +14,7 @@ import {
   ListItemText,
   Drawer,
   Avatar,
+  ListItemIcon,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -86,6 +87,18 @@ function App() {
               </ListItem>
             )
         )}
+        <ListItem disablePadding>
+          <ListItemButton
+            sx={{ textAlign: "center", color: "#010e80" }}
+            onClick={() =>
+              window.open(
+                "https://docs.google.com/forms/d/e/1FAIpQLSffz-2acAHOkZ3uBegcx0SHGYsowCNPFE94CWRvVcVD5F-FFA/viewform?usp=sharing",
+                "_blank"
+              )
+            }>
+            <ListItemText primary="Survey" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -132,6 +145,18 @@ function App() {
                   </Button>
                 )
             )}
+            <Button
+              sx={{
+                color: "#010e80",
+              }}
+              onClick={() =>
+                window.open(
+                  "https://docs.google.com/forms/d/e/1FAIpQLSffz-2acAHOkZ3uBegcx0SHGYsowCNPFE94CWRvVcVD5F-FFA/viewform?usp=sharing",
+                  "_blank"
+                )
+              }>
+              Survey
+            </Button>
           </Box>
           <IconButton
             color="inherit"
