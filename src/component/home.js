@@ -302,7 +302,7 @@ const Home = () => {
                     <ListItemText
                       primary="อายุ (ปี) | Age (years) | 年齢"
                       secondary={
-                        data != null ? getAge(data.birthday) : <Skeleton />
+                        data != null ? getAge(moment(data.birthday, "YYYY-M-DD").format("YYYY-MM-DD")) : <Skeleton />
                       }
                     />
                   </ListItem>
