@@ -260,7 +260,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="อายุ (ปี) | Age (years) | 年齢 (年々)"
+                      primary="อายุ (ปี) | Age (years) | 年齢"
                       secondary={
                         data != null ? getAge(data.birthday) : <Skeleton />
                       }
@@ -290,7 +290,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="ทีมที่ขึ้นสเตจเธียเตอร์ | BNK48 Theater Stage Team | BNK48劇場ステージ"
+                      primary="ทีมที่ขึ้นสเตจเธียเตอร์ | BNK48 Theater Stage Team | BNK48劇場公演"
                       secondary="Shinjitsu Wa Yume No Naka Ni... - ความจริงที่อยู่ในความฝัน (Trainee Stage)"
                     />
                   </ListItem>
@@ -301,7 +301,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="ส่วนสูง (เซนติเมตร) | Height (CM.) | 身長 (糎)"
+                      primary="ส่วนสูง (เซนติเมตร) | Height (CM.) | 身長（cm)"
                       secondary={168}
                     />
                   </ListItem>
@@ -312,7 +312,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="สิ่งที่ชอบ | Favorite | お気に入り"
+                      primary="สิ่งที่ชอบ | Favorite | 好きなもの"
                       secondary="อนิเมะ (Anime), ไอดอลญี่ปุ่น (Japanese Idol)"
                     />
                   </ListItem>
