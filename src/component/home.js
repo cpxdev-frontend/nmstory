@@ -260,7 +260,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="อายุ (ปี) | Age (years)"
+                      primary="อายุ (ปี) | Age (years) | 年齢 (年々)"
                       secondary={
                         data != null ? getAge(data.birthday) : <Skeleton />
                       }
@@ -273,7 +273,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="วันเดือนปีเกิด | Birthday"
+                      primary="วันเดือนปีเกิด | Birthday | 誕生日"
                       secondary={
                         data != null ? (
                           moment(data.birthday).format("DD MMMM YYYY")
@@ -290,7 +290,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="ทีมที่ขึ้นสเตจเธียเตอร์ | BNK48 Theater Stage Team"
+                      primary="ทีมที่ขึ้นสเตจเธียเตอร์ | BNK48 Theater Stage Team | BNK48劇場ステージ"
                       secondary="Shinjitsu Wa Yume No Naka Ni... - ความจริงที่อยู่ในความฝัน (Trainee Stage)"
                     />
                   </ListItem>
@@ -301,7 +301,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="ส่วนสูง (เซนติเมตร) | Height (CM.)"
+                      primary="ส่วนสูง (เซนติเมตร) | Height (CM.) | 身長 (糎)"
                       secondary={168}
                     />
                   </ListItem>
@@ -312,7 +312,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="สิ่งที่ชอบ | Favorite"
+                      primary="สิ่งที่ชอบ | Favorite | お気に入り"
                       secondary="อนิเมะ (Anime), ไอดอลญี่ปุ่น (Japanese Idol)"
                     />
                   </ListItem>

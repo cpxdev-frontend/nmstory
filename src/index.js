@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 const theme = createTheme({
   typography: {
     // fontFamily: "misans",
-    fontFamily: "Anuphan",
+    fontFamily: "Anuphan, Noto Serif JP",
   },
   palette: {
     primary: {
