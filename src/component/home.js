@@ -301,7 +301,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="ส่วนสูง (เซนติเมตร) | Height (CM.) | 身長（cm)"
+                      primary="ส่วนสูง (เซนติเมตร) | Height (CM.) | 身長 (cm)"
                       secondary={168}
                     />
                   </ListItem>
