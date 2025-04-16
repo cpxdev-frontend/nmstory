@@ -316,7 +316,7 @@ const Home = () => {
                       primary="วันเดือนปีเกิด | Birthday | 誕生日"
                       secondary={
                         data != null ? (
-                          moment(data.birthday).format("DD MMMM YYYY")
+                          moment(data.birthday, "YYYY-M-DD").format("DD MMMM YYYY")
                         ) : (
                           <Skeleton />
                         )
