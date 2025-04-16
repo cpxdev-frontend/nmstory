@@ -222,38 +222,29 @@ const Home = () => {
 
       <div className="container row profile-info">
         <div className="col-md-4"></div>
-        <div className="col ml-md-5">
+        <div className="col-md w-100 ml-md-5">
           {nicknameslide == 2 ? (
-            <h1>
-              {data != null ? (
-                data.fullnameEn[0] + " " + data.fullnameEn[1] + " [ナムモン]"
-              ) : (
-                <Skeleton />
-              )}
+            <h1 style={{ fontSize: 26 }}>
+              <b>{data != null ? "ナムモン" : <Skeleton />}</b>
             </h1>
           ) : nicknameslide == 1 ? (
-            <h1>
-              {data != null ? (
-                data.fullnameEn[0] + " " + data.fullnameEn[1] + " [น้ำมนต์]"
-              ) : (
-                <Skeleton />
-              )}
+            <h1 style={{ fontSize: 26 }}>
+              <b>{data != null ? "น้ำมนต์" : <Skeleton />}</b>
             </h1>
           ) : (
-            <h1>
-              {data != null ? (
-                data.fullnameEn[0] +
-                " " +
-                data.fullnameEn[1] +
-                " [" +
-                data.name +
-                "]"
-              ) : (
-                <Skeleton />
-              )}
+            <h1 style={{ fontSize: 26 }}>
+              <b>{data != null ? data.name.toUpperCase() : <Skeleton />}</b>
             </h1>
           )}
-          <h3 style={{ fontSize: 20 }}>
+          <hr />
+          <h1 style={{ fontSize: 22 }}>
+            {data != null ? (
+              data.fullnameEn[0] + " " + data.fullnameEn[1]
+            ) : (
+              <Skeleton />
+            )}
+          </h1>
+          <h3 style={{ fontSize: 18 }}>
             {data != null ? (
               data.fullnameTh[0] + " " + data.fullnameTh[1]
             ) : (
@@ -262,7 +253,9 @@ const Home = () => {
           </h3>
           <p>{data != null ? data.province + ", TH" : <Skeleton />}</p>
           {nicknameslide == 2 ? (
-            <i>{data != null ? '"オタクがアイドルやっています"' : <Skeleton />}</i>
+            <i>
+              {data != null ? '"オタクがアイドルやっています"' : <Skeleton />}
+            </i>
           ) : nicknameslide == 1 ? (
             <i>{data != null ? '"โอตะคุที่กำลังเป็นไอดอล"' : <Skeleton />}</i>
           ) : (
