@@ -70,6 +70,8 @@ const Home = () => {
   const [getnewsready, setReady] = React.useState(false);
   const [launch, setUnix] = React.useState(0);
 
+  const [nicknameslide, setNickname] = React.useState(0);
+
   const ramdomnewswithoutdup = (d) => {
     while (true) {
       const randomIndex = Math.floor(Math.random() * d);
@@ -88,6 +90,9 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => {
         setData(data.response);
+        setInterval(() => {
+          setNickname((prevNick) => (prevNick === 2 ? 0 : prevNick + 1));
+        }, 10000);
       });
 
     fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", {
@@ -218,19 +223,37 @@ const Home = () => {
       <div className="container row profile-info">
         <div className="col-md-4"></div>
         <div className="col ml-md-5">
-          <h1>
-            {data != null ? (
-              data.fullnameEn[0] +
-              " " +
-              data.fullnameEn[1] +
-              " [" +
-              data.name +
-              "]"
-            ) : (
-              <Skeleton />
-            )}
-          </h1>
-          <h3>
+          {nicknameslide == 2 ? (
+            <h1>
+              {data != null ? (
+                data.fullnameEn[0] + " " + data.fullnameEn[1] + " [ナムモン]"
+              ) : (
+                <Skeleton />
+              )}
+            </h1>
+          ) : nicknameslide == 1 ? (
+            <h1>
+              {data != null ? (
+                data.fullnameEn[0] + " " + data.fullnameEn[1] + " [น้ำมนต์]"
+              ) : (
+                <Skeleton />
+              )}
+            </h1>
+          ) : (
+            <h1>
+              {data != null ? (
+                data.fullnameEn[0] +
+                " " +
+                data.fullnameEn[1] +
+                " [" +
+                data.name +
+                "]"
+              ) : (
+                <Skeleton />
+              )}
+            </h1>
+          )}
+          <h3 style={{ fontSize: 20 }}>
             {data != null ? (
               data.fullnameTh[0] + " " + data.fullnameTh[1]
             ) : (
@@ -238,6 +261,13 @@ const Home = () => {
             )}
           </h3>
           <p>{data != null ? data.province + ", TH" : <Skeleton />}</p>
+          {nicknameslide == 2 ? (
+            <i>{data != null ? '"オタクがアイドルやっています"' : <Skeleton />}</i>
+          ) : nicknameslide == 1 ? (
+            <i>{data != null ? '"โอตะคุที่กำลังเป็นไอดอล"' : <Skeleton />}</i>
+          ) : (
+            <i>{data != null ? '"The otaku-turned-idol"' : <Skeleton />}</i>
+          )}
         </div>
       </div>
 
