@@ -224,11 +224,11 @@ const Home = () => {
         <div className="col-md-4"></div>
         <div className="col-md w-100 ml-md-5">
           {nicknameslide == 2 ? (
-            <h1 style={{ fontSize: 26 }}>
+            <h1 style={{ fontSize: 27 }}>
               <b>{data != null ? "ナムモン" : <Skeleton />}</b>
             </h1>
           ) : nicknameslide == 1 ? (
-            <h1 style={{ fontSize: 26 }}>
+            <h1 style={{ fontSize: 28 }}>
               <b>{data != null ? "น้ำมนต์" : <Skeleton />}</b>
             </h1>
           ) : (
