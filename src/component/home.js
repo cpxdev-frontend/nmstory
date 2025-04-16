@@ -237,21 +237,38 @@ const Home = () => {
             </h1>
           )}
           <hr />
-          <h1 style={{ fontSize: 22 }}>
-            {data != null ? (
-              data.fullnameEn[0] + " " + data.fullnameEn[1]
-            ) : (
-              <Skeleton />
-            )}
-          </h1>
-          <h3 style={{ fontSize: 18 }}>
-            {data != null ? (
-              data.fullnameTh[0] + " " + data.fullnameTh[1]
-            ) : (
-              <Skeleton />
-            )}
-          </h3>
-          <p>{data != null ? data.province + ", TH" : <Skeleton />}</p>
+          {nicknameslide == 2 ? (
+            <h3 style={{ fontSize: 19 }}>
+              {data != null ? (
+                <div>ナットタモン&nbsp;&nbsp;&nbsp;ソンティット</div>
+              ) : (
+                <Skeleton />
+              )}
+            </h3>
+          ) : nicknameslide == 1 ? (
+            <h3 style={{ fontSize: 19 }}>
+              {data != null ? (
+                data.fullnameTh[0] + " " + data.fullnameTh[1]
+              ) : (
+                <Skeleton />
+              )}
+            </h3>
+          ) : (
+            <h3 style={{ fontSize: 19 }}>
+              {data != null ? (
+                data.fullnameEn[0] + " " + data.fullnameEn[1]
+              ) : (
+                <Skeleton />
+              )}
+            </h3>
+          )}
+          {nicknameslide == 2 ? (
+          <p>{data != null ? "バンコク, タイ" : <Skeleton />}</p>
+          ) : nicknameslide == 1 ? (
+            <p>{data != null ? "กรุงเทพ, ประเทศไทย" : <Skeleton />}</p>
+          ) : (
+            <p>{data != null ? data.province + ", TH" : <Skeleton />}</p>
+          )}
           {nicknameslide == 2 ? (
             <i>
               {data != null ? '"オタクがアイドルやっています"' : <Skeleton />}
