@@ -300,7 +300,7 @@ const Home = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary="อายุ (ปี) | Age (years) | 年齢"
+                      primary="อายุ (ปี) | Age (years) | 年齢 (歳）"
                       secondary={
                         data != null ? getAge(moment(data.birthday, "YYYY-M-DD").format("YYYY-MM-DD")) : <Skeleton />
                       }
