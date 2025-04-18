@@ -415,7 +415,7 @@ const GameApp = ({ game, setInGame }) => {
         <div
           data-aos="fade-in"
           className="d-flex justify-content-center"
-          style={{ marginBottom: 200 }}>
+          style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}>
           <Card
             data-tour="quiz"
             sx={{
