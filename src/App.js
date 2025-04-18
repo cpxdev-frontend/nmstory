@@ -28,15 +28,17 @@ import Aos from "aos";
 import Home from "./component/home";
 import NMPlay from "./component/ytplay";
 import Events from "./component/news";
+import Game from "./component/game";
 
 import moment from "moment";
 
 const drawerWidth = 290;
-const navItemsA = ["/", "/nmplay", "/events"];
-const navItems = ["Biography", "Nammonn Play", "All Events"];
+const navItemsA = ["/", "/nmplay", "/events", "/game"];
+const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [game, setInGame] = React.useState(false);
   const location = useLocation();
   const his = useHistory();
 
@@ -106,68 +108,70 @@ function App() {
   return (
     <Box className="bg-theme">
       {" "}
-      <AppBar
-        data-aos="fade-down"
-        data-aos-delay={location.pathname === "/" ? "1500" : "200"}
-        className="newnav"
-        sx={{
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-          position: "fixed",
-        }}>
-        <Toolbar>
-          <Box
-            sx={{
-              display: "inline-flex",
-              whiteSpace: "nowrap",
-              flexGrow: 1,
-              padding: 1,
-            }}>
-            <Avatar src={process.env.REACT_APP_ICON} />{" "}
-            <Typography
-              className="d-flex align-items-center link"
-              onClick={() => his.push("/")}>
-              &nbsp;&nbsp;Nammonn BNK48 TH FC
-            </Typography>
-          </Box>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map(
-              (item, i) =>
-                i > 0 && (
-                  <Button
-                    key={item}
-                    sx={{
-                      color:
-                        location.pathname === navItemsA[i] ? "#fff" : "#000",
-                    }}
-                    onClick={() => his.push(navItemsA[i])}>
-                    {item}
-                  </Button>
-                )
-            )}
-            <Button
+      {!game && (
+        <AppBar
+          data-aos="fade-down"
+          data-aos-delay={location.pathname === "/" ? "1500" : "200"}
+          className="newnav"
+          sx={{
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+            position: "fixed",
+          }}>
+          <Toolbar>
+            <Box
               sx={{
-                color: "#010e80",
-              }}
-              onClick={() =>
-                window.open(
-                  "https://docs.google.com/forms/d/e/1FAIpQLSffz-2acAHOkZ3uBegcx0SHGYsowCNPFE94CWRvVcVD5F-FFA/viewform?usp=sharing",
-                  "_blank"
-                )
-              }>
-              Survey
-            </Button>
-          </Box>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 1, display: { sm: "none" } }}>
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+                display: "inline-flex",
+                whiteSpace: "nowrap",
+                flexGrow: 1,
+                padding: 1,
+              }}>
+              <Avatar src={process.env.REACT_APP_ICON} />{" "}
+              <Typography
+                className="d-flex align-items-center link"
+                onClick={() => his.push("/")}>
+                &nbsp;&nbsp;Nammonn BNK48 TH FC
+              </Typography>
+            </Box>
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              {navItems.map(
+                (item, i) =>
+                  i > 0 && (
+                    <Button
+                      key={item}
+                      sx={{
+                        color:
+                          location.pathname === navItemsA[i] ? "#fff" : "#000",
+                      }}
+                      onClick={() => his.push(navItemsA[i])}>
+                      {item}
+                    </Button>
+                  )
+              )}
+              <Button
+                sx={{
+                  color: "#010e80",
+                }}
+                onClick={() =>
+                  window.open(
+                    "https://docs.google.com/forms/d/e/1FAIpQLSffz-2acAHOkZ3uBegcx0SHGYsowCNPFE94CWRvVcVD5F-FFA/viewform?usp=sharing",
+                    "_blank"
+                  )
+                }>
+                Survey
+              </Button>
+            </Box>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 1, display: { md: "none" } }}>
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      )}
       <nav>
         <Drawer
           variant="temporary"
@@ -177,7 +181,7 @@ function App() {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               borderTopRightRadius: 10,
@@ -192,6 +196,10 @@ function App() {
       <BasicSwitch>
         <Route path="/test" render={() => <Home />} />
         <Route path="/events" render={() => <Events />} />
+        <Route
+          path="/game"
+          render={() => <Game game={game} setInGame={(v) => setInGame(v)} />}
+        />
         <Route path="/nmplay" render={() => <NMPlay />} />
         <Route exact render={() => <Home />} />
       </BasicSwitch>

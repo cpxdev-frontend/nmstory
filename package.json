@@ -16,9 +16,10 @@
     "moment": "^2.30.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-ga4": "^2.1.0",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
-    "sweetalert2": "^11.17.2",
+    "sweetalert2": "^11.19.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

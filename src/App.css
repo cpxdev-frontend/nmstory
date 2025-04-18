@@ -186,3 +186,56 @@ iframe {
 .MuiChip-filled > .MuiChip-label{
   color: #fff;
 }
+
+.bgSelectedquiz {
+  background-color: #b7e2f8 !important;
+}
+
+.shake {
+  animation: shake 0.7s cubic-bezier(0.215, 0.81, 0.365, 0.89) both;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-8px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(8px);
+  }
+}
+
+.swal2-container {
+  z-index: 2147483647 !important;
+  width: 100vw !important;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.nextText {
+  animation: blink 2.2s ease infinite;
+}

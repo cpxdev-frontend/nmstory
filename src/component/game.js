@@ -52,6 +52,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 let timerInterval;
 let gamein = false;
+let lobbysession;
+let lobbyexit = false;
 
 function secondsToMinSec(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60);
@@ -60,17 +62,7 @@ function secondsToMinSec(totalSeconds) {
   return { minutes, seconds };
 }
 
-const GameApp = ({
-  currentPage,
-  lang,
-  launch,
-  currentCountry,
-  setPage,
-  setInGame,
-  login,
-  guide,
-  game,
-}) => {
+const GameApp = ({ game, setInGame }) => {
   const [gamemeet, setGame] = React.useState(0);
   const [quesList, setQuesList] = React.useState([]);
   const [correct, setCorrect] = React.useState(0);
@@ -81,6 +73,7 @@ const GameApp = ({
   const [startLoad, setLoad] = React.useState(false);
   const [airLoad, setLoadAir] = React.useState(false);
   const [ip, setIP] = React.useState("");
+  const [currentCountry, setCountry] = React.useState("");
   const [session, setSession] = React.useState("");
   const his = useHistory();
 
@@ -88,14 +81,8 @@ const GameApp = ({
 
   // state to check stopwatch running or not
   const [isRunning, setIsRunning] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
   const [gamehis, setGameHistory] = React.useState(false);
   const [hisgame, setHis] = React.useState(null);
-  React.useState(() => {
-    setTimeout(() => {
-      setOpen(true);
-    }, 50);
-  }, [currentPage]);
 
   React.useEffect(() => {
     let intervalId;
@@ -129,10 +116,12 @@ const GameApp = ({
   }, [game]);
 
   React.useEffect(() => {
-    setPage(lang == "th" ? "มินิเกมส์" : "Quiz Game");
     fetch("https://speed.cloudflare.com/meta")
       .then((response) => response.json())
-      .then((data) => setIP(data.clientIp));
+      .then((data) => {
+        setIP(data.clientIp);
+        setCountry(data.country);
+      });
   }, []);
 
   React.useEffect(() => {
@@ -172,7 +161,6 @@ const GameApp = ({
     }
     setAver(null);
     setQues(0);
-    setGame(0);
     setCorrect(0);
     setTime(0);
     setInGame(true);
@@ -188,10 +176,27 @@ const GameApp = ({
       }),
     };
 
-    fetch(process.env.REACT_APP_APIE_2 + "/kfsite/kffetchquiz", requestOptions)
+    fetch(
+      "https://cpxdevweb.azurewebsites.net/api/nm/fetchquiz",
+      requestOptions
+    )
       .then((response) => response.json())
       .then((result) => {
         if (result.status) {
+          if (lobbyexit == true) {
+            lobbyexit = false;
+            return;
+          }
+          if (result.ready == false) {
+            setGame(-1);
+            if (lobbysession == undefined) {
+              lobbysession = setInterval(() => {
+                StartGame();
+              }, 10000);
+            }
+            return;
+          }
+          clearInterval(lobbysession);
           if (!isIOS()) {
             navigator.vibrate([
               100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 800,
@@ -203,10 +208,7 @@ const GameApp = ({
           });
           Swal.fire({
             title: "Game will be started",
-            html:
-              lang == "th"
-                ? "เกมส์กำลังจะเริ่มในอีก <b></b> วินาที"
-                : "Please wait in <b></b> seconds.",
+            html: "Game will be start in in <b></b> seconds.",
             timer: 6000,
             timerProgressBar: true,
             didOpen: () => {
@@ -230,10 +232,7 @@ const GameApp = ({
                   navigator.vibrate([100, 200, 100]);
                 }
                 Swal.fire({
-                  footer:
-                    lang == "th"
-                      ? "คำเตือน: คำถามข้อแรก เกี่ยวข้องกับภาพนี้"
-                      : "Warning: The first question concerns this image.",
+                  footer: "คำแนะนำ: คำถามข้อแรก เกี่ยวข้องกับภาพนี้",
                   imageUrl: JSON.parse(result.data)[0].img,
                   timerProgressBar: true,
                   didOpen: () => {
@@ -295,80 +294,6 @@ const GameApp = ({
       .catch((error) => console.log("error", error));
   };
 
-  const getAirdrop = () => {
-    setLoadAir(true);
-    var requestOptions = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: login._tokenResponse.email,
-        token: login._tokenResponse.idToken,
-        notiId: localStorage.getItem("osigIdPush")
-          ? atob(localStorage.getItem("osigIdPush"))
-          : null,
-      }),
-    };
-
-    fetch(
-      process.env.REACT_APP_APIE + "/kfsite/receiveairdropfromgame",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        setLoadAir(false);
-        if (result.status) {
-          if (result.timeused > 0) {
-            Swal.fire({
-              title:
-                lang == "th"
-                  ? "คุณได้รับ " + result.earned + " KorKao Points"
-                  : "You are earned " + result.earned + " KorKao Points",
-              icon: "success",
-              footer:
-                lang == "th"
-                  ? "คุณยังเหลือสิทธิ์การรับ AirDrop อีก " +
-                    result.timeused +
-                    " ครั้ง"
-                  : "You still have " +
-                    result.timeused +
-                    " AirDrop claims left.",
-            });
-          } else {
-            Swal.fire({
-              title:
-                lang == "th"
-                  ? "คุณได้รับ " + result.earned + " KorKao Points"
-                  : "You are earned " + result.earned + " KorKao Points",
-              icon: "success",
-              footer:
-                lang == "th"
-                  ? "คุณรับ AirDrop ครบจำนวนครั้งที่กำหนดแล้ว คุณสามารถกลับมาเล่นและรับ AirDrop ใหม่อีกครั้งตั้งแต่วันที่ " +
-                    moment
-                      .unix(launch + 43205)
-                      .lang(lang)
-                      .format("DD MMMM YYYY เวลา HH:mm") +
-                    " เป็นต้นไป"
-                  : "You have reached the maximum number of AirDrop claims. You can come back to play and receive AirDrop again starting from " +
-                    moment
-                      .unix(launch + 43205)
-                      .lang(lang)
-                      .format("MMMM DD, YYYY at HH:mm") +
-                    " onward.",
-            });
-          }
-        } else {
-          Swal.fire({
-            title: "Something went wrong",
-            text: result.message,
-            icon: "error",
-          });
-        }
-      })
-      .catch((error) => console.log("error", error));
-  };
-
   const SelectGame = (key, select) => {
     if (checked || readyans == false) {
       return;
@@ -393,7 +318,7 @@ const GameApp = ({
         category: "User",
         action: "Game Over",
       });
-      fetch(process.env.REACT_APP_APIE + "/kfsite/kfkeep", {
+      fetch("https://cpxdevweb.koyeb.app/api/nm/quizprocess", {
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -404,14 +329,6 @@ const GameApp = ({
           quizFrom: quesList.length,
           quizDuration: Math.floor((time % 6000) / 100),
           sessionId: session,
-          token:
-            login !== null && login !== false
-              ? login._tokenResponse.idToken
-              : null,
-          userId:
-            login !== null && login !== false
-              ? login._tokenResponse.email
-              : null,
         }),
       })
         .then((response) => response.json())
@@ -428,26 +345,6 @@ const GameApp = ({
             setGame(2);
             setSelected(0);
             setInGame(false);
-            if (result.isAirdrop) {
-              Swal.fire({
-                title: "You are WIN!",
-                allowOutsideClick: false,
-                footer:
-                  lang == "th"
-                    ? "เนื่องจากคุณตอบคำถามได้มากกว่าผู้เล่นโดยเฉลี่ยทั่วโลก คุณจึงได้สิทธิ์การลุ้น AirDrop จากเรา (สูงสุด 3 ครั้งต่อ 12 ชั่วโมง นับจากวันและเวลาที่เล่นล่าสุด)"
-                    : "Because you have answered more questions than the average global player, you have earned the right to participate in our AirDrop. (Up to 3 times per 12 hours, starting from your last gameplay.)",
-                customClass: {
-                  container: "airdropcontain",
-                },
-                confirmButtonText:
-                  lang == "th" ? "เปิดกล่องเลย!" : "Open AirDrop Box!",
-                html: '<div style="height: 100px;" class="mt-3 shake"><i class="fa-solid fa-gift fa-4x"></i></div>',
-              }).then((r) => {
-                if (r.isConfirmed) {
-                  getAirdrop();
-                }
-              });
-            }
           }, 4000);
         })
         .catch((error) => console.log("error", error));
@@ -462,10 +359,7 @@ const GameApp = ({
             navigator.vibrate([100, 200, 100]);
           }
           Swal.fire({
-            footer:
-              lang == "th"
-                ? "คำเตือน: คำถามต่อไป เกี่ยวข้องกับภาพนี้"
-                : "Warning: The next question concerns this image.",
+            footer: "คำแนะนำ: คำถามต่อไป เกี่ยวข้องกับภาพนี้",
             imageUrl: quesList[ques + 1].img,
             timerProgressBar: true,
             didOpen: () => {
@@ -531,64 +425,108 @@ const GameApp = ({
             <CardContent>
               <CardHeader
                 title="Quiz Game"
+                subheader={"คำถามพิชิตสุดยอดแฟนพันธุ์แท้น้องน้ำมนต์"}
+              />
+              <List>
+                <ListItem>
+                  <ListItemText primary={"1. เลือกคำถามที่ถูกต้องที่สุด"} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary={"2. หากเลือกแล้วจะไม่สามารถเปลี่ยนตัวเลือกได้"}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary={"3. หากตอบคำถามถูกจะได้ 1 คะแนน"} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary={
+                      "4. สำหรับผู้ใช้งาน Android ทางผู้พัฒนาได้พัฒนาระบบคำสั่งสั่นที่ตัวอุปกรณ์เพื่อเพิ่มอรรถรสในการเล่น"
+                    }
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary={
+                      "5. หลังเกมจบ คุณสามารถเข้ามาเล่นซ้ำได้ แต่คำถามจะถูกเปลี่ยนสลับกันไปโดยไม่ซ้ำลำดับกัน"
+                    }
+                  />
+                </ListItem>
+              </List>
+              <Typography className="mt-3 text-danger">
+                Note: This game is currently undergoing system testing. Some
+                features may not function correctly. We apologize for any
+                inconvenience.
+              </Typography>
+
+              <Button
+                className="mt-3"
+                variant="contained"
+                disabled={startLoad}
+                onClick={() => StartGame()}>
+                {"Play!"}
+              </Button>
+              <br />
+              {/* <Button
+                className="mt-2"
+                variant="outlined"
+                disabled={startLoad}
+                onClick={() => his.push("/quizgameresult/all")}>
+                {lang == "th" ? "ดูคะแนนเฉลี่ย" : "View average score"}
+              </Button> */}
+            </CardContent>
+          </Card>
+        </div>
+      </Fade>
+    );
+  }
+  if (gamemeet == -1) {
+    return (
+      <Fade in={open} timeout={300}>
+        <div
+          data-aos="fade-in"
+          className="d-flex justify-content-center"
+          style={{ marginBottom: 200 }}>
+          <Card
+            data-tour="quiz"
+            sx={{
+              marginTop: { xs: 3, md: "15vh" },
+              width: { xs: "90%", md: "70%" },
+            }}>
+            <CardContent>
+              <CardHeader
+                title="This game is preparing to adjust for best experience"
                 subheader={
-                  lang == "th"
-                    ? "คำถามพิชิตสุดยอดกอข้าวของข้าวฟ่าง"
-                    : "KorKao Fandom Quiz"
+                  "ขออภัยครับ ตอนนี้เกมอยู่ระหว่างการจัดเตรียมระบบ ไม่ต้องห่วงนะ กรุณาเปิดหน้าจอนี้ไว้เพื่อรอการอัพเดท หากระบบพร้อมแล้ว ระบบจะเข้าสู่เกมให้คุณอัตโนมัติ"
                 }
               />
               <List>
                 <ListItem>
+                  <ListItemText primary={"กติกาการเล่น"} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary={"1. เลือกคำถามที่ถูกต้องที่สุด"} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary={"2. หากเลือกแล้วจะไม่สามารถเปลี่ยนตัวเลือกได้"}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary={"3. หากตอบคำถามถูกจะได้ 1 คะแนน"} />
+                </ListItem>
+                <ListItem>
                   <ListItemText
                     primary={
-                      lang == "th"
-                        ? "1. เลือกคำถามที่ถูกต้องที่สุด"
-                        : "1. Please choose correct answer as you can."
+                      "4. สำหรับผู้ใช้งาน Android ทางผู้พัฒนาได้พัฒนาระบบคำสั่งสั่นที่ตัวอุปกรณ์เพื่อเพิ่มอรรถรสในการเล่น"
                     }
                   />
                 </ListItem>
                 <ListItem>
                   <ListItemText
                     primary={
-                      lang == "th"
-                        ? "2. หากเลือกแล้วจะไม่สามารถเปลี่ยนตัวเลือกได้"
-                        : "2. You cannot change answer after selected."
-                    }
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={
-                      lang == "th"
-                        ? "3. หากตอบคำถามถูกจะได้ 1 คะแนน"
-                        : "3. You will earn 1 point when answer correct."
-                    }
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={
-                      lang == "th"
-                        ? "4. สำหรับผู้ใช้งาน Android ทางผู้พัฒนาได้พัฒนาระบบคำสั่งสั่นที่ตัวอุปกรณ์เพื่อเพิ่มอรรถรสในการเล่น"
-                        : "4. We use vibration on your device for Android device to increase the enjoyment of playing the game."
-                    }
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={
-                      lang == "th"
-                        ? "5. หลังเกมจบ คุณสามารถเข้ามาเล่นซ้ำได้ แต่คำถามจะถูกเปลี่ยนสลับกันไปโดยไม่ซ้ำลำดับกัน"
-                        : "5. After the game ends, you can come and play again. But the questions will be rotated in no repeating order."
-                    }
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={
-                      lang == "th"
-                        ? "6. สำหรับสมาชิก KorKao ID นอกจากสามารถดูสถิติการเล่นย้อนหลังได้ (สูงสุด 1 ปี) แล้ว หากคะแนนของคุณสามารถทำได้มากกว่าหรือเท่ากับคะแนนเฉลี่ยของผู้เล่นทั่วโลก คุณจะได้รับกล่องสุ่ม KorKao Points (ได้สูงสุด 5 ครั้งต่อ 12 ชั่วโมง)"
-                        : "6. Exclusive for KorKao ID users, You can view game histories up to 1 year past. And get Special KorKao Points AirDrop when your score can be greater than or equal to the average score of world record players (Up to 5 times per 12 hours)."
+                      "5. หลังเกมจบ คุณสามารถเข้ามาเล่นซ้ำได้ แต่คำถามจะถูกเปลี่ยนสลับกันไปโดยไม่ซ้ำลำดับกัน"
                     }
                   />
                 </ListItem>
@@ -596,129 +534,24 @@ const GameApp = ({
               <Button
                 className="mt-3"
                 variant="contained"
-                disabled={startLoad}
-                onClick={() => StartGame()}>
-                {lang == "th" ? "เริ่มเกมส์" : "Play!"}
+                onClick={() => {
+                  clearInterval(lobbysession);
+                  setGame(0);
+                  setInGame(false);
+                  lobbyexit = true;
+                  setLoad(false);
+                }}>
+                {"Exit"}
               </Button>
-              <br />
-              <Button
+              {/* <Button
                 className="mt-2"
                 variant="outlined"
                 disabled={startLoad}
                 onClick={() => his.push("/quizgameresult/all")}>
                 {lang == "th" ? "ดูคะแนนเฉลี่ย" : "View average score"}
-              </Button>
-              <br />
-              {login && (
-                <Button
-                  className="mt-2"
-                  variant="outlined"
-                  disabled={startLoad}
-                  onClick={() => setGameHistory(true)}>
-                  {lang == "th" ? "ดูคะแนนย้อนหลัง" : "View previous Play"}
-                </Button>
-              )}
+              </Button> */}
             </CardContent>
           </Card>
-          {open && (
-            <Joyride
-              steps={lang == "th" ? stepTh : stepEn}
-              continuous
-              run={guide}
-              styles={{
-                options: {
-                  arrowColor: "#fb61ee",
-                  backgroundColor: "#f1cef2",
-                  primaryColor: "#f526fc",
-                  textColor: "#000",
-                },
-              }}
-            />
-          )}
-          <Dialog
-            open={gamehis}
-            TransitionComponent={Transition}
-            transitionDuration={400}
-            onClose={() => {}}
-            maxWidth="md">
-            {hisgame != null ? (
-              <>
-                <DialogTitle>
-                  {lang == "th" ? "ประวัติการเล่น" : "Quiz Game History"}
-                </DialogTitle>
-                <TableContainer component={Paper} className="mb-5">
-                  <Table sx={{ minWidth: 650 }}>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>
-                          {lang == "th"
-                            ? "วันเวลาที่เล่น"
-                            : "Quiz Play Timestamp"}
-                        </TableCell>
-                        <TableCell align="right">
-                          {lang == "th" ? "สถานที่เข้าถึง" : "Access Country"}
-                        </TableCell>
-                        <TableCell align="right">
-                          {lang == "th" ? "คะแนนที่ได้" : "Scores"}
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {hisgame.map((item) => (
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}>
-                          <TableCell component="th" scope="row">
-                            {moment(item.created)
-                              .lang(lang)
-                              .local()
-                              .format("DD MMMM YYYY HH:mm")}
-                          </TableCell>
-                          <TableCell component="th" scope="row" align="right">
-                            {item.country}
-                          </TableCell>
-                          <TableCell component="th" scope="row" align="right">
-                            {item.score}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
-            ) : (
-              <TableContainer component={Paper} className="mb-5">
-                <Table sx={{ minWidth: 650 }}>
-                  <TableBody>
-                    <TableRow
-                      sx={{
-                        "&:last-child td, &:last-child th": {
-                          border: 0,
-                        },
-                      }}>
-                      <TableCell colSpan={3}>
-                        <Skeleton
-                          variant="rounded"
-                          className="bg-m mt-3 mb-3"
-                          sx={{ height: 80 }}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            )}
-            <DialogActions>
-              <Button
-                disabled={hisgame == null}
-                onClick={() => setGameHistory(false)}>
-                {lang == "th" ? "ปิด" : "Close"}
-              </Button>
-            </DialogActions>
-          </Dialog>
         </div>
       </Fade>
     );
@@ -737,11 +570,7 @@ const GameApp = ({
             <CardHeader
               title="Result"
               data-aos="fade-right"
-              subheader={
-                lang == "th"
-                  ? "คุณตอบคำถามถูกไป " + correct + " ข้อ (คะแนน)"
-                  : "You are correct " + correct + " answers (points)"
-              }
+              subheader={"You are correct " + correct + " answers (points)"}
             />
             {aver != null ? (
               <>
@@ -755,41 +584,27 @@ const GameApp = ({
                   valueBuffer={(aver.average / 10) * 100}
                 /> */}
                 <Typography className="ml-3 mt-3" data-aos="fade-in">
-                  {lang == "th"
-                    ? "คะแนนเฉลี่ยจากผู้เล่นทั่วโลก " +
-                      aver.average +
-                      " คะแนนจากทั้งหมด " +
-                      aver.fromAll +
-                      " คะแนน"
-                    : "Average scores from worldwide are " +
-                      aver.average +
-                      " points from all " +
-                      aver.fromAll +
-                      " points."}
+                  {"คะแนนเฉลี่ยจากผู้เล่นทั่วโลก " +
+                    aver.average +
+                    " คะแนนจากทั้งหมด " +
+                    aver.fromAll +
+                    " คะแนน"}
                 </Typography>
                 <Typography className="ml-3" data-aos="fade-in">
-                  {lang == "th"
-                    ? "เวลาที่ใช้ไปโดยเฉลี่ยทั่วโลก " +
-                      (secondsToMinSec(aver.time).minutes > 0
-                        ? secondsToMinSec(aver.time).minutes +
-                          " นาที " +
-                          secondsToMinSec(aver.time).seconds +
-                          " วินาที"
-                        : secondsToMinSec(aver.time).seconds + " วินาที")
-                    : "Worldwide average time duration " +
-                      (secondsToMinSec(aver.time).minutes > 0
-                        ? secondsToMinSec(aver.time).minutes +
-                          " minutes " +
-                          secondsToMinSec(aver.time).seconds +
-                          " seconds"
-                        : secondsToMinSec(aver.time).seconds + " seconds")}
+                  {"เวลาที่ใช้ไปโดยเฉลี่ยทั่วโลก " +
+                    (secondsToMinSec(aver.time).minutes > 0
+                      ? secondsToMinSec(aver.time).minutes +
+                        " นาที " +
+                        secondsToMinSec(aver.time).seconds +
+                        " วินาที"
+                      : secondsToMinSec(aver.time).seconds + " วินาที")}
                 </Typography>
-                <Button
+                {/* <Button
                   className="mt-4"
                   variant="outlined"
                   onClick={() => his.push("/quizgameresult/all")}>
                   {lang == "th" ? "ดูคะแนนเฉลี่ย" : "View average score"}
-                </Button>
+                </Button> */}
                 <br />
               </>
             ) : (
@@ -800,7 +615,7 @@ const GameApp = ({
               variant="contained"
               disabled={startLoad}
               onClick={() => setGame(0)}>
-              {lang == "th" ? "เล่นอีกครั้ง" : "Play again"}
+              {"Play again"}
             </Button>
           </CardContent>
         </Card>
@@ -825,13 +640,8 @@ const GameApp = ({
               sx={{ marginTop: "5vh", width: { xs: "90%", md: "70%" } }}>
               <CardContent>
                 <CardHeader
-                  title={item.question[lang]}
-                  subheader={
-                    (lang == "th" ? "คำถามที่ " : "Question ") +
-                    (ques + 1) +
-                    "/" +
-                    quesList.length
-                  }
+                  title={item.question.th}
+                  subheader={"Question " + (ques + 1) + "/" + quesList.length}
                 />
                 {item.img != undefined && checked == false && (
                   <p
@@ -841,11 +651,7 @@ const GameApp = ({
                         imageUrl: item.img,
                       });
                     }}>
-                    <b>
-                      {lang == "th"
-                        ? "คำแนะนำ: คลิกหรือแตะที่นี่เพื่อดูรูปเต็ม"
-                        : "Guide: Click or tap here to view full-size image"}
-                    </b>
+                    <b>{"Guide: Click or tap here to view full-size image"}</b>
                   </p>
                 )}
 
@@ -879,7 +685,7 @@ const GameApp = ({
                           : ""
                       }>
                       <ListItemText
-                        primary={ix + 1 + ". " + choice.choiceName[lang]}
+                        primary={ix + 1 + ". " + choice.choiceName.th}
                       />
                     </ListItemButton>
                   ))}
@@ -889,7 +695,8 @@ const GameApp = ({
                     className="text-info mt-3"
                     data-aos="zoom-in-right">
                     <CheckCircleIcon className="mr-2" />
-                    {item.correctMessage[lang].replace(/\\/g, "")}
+                    &nbsp;
+                    {item.correctMessage.th.replace(/\\/g, "")}
                   </Typography>
                 )}
                 {stat === 2 && (
@@ -897,24 +704,23 @@ const GameApp = ({
                     className="text-danger mt-3"
                     data-aos="zoom-in-right">
                     <CancelIcon className="mr-2" />
-                    {item.wrongMessage[lang].replace(/\\/g, "")}
+                    &nbsp;
+                    {item.wrongMessage.th.replace(/\\/g, "")}
                   </Typography>
                 )}
                 <br />
                 {stat > 0 && ques < quesList.length - 1 && (
                   <Typography className="mt-2 nextText">
                     <InfoOutlined className="mr-2" />
-                    {lang == "th"
-                      ? "คำถามต่อไปกำลังจะเริ่มในอีกไม่ช้า"
-                      : "Next question will be started soon"}
+                    &nbsp;
+                    {"Next question will be started soon"}
                   </Typography>
                 )}
                 {stat > 0 && ques == quesList.length - 1 && (
                   <Typography className="mt-2 nextText">
                     <InfoOutlined className="mr-2" />
-                    {lang == "th"
-                      ? "คุณตอบคำถามครบทุกข้อแล้ว กรุณารอสักครู่"
-                      : "Game is done. Please wait for processing scores."}
+                    &nbsp;
+                    {"Game is done. Please wait for processing scores."}
                   </Typography>
                 )}
               </CardContent>
@@ -925,22 +731,4 @@ const GameApp = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  load: state.load,
-  dark: state.dark,
-  lang: state.lang,
-  launch: state.launch,
-  currentPage: state.currentPage,
-  game: state.game,
-  guide: state.guide,
-  login: state.login,
-  currentCountry: state.currentCountry,
-});
-const mapDispatchToProps = (dispatch) => ({
-  setLoad: (val) => dispatch(setLoad(val)),
-  setDark: (val) => dispatch(setDarkMode(val)),
-  setLang: (val) => dispatch(setLang(val)),
-  setPage: (val) => dispatch(setPage(val)),
-  setInGame: (val) => dispatch(setInGame(val)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(GameApp);
+export default GameApp;
