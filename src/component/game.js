@@ -560,7 +560,7 @@ const GameApp = ({ game, setInGame }) => {
     return (
       <div
         className="d-flex justify-content-center"
-        style={{ marginBottom: 100 }}>
+        style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}>
         <Card
           sx={{
             marginTop: { xs: 3, md: "15vh" },
