@@ -80,6 +80,7 @@ const GameApp = ({ game, setInGame }) => {
   const [time, setTime] = React.useState(0);
 
   // state to check stopwatch running or not
+  const [exitnotok, setExitReady] = React.useState(false);
   const [isRunning, setIsRunning] = React.useState(false);
   const [gamehis, setGameHistory] = React.useState(false);
   const [hisgame, setHis] = React.useState(null);
@@ -175,13 +176,14 @@ const GameApp = ({ game, setInGame }) => {
         quizCountry: currentCountry,
       }),
     };
-
+    setExitReady(true);
     fetch(
       "https://cpxdevweb.azurewebsites.net/api/nm/fetchquiz",
       requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
+        setExitReady(false);
         if (result.status) {
           if (lobbyexit == true && lobbysession != undefined) {
             lobbyexit = false;
@@ -197,6 +199,7 @@ const GameApp = ({ game, setInGame }) => {
             return;
           }
           clearInterval(lobbysession);
+          lobbysession = undefined;
           if (!isIOS()) {
             navigator.vibrate([
               100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 800,
@@ -415,13 +418,15 @@ const GameApp = ({ game, setInGame }) => {
         <div
           data-aos="fade-in"
           className="d-flex justify-content-center"
-          style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}>
+          style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}
+        >
           <Card
             data-tour="quiz"
             sx={{
               marginTop: { xs: 3, md: "15vh" },
               width: { xs: "90%", md: "70%" },
-            }}>
+            }}
+          >
             <CardContent>
               <CardHeader
                 title="Quiz Game"
@@ -464,7 +469,8 @@ const GameApp = ({ game, setInGame }) => {
                 className="mt-3"
                 variant="contained"
                 disabled={startLoad}
-                onClick={() => StartGame()}>
+                onClick={() => StartGame()}
+              >
                 {"Play!"}
               </Button>
               <br />
@@ -487,13 +493,15 @@ const GameApp = ({ game, setInGame }) => {
         <div
           data-aos="fade-in"
           className="d-flex justify-content-center"
-          style={{ marginBottom: 200 }}>
+          style={{ marginBottom: 200 }}
+        >
           <Card
             data-tour="quiz"
             sx={{
               marginTop: { xs: 3, md: "15vh" },
               width: { xs: "90%", md: "70%" },
-            }}>
+            }}
+          >
             <CardContent>
               <CardHeader
                 title="This game is preparing to adjust for best experience"
@@ -534,13 +542,16 @@ const GameApp = ({ game, setInGame }) => {
               <Button
                 className="mt-3"
                 variant="contained"
+                disabled={exitnotok}
                 onClick={() => {
                   clearInterval(lobbysession);
+                  lobbysession = undefined;
                   setGame(0);
                   setInGame(false);
                   lobbyexit = true;
                   setLoad(false);
-                }}>
+                }}
+              >
                 {"Exit"}
               </Button>
               {/* <Button
@@ -560,12 +571,14 @@ const GameApp = ({ game, setInGame }) => {
     return (
       <div
         className="d-flex justify-content-center"
-        style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}>
+        style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}
+      >
         <Card
           sx={{
             marginTop: { xs: 3, md: "15vh" },
             width: { xs: "90%", md: "70%" },
-          }}>
+          }}
+        >
           <CardContent>
             <CardHeader
               title="Result"
@@ -614,14 +627,16 @@ const GameApp = ({ game, setInGame }) => {
               className="mt-1"
               variant="contained"
               disabled={startLoad}
-              onClick={() => setGame(0)}>
+              onClick={() => setGame(0)}
+            >
               {"Play again"}
             </Button>
           </CardContent>
         </Card>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={airLoad}>
+          open={airLoad}
+        >
           <CircularProgress />
         </Backdrop>
       </div>
@@ -630,14 +645,16 @@ const GameApp = ({ game, setInGame }) => {
   return (
     <div
       className="d-flex justify-content-center"
-      style={{ marginBottom: 130 }}>
+      style={{ marginBottom: 130 }}
+    >
       {quesList.map(
         (item, i) =>
           i === ques && (
             <Card
               data-aos="fade-in"
               key={item.quizId}
-              sx={{ marginTop: "5vh", width: { xs: "90%", md: "70%" } }}>
+              sx={{ marginTop: "5vh", width: { xs: "90%", md: "70%" } }}
+            >
               <CardContent>
                 <CardHeader
                   title={item.question.th}
@@ -650,7 +667,8 @@ const GameApp = ({ game, setInGame }) => {
                       Swal.fire({
                         imageUrl: item.img,
                       });
-                    }}>
+                    }}
+                  >
                     <b>{"Guide: Click or tap here to view full-size image"}</b>
                   </p>
                 )}
@@ -683,7 +701,8 @@ const GameApp = ({ game, setInGame }) => {
                               ? " bgSelectedquiz"
                               : "")
                           : ""
-                      }>
+                      }
+                    >
                       <ListItemText
                         primary={ix + 1 + ". " + choice.choiceName.th}
                       />
@@ -693,7 +712,8 @@ const GameApp = ({ game, setInGame }) => {
                 {stat === 1 && (
                   <Typography
                     className="text-info mt-3"
-                    data-aos="zoom-in-right">
+                    data-aos="zoom-in-right"
+                  >
                     <CheckCircleIcon className="mr-2" />
                     &nbsp;
                     {item.correctMessage.th.replace(/\\/g, "")}
@@ -702,7 +722,8 @@ const GameApp = ({ game, setInGame }) => {
                 {stat === 2 && (
                   <Typography
                     className="text-danger mt-3"
-                    data-aos="zoom-in-right">
+                    data-aos="zoom-in-right"
+                  >
                     <CancelIcon className="mr-2" />
                     &nbsp;
                     {item.wrongMessage.th.replace(/\\/g, "")}
