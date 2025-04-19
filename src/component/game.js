@@ -183,7 +183,7 @@ const GameApp = ({ game, setInGame }) => {
       .then((response) => response.json())
       .then((result) => {
         if (result.status) {
-          if (lobbyexit == true) {
+          if (lobbyexit == true && lobbysession != undefined) {
             lobbyexit = false;
             return;
           }
