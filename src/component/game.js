@@ -53,7 +53,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 let timerInterval;
 let gamein = false;
 let lobbysession;
-let lobbyexit = false;
+let lobbyexit, skip = false;
 
 function secondsToMinSec(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60);
@@ -160,6 +160,7 @@ const GameApp = ({ game, setInGame }) => {
     if (ip == "") {
       return;
     }
+    skip = (false);
     setAver(null);
     setQues(0);
     setCorrect(0);
@@ -297,6 +298,65 @@ const GameApp = ({ game, setInGame }) => {
       .catch((error) => console.log("error", error));
   };
 
+  const gotonext = () => {
+    if (ques == quesList.length - 1) {
+      return;
+    } else {
+      skip = (true);
+      if (quesList[ques + 1].img != undefined) {
+        if (!isIOS()) {
+          navigator.vibrate([100, 200, 100]);
+        }
+        Swal.fire({
+          footer: "คำแนะนำ: คำถามต่อไป เกี่ยวข้องกับภาพนี้",
+          imageUrl: quesList[ques + 1].img,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            timerInterval = setTimeout(() => {
+              Swal.hideLoading();
+            }, 3000);
+          },
+          allowOutsideClick: () => false,
+        }).then((r) => {
+          clearInterval(timerInterval);
+          setStatperques(0);
+          setCheck(false);
+          setQues((x) => (x = x + 1));
+          setSelected(0);
+          setAns(false);
+          setTimeout(
+            () => {
+              setAns(true);
+              setIsRunning(true);
+            },
+            window.innerHeight > (quesList[ques + 1].img ? 700 : 500)
+              ? 3800
+              : 1000
+          );
+        });
+      } else {
+        if (!isIOS()) {
+          navigator.vibrate(100);
+        }
+        setStatperques(0);
+        setCheck(false);
+        setQues((x) => (x = x + 1));
+        setSelected(0);
+        setAns(false);
+        setTimeout(
+          () => {
+            setAns(true);
+            setIsRunning(true);
+          },
+          window.innerHeight > (quesList[ques + 1].img ? 700 : 500)
+            ? 3800
+            : 1000
+        );
+      }
+    }
+  };
+
   const SelectGame = (key, select) => {
     if (checked || readyans == false) {
       return;
@@ -342,13 +402,17 @@ const GameApp = ({ game, setInGame }) => {
           });
           setAver(result);
           setTimeout(() => {
+            if (skip == true) {
+              skip = (false);
+              return;
+            }
             setStatperques(0);
             setQuesList([]);
             setCheck(false);
             setGame(2);
             setSelected(0);
             setInGame(false);
-          }, 4000);
+          }, 10000);
         })
         .catch((error) => console.log("error", error));
     } else {
@@ -357,6 +421,10 @@ const GameApp = ({ game, setInGame }) => {
         action: "Next Question",
       });
       setTimeout(() => {
+        if (skip == true) {
+          skip = (false);
+          return;
+        }
         if (quesList[ques + 1].img != undefined) {
           if (!isIOS()) {
             navigator.vibrate([100, 200, 100]);
@@ -408,7 +476,7 @@ const GameApp = ({ game, setInGame }) => {
               : 1000
           );
         }
-      }, 6000);
+      }, 10000);
     }
   };
 
@@ -743,6 +811,15 @@ const GameApp = ({ game, setInGame }) => {
                     &nbsp;
                     {"Game is done. Please wait for processing scores."}
                   </Typography>
+                )}
+                {stat > 0 && ques < quesList.length - 1 && (
+                  <Button
+                    onClick={() => gotonext()}
+                    className="mt-3"
+                    variant="outlined"
+                  >
+                    ไปยังคำถามถัดไป
+                  </Button>
                 )}
               </CardContent>
             </Card>
