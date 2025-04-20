@@ -53,7 +53,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 let timerInterval;
 let gamein = false;
 let lobbysession;
-let lobbyexit, skip = false;
+let lobbyexit,
+  skip = false;
 
 function secondsToMinSec(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60);
@@ -160,7 +161,7 @@ const GameApp = ({ game, setInGame }) => {
     if (ip == "") {
       return;
     }
-    skip = (false);
+    skip = false;
     setAver(null);
     setQues(0);
     setCorrect(0);
@@ -302,7 +303,7 @@ const GameApp = ({ game, setInGame }) => {
     if (ques == quesList.length - 1) {
       return;
     } else {
-      skip = (true);
+      skip = true;
       if (quesList[ques + 1].img != undefined) {
         if (!isIOS()) {
           navigator.vibrate([100, 200, 100]);
@@ -396,23 +397,37 @@ const GameApp = ({ game, setInGame }) => {
       })
         .then((response) => response.json())
         .then((result) => {
-          ReactGA.event({
-            category: "User",
-            action: "Result Ready",
-          });
-          setAver(result);
-          setTimeout(() => {
-            if (skip == true) {
-              skip = (false);
-              return;
-            }
+          if (result.status == false) {
+            setGame(0)
             setStatperques(0);
             setQuesList([]);
             setCheck(false);
-            setGame(2);
             setSelected(0);
             setInGame(false);
-          }, 9000);
+            Swal.fire({
+              title: "Session is expired",
+              text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
+              icon: 'error',
+            })
+          } else {
+            ReactGA.event({
+              category: "User",
+              action: "Result Ready",
+            });
+            setAver(result);
+            setTimeout(() => {
+              if (skip == true) {
+                skip = false;
+                return;
+              }
+              setStatperques(0);
+              setQuesList([]);
+              setCheck(false);
+              setGame(2);
+              setSelected(0);
+              setInGame(false);
+            }, 9000);
+          }
         })
         .catch((error) => console.log("error", error));
     } else {
@@ -422,7 +437,7 @@ const GameApp = ({ game, setInGame }) => {
       });
       setTimeout(() => {
         if (skip == true) {
-          skip = (false);
+          skip = false;
           return;
         }
         if (quesList[ques + 1].img != undefined) {
