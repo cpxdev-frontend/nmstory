@@ -53,6 +53,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 let timerInterval;
 let gamein = false;
 let lobbysession;
+let changeques;
 let lobbyexit,
   skip = false;
 
@@ -300,6 +301,7 @@ const GameApp = ({ game, setInGame }) => {
   };
 
   const gotonext = () => {
+    clearTimeout(changeques);
     if (ques == quesList.length - 1) {
       return;
     } else {
@@ -415,7 +417,7 @@ const GameApp = ({ game, setInGame }) => {
               action: "Result Ready",
             });
             setAver(result);
-            setTimeout(() => {
+            changeques = setTimeout(() => {
               if (skip == true) {
                 skip = false;
                 return;
@@ -435,7 +437,7 @@ const GameApp = ({ game, setInGame }) => {
         category: "User",
         action: "Next Question",
       });
-      setTimeout(() => {
+      changeques = setTimeout(() => {
         if (skip == true) {
           skip = false;
           return;
