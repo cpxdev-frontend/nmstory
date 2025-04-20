@@ -195,7 +195,7 @@ const GameApp = ({ game, setInGame }) => {
             if (lobbysession == undefined) {
               lobbysession = setInterval(() => {
                 StartGame();
-              }, 5000);
+              }, 8000);
             }
             return;
           }
