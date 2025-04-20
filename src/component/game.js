@@ -412,7 +412,7 @@ const GameApp = ({ game, setInGame }) => {
             setGame(2);
             setSelected(0);
             setInGame(false);
-          }, 10000);
+          }, 9000);
         })
         .catch((error) => console.log("error", error));
     } else {
