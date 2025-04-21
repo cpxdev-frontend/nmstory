@@ -32,6 +32,7 @@ import {
   TableCell,
   TableHead,
 } from "@mui/material";
+import { QRCode } from "react-qrcode-logo";
 import HistoryIcon from "@mui/icons-material/History";
 import Swal from "sweetalert2";
 import { InfoOutlined } from "@mui/icons-material";
@@ -653,6 +654,19 @@ const GameApp = ({ game, setInGame }) => {
               title="Result"
               data-aos="fade-right"
               subheader={"You are correct " + correct + " answers (points)"}
+              action={
+                <Box sx={{ display: { xs: "none", md: "block" } }}>
+                  <QRCode
+                    value={aver != null ? aver.gameverification : "0"}
+                    logoWidth={20}
+                    logoHeight={20}
+                    size={500}
+                    style={{ width: 130, height: 130 }}
+                    qrStyle="dots"
+                    crossorigin="anonymous"
+                  />
+                </Box>
+              }
             />
             {aver != null ? (
               <>
@@ -692,13 +706,46 @@ const GameApp = ({ game, setInGame }) => {
             ) : (
               <Skeleton height={500} />
             )}
-            <Button
-              className="mt-1"
-              variant="contained"
-              disabled={startLoad}
-              onClick={() => setGame(0)}>
-              {"Play again"}
-            </Button>
+            {/* <QRCode
+              value={qrCode}
+              logoImage="https://d3hhrps04devi8.cloudfront.net/kf/thqr.webp"
+              logoWidth={100}
+              logoHeight={100}
+              size={300}
+              style={{ width: 250, height: 250 }}
+              qrStyle="dots"
+              crossorigin="anonymous"
+            /> */}
+            <div className="mt-1 row">
+              <div className="col-6 d-flex align-items-center">
+                <Button
+                  variant="contained"
+                  disabled={startLoad}
+                  onClick={() => setGame(0)}>
+                  {"Play again"}
+                </Button>
+              </div>
+              <Box
+                className="col-6 text-end"
+                sx={{ display: { xs: "block", md: "none" } }}>
+                <QRCode
+                  value={aver != null ? aver.gameverification : "0"}
+                  logoWidth={20}
+                  logoHeight={20}
+                  size={500}
+                  style={{ width: 140, height: 140 }}
+                  qrStyle="dots"
+                  crossorigin="anonymous"
+                />
+                <br />
+                <small>QR Code นี้มีอายุ 1 ปี นับตั้งแต่วันที่ปรากฎ</small>
+              </Box>
+            </div>
+            <p className="mt-5 text-primary text-center">
+              สำหรับการเข้าร่วมกิจกรรมใดๆที่จำเป็นต้องอ้างอิงผลคะแนนการเล่นเกมนี้
+              สามารถยื่นหรือบันทึกหน้าจอ QR Code
+              ที่ปรากฎให้บ้านสแกนเพื่อยืนยันความถูกต้องและป้องกันการทุจริต
+            </p>
           </CardContent>
         </Card>
         <Backdrop
