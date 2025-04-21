@@ -434,10 +434,6 @@ const GameApp = ({ game, setInGame }) => {
         action: "Next Question",
       });
       changeques = setTimeout(() => {
-        if (skip == true) {
-          skip = false;
-          return;
-        }
         if (quesList[ques + 1].img != undefined) {
           if (!isIOS()) {
             navigator.vibrate([100, 200, 100]);
