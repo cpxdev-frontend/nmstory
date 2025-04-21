@@ -793,7 +793,7 @@ const GameApp = ({ game, setInGame }) => {
                   >
                     <CheckCircleIcon className="mr-2" />
                     &nbsp;
-                    {item.correctMessage.th.replace(/\\/g, "")}
+                    {item.correctMessage.th != '' ? item.correctMessage.th.replace(/\\/g, "") : 'ยินดีด้วย! คุณตอบคำถามถูกต้อง'}
                   </Typography>
                 )}
                 {stat === 2 && (
@@ -803,7 +803,7 @@ const GameApp = ({ game, setInGame }) => {
                   >
                     <CancelIcon className="mr-2" />
                     &nbsp;
-                    {item.wrongMessage.th.replace(/\\/g, "")}
+                    {item.wrongMessage.th != '' ? item.wrongMessage.th.replace(/\\/g, "") : 'เสียใจด้วยนะ คุณตอบคำถามไม่ถูกต้อง'}
                   </Typography>
                 )}
                 <br />
