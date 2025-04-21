@@ -400,7 +400,7 @@ const GameApp = ({ game, setInGame }) => {
         .then((response) => response.json())
         .then((result) => {
           if (result.status == false) {
-            setGame(0)
+            setGame(0);
             setStatperques(0);
             setQuesList([]);
             setCheck(false);
@@ -409,8 +409,8 @@ const GameApp = ({ game, setInGame }) => {
             Swal.fire({
               title: "Session is expired",
               text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
-              icon: 'error',
-            })
+              icon: "error",
+            });
           } else {
             ReactGA.event({
               category: "User",
@@ -495,15 +495,13 @@ const GameApp = ({ game, setInGame }) => {
         <div
           data-aos="fade-in"
           className="d-flex justify-content-center"
-          style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}
-        >
+          style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}>
           <Card
             data-tour="quiz"
             sx={{
               marginTop: { xs: 3, md: "15vh" },
               width: { xs: "90%", md: "70%" },
-            }}
-          >
+            }}>
             <CardContent>
               <CardHeader
                 title="Quiz Game"
@@ -546,8 +544,7 @@ const GameApp = ({ game, setInGame }) => {
                 className="mt-3"
                 variant="contained"
                 disabled={startLoad}
-                onClick={() => StartGame()}
-              >
+                onClick={() => StartGame()}>
                 {"Play!"}
               </Button>
               <br />
@@ -570,15 +567,13 @@ const GameApp = ({ game, setInGame }) => {
         <div
           data-aos="fade-in"
           className="d-flex justify-content-center"
-          style={{ marginBottom: 200 }}
-        >
+          style={{ marginBottom: 200 }}>
           <Card
             data-tour="quiz"
             sx={{
               marginTop: { xs: 3, md: "15vh" },
               width: { xs: "90%", md: "70%" },
-            }}
-          >
+            }}>
             <CardContent>
               <CardHeader
                 title="This game is preparing to adjust for best experience"
@@ -627,8 +622,7 @@ const GameApp = ({ game, setInGame }) => {
                   setInGame(false);
                   lobbyexit = true;
                   setLoad(false);
-                }}
-              >
+                }}>
                 {"Exit"}
               </Button>
               {/* <Button
@@ -648,14 +642,12 @@ const GameApp = ({ game, setInGame }) => {
     return (
       <div
         className="d-flex justify-content-center"
-        style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}
-      >
+        style={{ marginBottom: 100, marginTop: !game ? 50 : 0 }}>
         <Card
           sx={{
             marginTop: { xs: 3, md: "15vh" },
             width: { xs: "90%", md: "70%" },
-          }}
-        >
+          }}>
           <CardContent>
             <CardHeader
               title="Result"
@@ -704,16 +696,14 @@ const GameApp = ({ game, setInGame }) => {
               className="mt-1"
               variant="contained"
               disabled={startLoad}
-              onClick={() => setGame(0)}
-            >
+              onClick={() => setGame(0)}>
               {"Play again"}
             </Button>
           </CardContent>
         </Card>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={airLoad}
-        >
+          open={airLoad}>
           <CircularProgress />
         </Backdrop>
       </div>
@@ -722,16 +712,14 @@ const GameApp = ({ game, setInGame }) => {
   return (
     <div
       className="d-flex justify-content-center"
-      style={{ marginBottom: 130 }}
-    >
+      style={{ marginBottom: 130 }}>
       {quesList.map(
         (item, i) =>
           i === ques && (
             <Card
               data-aos="fade-in"
               key={item.quizId}
-              sx={{ marginTop: "5vh", width: { xs: "90%", md: "70%" } }}
-            >
+              sx={{ marginTop: "5vh", width: { xs: "90%", md: "70%" } }}>
               <CardContent>
                 <CardHeader
                   title={item.question.th}
@@ -744,8 +732,7 @@ const GameApp = ({ game, setInGame }) => {
                       Swal.fire({
                         imageUrl: item.img,
                       });
-                    }}
-                  >
+                    }}>
                     <b>{"Guide: Click or tap here to view full-size image"}</b>
                   </p>
                 )}
@@ -778,8 +765,7 @@ const GameApp = ({ game, setInGame }) => {
                               ? " bgSelectedquiz"
                               : "")
                           : ""
-                      }
-                    >
+                      }>
                       <ListItemText
                         primary={ix + 1 + ". " + choice.choiceName.th}
                       />
@@ -789,21 +775,23 @@ const GameApp = ({ game, setInGame }) => {
                 {stat === 1 && (
                   <Typography
                     className="text-info mt-3"
-                    data-aos="zoom-in-right"
-                  >
+                    data-aos="zoom-in-right">
                     <CheckCircleIcon className="mr-2" />
                     &nbsp;
-                    {item.correctMessage.th != '' ? item.correctMessage.th.replace(/\\/g, "") : 'ยินดีด้วย! คุณตอบคำถามถูกต้อง'}
+                    {item.correctMessage.th != ""
+                      ? item.correctMessage.th.replace(/\\/g, "")
+                      : "ยินดีด้วย! คุณตอบคำถามถูกต้อง"}
                   </Typography>
                 )}
                 {stat === 2 && (
                   <Typography
                     className="text-danger mt-3"
-                    data-aos="zoom-in-right"
-                  >
+                    data-aos="zoom-in-right">
                     <CancelIcon className="mr-2" />
                     &nbsp;
-                    {item.wrongMessage.th != '' ? item.wrongMessage.th.replace(/\\/g, "") : 'เสียใจด้วยนะ คุณตอบคำถามไม่ถูกต้อง'}
+                    {item.wrongMessage.th != ""
+                      ? item.wrongMessage.th.replace(/\\/g, "")
+                      : "เสียใจด้วยนะ คุณตอบคำถามไม่ถูกต้อง"}
                   </Typography>
                 )}
                 <br />
@@ -825,8 +813,7 @@ const GameApp = ({ game, setInGame }) => {
                   <Button
                     onClick={() => gotonext()}
                     className="mt-3"
-                    variant="outlined"
-                  >
+                    variant="outlined">
                     ไปยังคำถามถัดไป
                   </Button>
                 )}
