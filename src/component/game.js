@@ -418,17 +418,13 @@ const GameApp = ({ game, setInGame }) => {
             });
             setAver(result);
             changeques = setTimeout(() => {
-              if (skip == true) {
-                skip = false;
-                return;
-              }
               setStatperques(0);
               setQuesList([]);
               setCheck(false);
               setGame(2);
               setSelected(0);
               setInGame(false);
-            }, 9000);
+            }, 7500);
           }
         })
         .catch((error) => console.log("error", error));
@@ -493,7 +489,7 @@ const GameApp = ({ game, setInGame }) => {
               : 1000
           );
         }
-      }, 10000);
+      }, 8000);
     }
   };
 
