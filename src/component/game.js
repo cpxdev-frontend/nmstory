@@ -424,7 +424,7 @@ const GameApp = ({ game, setInGame }) => {
               setGame(2);
               setSelected(0);
               setInGame(false);
-            }, 7500);
+            }, 9500);
           }
         })
         .catch((error) => console.log("error", error));
@@ -485,7 +485,7 @@ const GameApp = ({ game, setInGame }) => {
               : 1000
           );
         }
-      }, 8000);
+      }, 10000);
     }
   };
 
