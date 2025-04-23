@@ -614,9 +614,15 @@ const GameApp = ({ game, setInGame }) => {
                   {"Play!"}
                 </Button>
               ) : (
-                <Typography className="mt-3 text-info">
-                  {notreadyyett}
-                </Typography>
+                <>
+                  <Typography className="mt-3 text-info">
+                    {notreadyyett}
+                  </Typography>
+                  <Typography className="mt-1">
+                    Please join Nammonn's Phenomenon Quiz Game on&nbsp;
+                    {moment.unix(1746421200).format("MMMM DD, YYYY,") + " at " + moment.unix(1746421200).format("H:mm A")} (Based on your timezone)
+                  </Typography>
+                </>
               )}
               <br />
               {/* <Button
