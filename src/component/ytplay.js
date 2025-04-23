@@ -90,9 +90,12 @@ const YTPlay = () => {
                     container
                     key={item.snippet.resourceId.videoId}
                   >
-                    <Grid xs={12}>
+                    <Grid size={{ xs: 12 }} className="pr-0">
                       <CardMedia
-                        sx={{ width: "100%" }}
+                        sx={{
+                          width: "100%",
+                          height: { md: 500, xs: "100%" },
+                        }}
                         component="img"
                         image={item.snippet.thumbnails.maxres.url}
                         alt={item.snippet.title}
@@ -100,7 +103,7 @@ const YTPlay = () => {
                     </Grid>
                     <Grid
                       item
-                      md
+                      size={{ xs: 12 }}
                       sx={{ display: "flex", flexDirection: "column" }}
                     >
                       <CardContent sx={{ flex: "1 0 auto" }}>
@@ -185,7 +188,11 @@ const YTPlay = () => {
         fullScreen
         open={clip != null}
         PaperProps={{
-          sx: { borderBottomLeftRadius: 0, borderBottomRightRadius: 0, backgroundColor: "#adc8f7" },
+          sx: {
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            backgroundColor: "#adc8f7",
+          },
         }}
         TransitionComponent={Transition}
       >
