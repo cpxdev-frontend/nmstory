@@ -653,9 +653,9 @@ const GameApp = ({ game, setInGame }) => {
             }}>
             <CardContent>
               <CardHeader
-                title="This game is preparing to adjust for best experience"
+                title="The game system is being optimized to ensure the best experience."
                 subheader={
-                  "ขออภัยครับ ตอนนี้เกมอยู่ระหว่างการจัดเตรียมระบบ ไม่ต้องห่วงนะ กรุณาเปิดหน้าจอนี้ไว้เพื่อรอการอัพเดท หากระบบพร้อมแล้ว ระบบจะเข้าสู่เกมให้คุณอัตโนมัติ"
+                  "ขณะนี้มีผู้เข้าเล่นเกมนี้เป็นจำนวนมาก กรุณาเปิดหน้าจอนี้ไว้เพื่อรอการอัพเดท หากระบบพร้อมแล้ว ระบบจะเข้าสู่เกมให้คุณอัตโนมัติ"
                 }
               />
               <List>
