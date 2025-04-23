@@ -65,6 +65,43 @@ function secondsToMinSec(totalSeconds) {
   return { minutes, seconds };
 }
 
+function compareTimestamps(timestamp1) {
+  // Get the difference in milliseconds
+  const difference = 1746421200 * 1000 - timestamp1 * 1000;
+
+  // Calculate days
+  const days =
+    difference / (1000 * 60 * 60 * 24) >
+    Math.floor(difference / (1000 * 60 * 60 * 24))
+      ? Math.floor(difference / (1000 * 60 * 60 * 24))
+      : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
+
+  // Get remaining milliseconds after removing days
+  const remainingMilliseconds = difference % (1000 * 60 * 60 * 24);
+
+  // Calculate hours
+  const hours =
+    remainingMilliseconds / (1000 * 60 * 60) >
+    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+      ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+      : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
+
+  // Get remaining milliseconds after removing hours
+  const remainingMinutes = remainingMilliseconds % (1000 * 60 * 60);
+
+  // Calculate minutes
+  const minutes =
+    remainingMinutes / (1000 * 60) > Math.round(remainingMinutes / (1000 * 60))
+      ? Math.round(remainingMinutes / (1000 * 60)) + 1
+      : Math.round(remainingMinutes / (1000 * 60));
+
+  return {
+    days,
+    hours,
+    minutes,
+  };
+}
+
 const GameApp = ({ game, setInGame }) => {
   const [gamemeet, setGame] = React.useState(0);
   const [quesList, setQuesList] = React.useState([]);
@@ -75,6 +112,10 @@ const GameApp = ({ game, setInGame }) => {
   const [checked, setCheck] = React.useState(false);
   const [startLoad, setLoad] = React.useState(false);
   const [airLoad, setLoadAir] = React.useState(false);
+  const [notreadyyet, setNotReadyYet] = React.useState(true);
+  const [notreadyyett, setNotReadyYett] = React.useState(
+    "Please wait for the game to be Generally Available. The game will be started soon."
+  );
   const [ip, setIP] = React.useState("");
   const [currentCountry, setCountry] = React.useState("");
   const [session, setSession] = React.useState("");
@@ -126,6 +167,29 @@ const GameApp = ({ game, setInGame }) => {
         setIP(data.clientIp);
         setCountry(data.country);
       });
+    if (moment().unix() <= 1746421200) {
+      setNotReadyYet(true);
+      setInterval(() => {
+        if (
+          compareTimestamps(Date.now() / 1000).days == 0 &&
+          compareTimestamps(Date.now() / 1000).hours == 0 &&
+          compareTimestamps(Date.now() / 1000).minutes == 0
+        ) {
+          setNotReadyYet(false);
+        }
+        setNotReadyYett(
+          "Please wait for the game to be Generally Available. The game will be launched in " +
+            compareTimestamps(Date.now() / 1000).days +
+            " days " +
+            compareTimestamps(Date.now() / 1000).hours +
+            " hours " +
+            (compareTimestamps(Date.now() / 1000).minutes == 60
+              ? 0
+              : compareTimestamps(Date.now() / 1000).minutes) +
+            " minutes."
+        );
+      }, 1);
+    }
   }, []);
 
   React.useEffect(() => {
@@ -535,19 +599,25 @@ const GameApp = ({ game, setInGame }) => {
                   />
                 </ListItem>
               </List>
-              <Typography className="mt-3 text-danger">
+              {/* <Typography className="mt-3 text-danger">
                 Note: This game is currently undergoing system testing. Some
                 features may not function correctly. We apologize for any
                 inconvenience.
-              </Typography>
+              </Typography> */}
 
-              <Button
-                className="mt-3"
-                variant="contained"
-                disabled={startLoad}
-                onClick={() => StartGame()}>
-                {"Play!"}
-              </Button>
+              {!notreadyyet ? (
+                <Button
+                  className="mt-3"
+                  variant="contained"
+                  disabled={startLoad}
+                  onClick={() => StartGame()}>
+                  {"Play!"}
+                </Button>
+              ) : (
+                <Typography className="mt-3 text-info">
+                  {notreadyyett}
+                </Typography>
+              )}
               <br />
               {/* <Button
                 className="mt-2"
