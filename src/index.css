@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "Sriracha", "Kaisei Decol";
+  font-family: "Mitr", "Shippori Antique";
   -webkit-font-smoothing: antialiased;
   font-weight: 100;
   -moz-osx-font-smoothing: grayscale;
@@ -20,7 +20,7 @@ body {
 
 h1,
 h2 {
-  font-family: "Kanit", "Kaisei Decol";
+  font-family: "Sriracha", "Shippori Antique";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

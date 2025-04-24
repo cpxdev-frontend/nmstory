@@ -240,7 +240,7 @@ const Home = () => {
           {nicknameslide == 2 ? (
             <h3 style={{ fontSize: 19 }}>
               {data != null ? (
-                <div>ナットタモン&nbsp;&nbsp;&nbsp;ソンティット</div>
+                <div>ナットタモン&nbsp;&nbsp;ソンティット</div>
               ) : (
                 <Skeleton />
               )}
