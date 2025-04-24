@@ -204,6 +204,8 @@ function App() {
               sx={{
                 mr: 1,
                 display: { md: "none" },
+                boxShadow : splash ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);" : "",
+                backgroundColor: splash ? "rgba(0, 0, 0, 0.18)" : "",
                 color: splash ? "#fff !important" : "",
               }}>
               <MenuIcon />
