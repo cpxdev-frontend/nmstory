@@ -87,13 +87,15 @@ function App() {
     <Box
       onClick={handleDrawerToggle}
       sx={{ textAlign: "center" }}
-      data-aos="fade-in">
+      data-aos="fade-in"
+    >
       <Box
         sx={{
           display: "inline-flex",
           whiteSpace: "nowrap",
           padding: 1,
-        }}>
+        }}
+      >
         <Avatar src={process.env.REACT_APP_ICON} />{" "}
         <Typography className="d-flex align-items-center iconwebnonsize">
           &nbsp;&nbsp;Nammonn BNK48 TH FC
@@ -109,10 +111,12 @@ function App() {
                 disablePadding
                 className={
                   location.pathname == navItemsA[i] ? "Menuactive" : ""
-                }>
+                }
+              >
                 <ListItemButton
                   sx={{ textAlign: "center" }}
-                  onClick={() => his.push(navItemsA[i])}>
+                  onClick={() => his.push(navItemsA[i])}
+                >
                   <ListItemText primary={item} />
                 </ListItemButton>
               </ListItem>
@@ -126,7 +130,8 @@ function App() {
                 "https://docs.google.com/forms/d/e/1FAIpQLSffz-2acAHOkZ3uBegcx0SHGYsowCNPFE94CWRvVcVD5F-FFA/viewform?usp=sharing",
                 "_blank"
               )
-            }>
+            }
+          >
             <ListItemText primary="Survey" />
           </ListItemButton>
         </ListItem>
@@ -146,7 +151,8 @@ function App() {
             borderBottomRightRadius: 20,
             boxShadow: splash ? "none !important" : "",
             position: "fixed",
-          }}>
+          }}
+        >
           <Toolbar>
             <Box
               sx={{
@@ -154,7 +160,8 @@ function App() {
                 whiteSpace: "nowrap",
                 flexGrow: 1,
                 padding: 1,
-              }}>
+              }}
+            >
               <Avatar
                 onClick={() => his.push("/")}
                 src={process.env.REACT_APP_ICON}
@@ -162,10 +169,17 @@ function App() {
               <Typography
                 sx={{
                   fontSize: { xs: 18, sm: 23 },
-                  display: splash ? "none !important" : "block",
+                  display: splash
+                    ? { xs: "none !important", md: "block !important" }
+                    : "block",
+                  color: splash ? "#fff" : "#000",
+                  textShadow: splash
+                    ? "0px 0px 40px 70px rgb(0, 0, 0) !important;"
+                    : "",
                 }}
                 className="d-flex align-items-center link iconweb"
-                onClick={() => his.push("/")}>
+                onClick={() => his.push("/")}
+              >
                 &nbsp;&nbsp;Nammonn BNK48 TH FC
               </Typography>
             </Box>
@@ -188,7 +202,8 @@ function App() {
                           : "",
                         backgroundColor: splash ? "rgba(0, 0, 0, 0.18)" : "",
                       }}
-                      onClick={() => his.push(navItemsA[i])}>
+                      onClick={() => his.push(navItemsA[i])}
+                    >
                       {item}
                     </Button>
                   )
@@ -202,7 +217,8 @@ function App() {
                     "https://docs.google.com/forms/d/e/1FAIpQLSffz-2acAHOkZ3uBegcx0SHGYsowCNPFE94CWRvVcVD5F-FFA/viewform?usp=sharing",
                     "_blank"
                   )
-                }>
+                }
+              >
                 Survey
               </Button>
             </Box>
@@ -219,7 +235,8 @@ function App() {
                   : "",
                 backgroundColor: splash ? "rgba(0, 0, 0, 0.18)" : "",
                 color: splash ? "#fff !important" : "",
-              }}>
+              }}
+            >
               <MenuIcon />
             </IconButton>
           </Toolbar>
@@ -242,7 +259,8 @@ function App() {
               backgroundColor: "#ade9f7",
               width: drawerWidth,
             },
-          }}>
+          }}
+        >
           {drawer}
         </Drawer>
       </nav>
