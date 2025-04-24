@@ -14,6 +14,7 @@ import {
   ListItemText,
   Drawer,
   Avatar,
+  Slide,
   ListItemIcon,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -136,7 +137,7 @@ function App() {
   return (
     <Box className="bg-theme">
       {" "}
-      {!game && (
+      <Slide in={!game} timeout={600}>
         <AppBar
           className="newnav"
           sx={{
@@ -175,8 +176,7 @@ function App() {
                     <Button
                       key={item}
                       sx={{
-                        color:
-                          location.pathname === navItemsA[i] ? "#fff" : "#000",
+                        color: splash ? (location.pathname === navItemsA[i] ? "#000" : "#cfd0d1") :  (location.pathname === navItemsA[i] ? "#fff" : "#000"),
                       }}
                       onClick={() => his.push(navItemsA[i])}>
                       {item}
@@ -210,7 +210,7 @@ function App() {
             </IconButton>
           </Toolbar>
         </AppBar>
-      )}
+      </Slide>
       <nav>
         <Drawer
           variant="temporary"
