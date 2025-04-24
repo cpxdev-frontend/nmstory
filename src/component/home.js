@@ -263,7 +263,7 @@ const Home = () => {
             </h3>
           )}
           {nicknameslide == 2 ? (
-          <p>{data != null ? "バンコク, タイ" : <Skeleton />}</p>
+            <p>{data != null ? "バンコク, タイ" : <Skeleton />}</p>
           ) : nicknameslide == 1 ? (
             <p>{data != null ? "กรุงเทพ, ประเทศไทย" : <Skeleton />}</p>
           ) : (
@@ -302,7 +302,15 @@ const Home = () => {
                     <ListItemText
                       primary="อายุ (ปี) | Age (years) | 年齢 (歳）"
                       secondary={
-                        data != null ? getAge(moment(data.birthday, "YYYY-M-DD").format("YYYY-MM-DD")) : <Skeleton />
+                        data != null ? (
+                          getAge(
+                            moment(data.birthday, "YYYY-M-DD").format(
+                              "YYYY-MM-DD"
+                            )
+                          )
+                        ) : (
+                          <Skeleton />
+                        )
                       }
                     />
                   </ListItem>
@@ -316,7 +324,9 @@ const Home = () => {
                       primary="วันเดือนปีเกิด | Birthday | 誕生日"
                       secondary={
                         data != null ? (
-                          moment(data.birthday, "YYYY-M-DD").format("DD MMMM YYYY")
+                          moment(data.birthday, "YYYY-M-DD").format(
+                            "DD MMMM YYYY"
+                          )
                         ) : (
                           <Skeleton />
                         )
@@ -972,55 +982,59 @@ const Home = () => {
             </div>
           </Grid>
         </Grid>
-      </section>
 
-      <Dialog open={getData != undefined} maxWidth="xl">
-        <DialogTitle id="alert-dialog-title">Event Location</DialogTitle>
-        <DialogContent>
-          {getData != undefined && getData != null ? (
-            <>
-              <iframe
-                width="100%"
-                height="450"
-                style={{ border: "none" }}
-                loading="lazy"
-                allowfullscreen
-                referrerpolicy="no-referrer-when-downgrade"
-                src={
-                  "https://www.google.com/maps/embed/v1/place?key=AIzaSyAL0rpaALNBZalhJuywgqWl4sgFDvXVSz4&q=" +
-                  getData.locate[0] +
-                  "," +
-                  getData.locate[1]
-                }></iframe>
-            </>
-          ) : (
-            <>
-              <Skeleton variant="text" className="bg-m" sx={{ height: 400 }} />
-              <Skeleton
-                variant="text"
-                className="bg-m"
-                sx={{ fontSize: "1rem" }}
-              />
-            </>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              setGetData(null);
-            }}>
-            Close
-          </Button>
-          <Button
-            onClick={() =>
-              getData != null && getData != undefined
-                ? window.open(getData.place, "_blank")
-                : null
-            }>
-            View on Google Maps
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Dialog open={getData != undefined} maxWidth="xl">
+          <DialogTitle id="alert-dialog-title">Event Location</DialogTitle>
+          <DialogContent>
+            {getData != undefined && getData != null ? (
+              <>
+                <iframe
+                  width="100%"
+                  height="450"
+                  style={{ border: "none" }}
+                  loading="lazy"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src={
+                    "https://www.google.com/maps/embed/v1/place?key=AIzaSyAL0rpaALNBZalhJuywgqWl4sgFDvXVSz4&q=" +
+                    getData.locate[0] +
+                    "," +
+                    getData.locate[1]
+                  }></iframe>
+              </>
+            ) : (
+              <>
+                <Skeleton
+                  variant="text"
+                  className="bg-m"
+                  sx={{ height: 400 }}
+                />
+                <Skeleton
+                  variant="text"
+                  className="bg-m"
+                  sx={{ fontSize: "1rem" }}
+                />
+              </>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                setGetData(null);
+              }}>
+              Close
+            </Button>
+            <Button
+              onClick={() =>
+                getData != null && getData != undefined
+                  ? window.open(getData.place, "_blank")
+                  : null
+              }>
+              View on Google Maps
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </section>
     </Box>
   );
 };

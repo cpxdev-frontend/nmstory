@@ -39,6 +39,7 @@ const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [game, setInGame] = React.useState(false);
+  const [splash, setSplash] = React.useState(true);
   const location = useLocation();
   const his = useHistory();
 
@@ -46,12 +47,39 @@ function App() {
     setMobileOpen((prevState) => !prevState);
   };
 
+  function onScroll() {
+    const section = document.getElementById("home");
+    if (section === null) {
+      return;
+    }
+    const rect = section.getBoundingClientRect();
+
+    if (
+      window.scrollY > rect.top &&
+      window.scrollY <= document.body.scrollHeight
+    ) {
+      setSplash(false);
+    } else {
+      setSplash(true);
+    }
+  }
+
   React.useEffect(() => {
     Aos.init({ duration: 900 });
+    if (location.pathname === "/") {
+      window.addEventListener("scroll", onScroll);
+    } else {
+      window.removeEventListener("scroll", onScroll);
+    }
   }, []);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (location.pathname === "/") {
+      setSplash(true);
+    } else {
+      setSplash(false);
+    }
   }, [location.pathname]);
 
   const drawer = (
@@ -110,12 +138,12 @@ function App() {
       {" "}
       {!game && (
         <AppBar
-          data-aos="fade-down"
-          data-aos-delay={location.pathname === "/" ? "1500" : "200"}
           className="newnav"
           sx={{
+            background: splash ? "transparent !important" : "",
             borderBottomLeftRadius: 20,
             borderBottomRightRadius: 20,
+            boxShadow: splash ? "none !important" : "",
             position: "fixed",
           }}>
           <Toolbar>
@@ -133,6 +161,7 @@ function App() {
               <Typography
                 sx={{
                   fontSize: { xs: 18, sm: 23 },
+                  display: splash ? "none !important" : "block",
                 }}
                 className="d-flex align-items-center link iconweb"
                 onClick={() => his.push("/")}>
@@ -172,7 +201,11 @@ function App() {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 1, display: { md: "none" } }}>
+              sx={{
+                mr: 1,
+                display: { md: "none" },
+                color: splash ? "#fff !important" : "",
+              }}>
               <MenuIcon />
             </IconButton>
           </Toolbar>
