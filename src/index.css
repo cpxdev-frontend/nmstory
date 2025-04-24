@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: "Sriracha", "Kaisei Decol";
   -webkit-font-smoothing: antialiased;
+  font-weight: 100;
   -moz-osx-font-smoothing: grayscale;
   background-color: #adc8f7;
 }
