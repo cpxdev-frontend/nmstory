@@ -176,7 +176,17 @@ function App() {
                     <Button
                       key={item}
                       sx={{
-                        color: splash ? (location.pathname === navItemsA[i] ? "#000" : "#cfd0d1") :  (location.pathname === navItemsA[i] ? "#fff" : "#000"),
+                        color: splash
+                          ? location.pathname === navItemsA[i]
+                            ? "#000"
+                            : "#cfd0d1"
+                          : location.pathname === navItemsA[i]
+                          ? "#fff"
+                          : "#000",
+                        boxShadow: splash
+                          ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
+                          : "",
+                        backgroundColor: splash ? "rgba(0, 0, 0, 0.18)" : "",
                       }}
                       onClick={() => his.push(navItemsA[i])}>
                       {item}
@@ -204,7 +214,9 @@ function App() {
               sx={{
                 mr: 1,
                 display: { md: "none" },
-                boxShadow : splash ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);" : "",
+                boxShadow: splash
+                  ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
+                  : "",
                 backgroundColor: splash ? "rgba(0, 0, 0, 0.18)" : "",
                 color: splash ? "#fff !important" : "",
               }}>
