@@ -1,9 +1,27 @@
 body {
   margin: 0;
-  font-family: "Anuphan", "Noto Serif JP";
+  font-family: "Sriracha", "Kaisei Decol";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #adc8f7;
+}
+
+.iconweb {
+  font-family: "Knewave" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconwebnonsize {
+  font-family: "Knewave" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2 {
+  font-family: "Kanit", "Kaisei Decol";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {

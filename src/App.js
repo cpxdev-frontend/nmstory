@@ -66,7 +66,7 @@ function App() {
           padding: 1,
         }}>
         <Avatar src={process.env.REACT_APP_ICON} />{" "}
-        <Typography className="d-flex align-items-center">
+        <Typography className="d-flex align-items-center iconwebnonsize">
           &nbsp;&nbsp;Nammonn BNK48 TH FC
         </Typography>
       </Box>
@@ -126,9 +126,15 @@ function App() {
                 flexGrow: 1,
                 padding: 1,
               }}>
-              <Avatar src={process.env.REACT_APP_ICON} />{" "}
+              <Avatar
+                onClick={() => his.push("/")}
+                src={process.env.REACT_APP_ICON}
+              />{" "}
               <Typography
-                className="d-flex align-items-center link"
+                sx={{
+                  fontSize: { xs: 18, sm: 23 },
+                }}
+                className="d-flex align-items-center link iconweb"
                 onClick={() => his.push("/")}>
                 &nbsp;&nbsp;Nammonn BNK48 TH FC
               </Typography>
