@@ -66,7 +66,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    Aos.init({ duration: 900 });
+    Aos.init({ duration: 900, once: true });
     if (location.pathname === "/") {
       window.addEventListener("scroll", onScroll);
     } else {
@@ -195,8 +195,8 @@ function App() {
                             ? "#000"
                             : "#cfd0d1"
                           : location.pathname === navItemsA[i]
-                          ? "#fff"
-                          : "#000",
+                            ? "#fff"
+                            : "#000",
                         boxShadow: splash
                           ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
                           : "",
