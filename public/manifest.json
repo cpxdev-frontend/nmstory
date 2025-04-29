@@ -3,17 +3,17 @@
   "name": "Nammonn BNK48 TH FC",
   "icons": [
     {
-      "src": "https://pbs.twimg.com/profile_images/1888865584538075136/oOjgcNC__400x400.jpg",
+      "src": "https://d3hhrps04devi8.cloudfront.net/nmstory/pwalogo.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "https://pbs.twimg.com/profile_images/1888865584538075136/oOjgcNC__400x400.jpg",
+      "src": "https://d3hhrps04devi8.cloudfront.net/nmstory/pwalogo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "https://pbs.twimg.com/profile_images/1888865584538075136/oOjgcNC__400x400.jpg",
+      "src": "https://d3hhrps04devi8.cloudfront.net/nmstory/pwalogo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
