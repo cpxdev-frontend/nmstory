@@ -67,7 +67,7 @@ function secondsToMinSec(totalSeconds) {
 
 function compareTimestamps(timestamp1) {
   // Get the difference in milliseconds
-  const difference = 1746421200 * 1000 - timestamp1 * 1000;
+  const difference = 1746420600 * 1000 - timestamp1 * 1000;
 
   // Calculate days
   const days =
@@ -167,7 +167,7 @@ const GameApp = ({ game, setInGame }) => {
         setIP(data.clientIp);
         setCountry(data.country);
       });
-    if (moment().unix() <= 1746421200) {
+    if (moment().unix() <= 1746420600) {
       setNotReadyYet(true);
       setInterval(() => {
         if (
@@ -620,7 +620,7 @@ const GameApp = ({ game, setInGame }) => {
                   </Typography>
                   <Typography className="mt-1">
                     Please join Nammonn's Phenomenon Quiz Game on&nbsp;
-                    {moment.unix(1746421200).format("MMMM DD, YYYY,") + " at " + moment.unix(1746421200).format("H:mm A")} (Based on your timezone)
+                    {moment.unix(1746420600).format("MMMM DD, YYYY,") + " at " + moment.unix(1746420600).format("H:mm A")} (Based on your timezone)
                   </Typography>
                 </>
               )}
@@ -655,7 +655,7 @@ const GameApp = ({ game, setInGame }) => {
               <CardHeader
                 title="The game system is being optimized to ensure the best experience."
                 subheader={
-                  "ขณะนี้มีผู้เข้าเล่นเกมนี้เป็นจำนวนมาก กรุณาเปิดหน้าจอนี้ไว้เพื่อรอการอัพเดท หากระบบพร้อมแล้ว ระบบจะเข้าสู่เกมให้คุณอัตโนมัติ"
+                  "ขณะนี้มีผู้ให้ความสนใจเป็นจำนวนมาก กรุณาเปิดหน้าจอนี้ไว้เพื่อรอการอัพเดท หากระบบพร้อมแล้ว ระบบจะเข้าสู่เกมให้คุณอัตโนมัติ"
                 }
               />
               <List>
