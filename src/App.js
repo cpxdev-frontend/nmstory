@@ -41,6 +41,7 @@ function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [game, setInGame] = React.useState(false);
   const [splash, setSplash] = React.useState(true);
+
   const location = useLocation();
   const his = useHistory();
 
@@ -54,7 +55,6 @@ function App() {
       return;
     }
     const rect = section.getBoundingClientRect();
-
     if (
       window.scrollY > rect.top &&
       window.scrollY <= document.body.scrollHeight
@@ -67,21 +67,46 @@ function App() {
 
   React.useEffect(() => {
     Aos.init({ duration: 900, once: true });
-    if (location.pathname === "/") {
-      window.addEventListener("scroll", onScroll);
-    } else {
-      window.removeEventListener("scroll", onScroll);
-    }
   }, []);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     if (location.pathname === "/") {
       setSplash(true);
+      window.addEventListener("scroll", onScroll);
     } else {
       setSplash(false);
+      window.removeEventListener("scroll", onScroll);
     }
   }, [location.pathname]);
+
+  const googleTranslateElementInit = () => {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: "en",
+        autoDisplay: false
+      },
+      "google_translate_element"
+    );
+  };
+  React.useEffect(() => {
+    if (localStorage.getItem("langconvert") !== null) {
+      var addScript = document.createElement("script");
+      addScript.setAttribute(
+        "src",
+        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+      );
+      document.body.appendChild(addScript);
+      window.googleTranslateElementInit = googleTranslateElementInit;
+    } else {
+      var script = document.querySelector(
+        'script[src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"]'
+      );
+      if (script) {
+        script.parentNode.removeChild(script);
+      }
+    }
+  }, [localStorage.getItem("langconvert")]);
 
   const drawer = (
     <Box
@@ -134,6 +159,9 @@ function App() {
           >
             <ListItemText primary="Survey" />
           </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <div id="google_translate_element"></div>
         </ListItem>
       </List>
     </Box>
