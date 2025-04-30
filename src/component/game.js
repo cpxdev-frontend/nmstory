@@ -261,6 +261,10 @@ const GameApp = ({ game, setInGame }) => {
             setGame(-1);
             if (lobbysession == undefined) {
               lobbysession = setInterval(() => {
+                ReactGA.event({
+                  category: "Game",
+                  action: "Waiting Room Session",
+                });
                 StartGame();
               }, 8000);
             }
@@ -274,7 +278,7 @@ const GameApp = ({ game, setInGame }) => {
             ]);
           }
           ReactGA.event({
-            category: "User",
+            category: "Game",
             action: "Game Ready",
           });
           Swal.fire({
@@ -315,7 +319,7 @@ const GameApp = ({ game, setInGame }) => {
                   allowOutsideClick: () => false,
                 }).then((r) => {
                   ReactGA.event({
-                    category: "User",
+                    category: "Game",
                     action: "Game Start",
                   });
                   clearInterval(timerInterval);
@@ -338,7 +342,7 @@ const GameApp = ({ game, setInGame }) => {
                 });
               } else {
                 ReactGA.event({
-                  category: "User",
+                  category: "Game",
                   action: "Game Start",
                 });
                 setQuesList(JSON.parse(result.data));
@@ -446,7 +450,7 @@ const GameApp = ({ game, setInGame }) => {
         navigator.vibrate([600, 100, 600, 100, 600]);
       }
       ReactGA.event({
-        category: "User",
+        category: "Game",
         action: "Game Over",
       });
       fetch("https://cpxdevweb.koyeb.app/api/nm/quizprocess", {
@@ -478,7 +482,7 @@ const GameApp = ({ game, setInGame }) => {
             });
           } else {
             ReactGA.event({
-              category: "User",
+              category: "Game",
               action: "Result Ready",
             });
             setAver(result);
@@ -495,7 +499,7 @@ const GameApp = ({ game, setInGame }) => {
         .catch((error) => console.log("error", error));
     } else {
       ReactGA.event({
-        category: "User",
+        category: "Game",
         action: "Next Question",
       });
       changeques = setTimeout(() => {
@@ -619,7 +623,7 @@ const GameApp = ({ game, setInGame }) => {
                     {notreadyyett}
                   </Typography>
                   <Typography className="mt-1">
-                    Please join Nammonn's Phenomenon Quiz Game on&nbsp;
+                    Please join Nammonn's Phenomenon Quiz Game (Reserved Waiting Room) since&nbsp;
                     {moment.unix(1746420600).format("MMMM DD, YYYY,") + " at " + moment.unix(1746420600).format("H:mm A")} (Based on your timezone)
                   </Typography>
                 </>
