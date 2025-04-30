@@ -364,6 +364,18 @@ const GameApp = ({ game, setInGame }) => {
               }
             }
           });
+        } else {
+          setGame(0);
+          setStatperques(0);
+          setQuesList([]);
+          setCheck(false);
+          setSelected(0);
+          setInGame(false);
+          Swal.fire({
+            title: "Session is expired",
+            text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
+            icon: "error",
+          });
         }
       })
       .catch((error) => console.log("error", error));
@@ -657,7 +669,7 @@ const GameApp = ({ game, setInGame }) => {
             }}>
             <CardContent>
               <CardHeader
-                title="The game system is being optimized to ensure the best experience."
+                title="[Waiting Room] The game system is being optimized to ensure the best experience."
                 subheader={
                   "ขณะนี้มีผู้ให้ความสนใจเป็นจำนวนมาก กรุณาเปิดหน้าจอนี้ไว้เพื่อรอการอัพเดท หากระบบพร้อมแล้ว ระบบจะเข้าสู่เกมให้คุณอัตโนมัติ"
                 }
