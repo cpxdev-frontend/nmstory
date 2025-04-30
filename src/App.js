@@ -15,9 +15,11 @@ import {
   Drawer,
   Avatar,
   Slide,
-  ListItemIcon,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import SettingsIcon from "@mui/icons-material/Settings";
 import {
   useLocation,
   Switch as BasicSwitch,
@@ -31,7 +33,7 @@ import NMPlay from "./component/ytplay";
 import Events from "./component/news";
 import Game from "./component/game";
 
-import moment from "moment";
+import moment, { lang } from "moment";
 
 const drawerWidth = 290;
 const navItemsA = ["/", "/nmplay", "/events", "/game"];
@@ -41,6 +43,10 @@ function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [game, setInGame] = React.useState(false);
   const [splash, setSplash] = React.useState(true);
+
+  const [langcross, setLangCross] = React.useState(
+    localStorage.getItem("langconvert") !== null
+  );
 
   const location = useLocation();
   const his = useHistory();
@@ -67,7 +73,25 @@ function App() {
 
   React.useEffect(() => {
     Aos.init({ duration: 900, once: true });
+    var addScript = document.createElement("script");
+    addScript.setAttribute(
+      "src",
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    );
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
   }, []);
+
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (location.pathname === "/") {
+      setSplash(true);
+      window.addEventListener("scroll", onScroll);
+    } else {
+      setSplash(false);
+      window.removeEventListener("scroll", onScroll);
+    }
+  }, [location.pathname]);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -83,37 +107,25 @@ function App() {
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
       {
-        pageLanguage: "en",
-        autoDisplay: false
+        includedLanguages: "en,ja,zh-CN",
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+        autoDisplay: false,
       },
       "google_translate_element"
     );
   };
   React.useEffect(() => {
-    if (localStorage.getItem("langconvert") !== null) {
-      var addScript = document.createElement("script");
-      addScript.setAttribute(
-        "src",
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-      );
-      document.body.appendChild(addScript);
-      window.googleTranslateElementInit = googleTranslateElementInit;
+    if (langcross) {
+      localStorage.setItem("langconvert", "true");
     } else {
-      var script = document.querySelector(
-        'script[src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"]'
-      );
-      if (script) {
-        script.parentNode.removeChild(script);
-      }
+      localStorage.removeItem("langconvert");
+      const currentLang = lang === "en" ? "/auto/en" : `/auto/${lang}`;
+      document.cookie = `googtrans=${currentLang};path=/;domain=${window.location.hostname}`;
     }
-  }, [localStorage.getItem("langconvert")]);
+  }, [langcross]);
 
   const drawer = (
-    <Box
-      onClick={handleDrawerToggle}
-      sx={{ textAlign: "center" }}
-      data-aos="fade-in"
-    >
+    <Box sx={{ textAlign: "center" }} data-aos="fade-in">
       <Box
         sx={{
           display: "inline-flex",
@@ -122,7 +134,11 @@ function App() {
         }}
       >
         <Avatar src={process.env.REACT_APP_ICON} />{" "}
-        <Typography className="d-flex align-items-center iconwebnonsize">
+        <Typography
+          onClick={handleDrawerToggle}
+          className="d-flex align-items-center iconwebnonsize"
+          translate="no"
+        >
           &nbsp;&nbsp;Nammonn BNK48 TH FC
         </Typography>
       </Box>
@@ -132,8 +148,10 @@ function App() {
           (item, i) =>
             i > 0 && (
               <ListItem
+                onClick={handleDrawerToggle}
                 key={item}
                 disablePadding
+                sx={{ display: { xs: "initial", md: "none" } }}
                 className={
                   location.pathname == navItemsA[i] ? "Menuactive" : ""
                 }
@@ -147,7 +165,10 @@ function App() {
               </ListItem>
             )
         )}
-        <ListItem disablePadding>
+        <ListItem
+          disablePadding
+          sx={{ display: { xs: "initial", md: "none" } }}
+        >
           <ListItemButton
             sx={{ textAlign: "center", color: "#010e80" }}
             onClick={() =>
@@ -160,8 +181,25 @@ function App() {
             <ListItemText primary="Survey" />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <div id="google_translate_element"></div>
+        <Divider />
+        <ListItem disablePadding className="justify-content-center">
+          <FormControlLabel
+            control={
+              <Switch
+                checked={langcross}
+                onChange={() => {
+                  setLangCross((state) => !state);
+                }}
+              />
+            }
+            label="Cross Translate"
+          />
+        </ListItem>
+        <ListItem disablePadding className="justify-content-center">
+          <div
+            style={{ visibility: langcross ? "initial" : "hidden" }}
+            id="google_translate_element"
+          ></div>
         </ListItem>
       </List>
     </Box>
@@ -206,6 +244,7 @@ function App() {
                     : "",
                 }}
                 className="d-flex align-items-center link iconweb"
+                translate="no"
                 onClick={() => his.push("/")}
               >
                 &nbsp;&nbsp;Nammonn BNK48 TH FC
@@ -223,8 +262,8 @@ function App() {
                             ? "#000"
                             : "#cfd0d1"
                           : location.pathname === navItemsA[i]
-                            ? "#fff"
-                            : "#000",
+                          ? "#fff"
+                          : "#000",
                         boxShadow: splash
                           ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
                           : "",
@@ -248,6 +287,21 @@ function App() {
                 }
               >
                 Survey
+              </Button>
+              <Button
+                color="inherit"
+                onClick={handleDrawerToggle}
+                sx={{
+                  mr: 1,
+                  display: { xs: "none", md: "initial" },
+                  boxShadow: splash
+                    ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
+                    : "",
+                  backgroundColor: splash ? "rgba(0, 0, 0, 0.18)" : "",
+                  color: splash ? "#fff !important" : "",
+                }}
+              >
+                <SettingsIcon />
               </Button>
             </Box>
             <IconButton
@@ -279,7 +333,6 @@ function App() {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               borderTopRightRadius: 10,
@@ -302,7 +355,7 @@ function App() {
         <Route path="/nmplay" render={() => <NMPlay />} />
         <Route exact render={() => <Home />} />
       </BasicSwitch>
-      <footer className="card text-center">
+      <footer className="card text-center" translate="no">
         <div className="card-body">
           <p className="card-title">
             &copy; Copyright {moment().format("YYYY")} <b>CPXDev</b>, design and

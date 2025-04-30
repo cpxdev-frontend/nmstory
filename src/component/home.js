@@ -220,7 +220,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container row profile-info">
+      <div className="container row profile-info" translate="no">
         <div className="col-md-4"></div>
         <div className="col-md w-100 ml-md-5">
           {nicknameslide == 2 ? (
@@ -292,7 +292,8 @@ const Home = () => {
                     width: "100%",
                     maxWidth: 360,
                     bgcolor: "background.paper",
-                  }}>
+                  }}
+                >
                   <ListItem data-aos="fade-right">
                     <ListItemAvatar>
                       <Avatar className="icon-core">
@@ -377,11 +378,13 @@ const Home = () => {
                     width: "100%",
                     maxWidth: 360,
                     bgcolor: "background.paper",
-                  }}>
+                  }}
+                >
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() => HyLink(data.follow[0])}>
+                    onClick={() => HyLink(data.follow[0])}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-facebook"></i>
@@ -395,7 +398,8 @@ const Home = () => {
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() => HyLink(data.follow[1])}>
+                    onClick={() => HyLink(data.follow[1])}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-instagram"></i>
@@ -413,7 +417,8 @@ const Home = () => {
                     className="link"
                     onClick={() =>
                       HyLink("https://www.tiktok.com/@nammonn.bnk48official")
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-tiktok"></i>
@@ -431,7 +436,8 @@ const Home = () => {
                     className="link"
                     onClick={() =>
                       HyLink("https://app.bnk48.com/members/bnk48/nammonn")
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-phone"></i>
@@ -445,7 +451,8 @@ const Home = () => {
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() => HyLink(data.ref)}>
+                    onClick={() => HyLink(data.ref)}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-globe-asia-australia"></i>
@@ -467,13 +474,15 @@ const Home = () => {
                     width: "100%",
                     maxWidth: 360,
                     bgcolor: "background.paper",
-                  }}>
+                  }}
+                >
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
                     onClick={() =>
                       HyLink("https://cp-bnk48.pages.dev/member/nammonn")
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-globe-asia-australia"></i>
@@ -491,7 +500,8 @@ const Home = () => {
                       HyLink(
                         "https://facebook.com/people/Nammonn-BNK48-Thailand-Fanclub/61562375447820                                    "
                       )
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-facebook"></i>
@@ -511,9 +521,8 @@ const Home = () => {
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
-                    onClick={() =>
-                      HyLink("https://twitter.com/NammonnBNK48Fc")
-                    }>
+                    onClick={() => HyLink("https://twitter.com/NammonnBNK48Fc")}
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-twitter-x"></i>
@@ -533,7 +542,8 @@ const Home = () => {
                       HyLink(
                         "https://line.me/ti/g2/YXDDHDlDgbq7MxAN0yuDMNDQupyLuWMc6GvzQg"
                       )
-                    }>
+                    }
+                  >
                     <ListItemAvatar>
                       <Avatar className="icon-core">
                         <i class="bi bi-line"></i>
@@ -560,7 +570,8 @@ const Home = () => {
               style={{
                 backgroundColor: "rgba(116, 222, 248, 0.31)",
                 border: "none",
-              }}>
+              }}
+            >
               <div className="card-body">
                 <h3 className="card-title">Nammonn Update</h3>
                 <hr />
@@ -577,7 +588,8 @@ const Home = () => {
                             className="mt-3 pl-0 newssam"
                             data-aos={
                               getnewsready ? "fade-in" : "zoom-in-right"
-                            }>
+                            }
+                          >
                             <CardContent
                               sx={{
                                 opacity:
@@ -585,7 +597,8 @@ const Home = () => {
                                   launch >= item.timerange[1]
                                     ? 0.4
                                     : 1,
-                              }}>
+                              }}
+                            >
                               <CardHeader
                                 className="pl-0 pb-0"
                                 title={
@@ -704,7 +717,8 @@ const Home = () => {
                                 <Grid
                                   item
                                   size={{ xs: 12, md: 6 }}
-                                  sx={{ paddingLeft: { md: 2, xs: 0 } }}>
+                                  sx={{ paddingLeft: { md: 2, xs: 0 } }}
+                                >
                                   {/* {item.video != "" && (
               <Chip
                 sx={{
@@ -812,7 +826,8 @@ const Home = () => {
                                         launch >= item.timerange[1]
                                       }
                                       variant="outlined"
-                                      className="mt-3 mr-1">
+                                      className="mt-3 mr-1"
+                                    >
                                       {"Event location"}
                                     </Button>
                                   )}
@@ -832,7 +847,8 @@ const Home = () => {
                                           "_blank"
                                         )
                                       }
-                                      className="ml-2 mt-3">
+                                      className="ml-2 mt-3"
+                                    >
                                       {"More Description"}
                                     </Button>
                                   )}
@@ -850,7 +866,8 @@ const Home = () => {
                                   <Button
                                     className="mt-2"
                                     variant="contained"
-                                    onClick={() => his.push("/events")}>
+                                    onClick={() => his.push("/events")}
+                                  >
                                     All incoming event
                                   </Button>
                                 </Grid>
@@ -943,7 +960,8 @@ const Home = () => {
                   </div>
                   <div
                     className="col-lg-6 col-sm-12 text-center"
-                    data-aos="zoom-in">
+                    data-aos="zoom-in"
+                  >
                     <div className="col-12">
                       <iframe
                         width="100%"
@@ -953,7 +971,8 @@ const Home = () => {
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen></iframe>
+                        allowfullscreen
+                      ></iframe>
                     </div>
                     <br />
                     <Button
@@ -962,7 +981,8 @@ const Home = () => {
                       sx={{
                         marginTop: -3,
                       }}
-                      onClick={() => his.push("/nmplay")}>
+                      onClick={() => his.push("/nmplay")}
+                    >
                       View on Nammonn Play
                     </Button>
                   </div>
@@ -975,7 +995,8 @@ const Home = () => {
                       frameBorder="0"
                       allowfullscreen=""
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"></iframe>
+                      loading="lazy"
+                    ></iframe>
                   </div>
                 </div>
               </div>
@@ -1000,7 +1021,8 @@ const Home = () => {
                     getData.locate[0] +
                     "," +
                     getData.locate[1]
-                  }></iframe>
+                  }
+                ></iframe>
               </>
             ) : (
               <>
@@ -1021,7 +1043,8 @@ const Home = () => {
             <Button
               onClick={() => {
                 setGetData(null);
-              }}>
+              }}
+            >
               Close
             </Button>
             <Button
@@ -1029,7 +1052,8 @@ const Home = () => {
                 getData != null && getData != undefined
                   ? window.open(getData.place, "_blank")
                   : null
-              }>
+              }
+            >
               View on Google Maps
             </Button>
           </DialogActions>

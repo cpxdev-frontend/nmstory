@@ -5,6 +5,15 @@ body {
   font-weight: 100;
   -moz-osx-font-smoothing: grayscale;
   background-color: #adc8f7;
+  top: 0px !important;
+}
+
+div .skiptranslate {
+  margin-top: 70px;
+  z-index: 1000 !important;
+}
+#google_translate_element > .goog-te-gadget {
+  margin-top: 0px !important;
 }
 
 .iconweb {
