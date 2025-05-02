@@ -170,10 +170,10 @@ const GameApp = ({ game, setInGame }) => {
     var url = new URL(window.location.href);
     var c = url.searchParams.get("testbyadmin");
     if (moment().unix() <= 1746420600) {
-      if (c !== null) {
-        setNotReadyYet(false);
-        return;
-      }
+      // if (c !== null) {
+      //   setNotReadyYet(false);
+      //   return;
+      // }
       setNotReadyYet(true);
       setInterval(() => {
         if (
@@ -254,8 +254,7 @@ const GameApp = ({ game, setInGame }) => {
     var url = new URL(window.location.href);
     var c = url.searchParams.get("testbyadmin");
     fetch(
-      "https://cpxdevweb.azurewebsites.net/api/nm/fetchquiz" +
-        (c !== null ? "?admintest=ok" : ""),
+      "https://cpxdevweb.azurewebsites.net/api/nm/fetchquiz",
       requestOptions
     )
       .then((response) => response.json())
