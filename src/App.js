@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import {
   Box,
   AppBar,
@@ -27,6 +26,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import Aos from "aos";
+import "./App.css";
 
 import Home from "./component/home";
 import NMPlay from "./component/ytplay";
@@ -40,13 +40,15 @@ const navItemsA = ["/", "/nmplay", "/events", "/game"];
 const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
 
 function isElementVisible(el) {
-  if (!el) return false;                           // no element
+  if (!el) return false; // no element
   const style = getComputedStyle(el);
 
   // hidden by CSS?
-  if (style.display === 'none' ||
-    style.visibility === 'hidden' ||
-    style.opacity === '0') {
+  if (
+    style.display === "none" ||
+    style.visibility === "hidden" ||
+    style.opacity === "0"
+  ) {
     return false;
   }
   // hidden by zero size?
@@ -55,18 +57,17 @@ function isElementVisible(el) {
 
 /* ---------- locate the translate bar ---------- */
 function findTranslateBar() {
-  /* 1️⃣  Official Google widget – iframe with class goog-te-banner-frame */
-  let bar = document.querySelector('iframe.goog-te-banner-frame');
+  let bar = document.querySelector("iframe.goog-te-banner-frame");
   if (bar) return bar;
 
-  /* 2️⃣  Container DIV that wraps the iframe (class skiptranslate, etc.) */
-  bar = document.querySelector('.skiptranslate, .goog-te-banner');
+  bar = document.querySelector(".skiptranslate, .goog-te-banner");
   if (bar) return bar;
 
-  /* 3️⃣  Fallback – look for known text if a custom plugin injected HTML */
-  const regex = /\b(แปลเป็นภาษา|Translate\s+(?:this\s+)?page|Translate\s+to)\b/i;
-  bar = Array.from(document.body.getElementsByTagName('*'))
-    .find(el => regex.test(el.textContent));
+  const regex =
+    /\b(แปลเป็นภาษา|Translate\s+(?:this\s+)?page|Translate\s+to)\b/i;
+  bar = Array.from(document.body.getElementsByTagName("*")).find((el) =>
+    regex.test(el.textContent)
+  );
   return bar || null;
 }
 
@@ -193,11 +194,11 @@ function App() {
                 key={item}
                 disablePadding
                 sx={{ display: { xs: "initial", md: "none" } }}
-                className={
-                  location.pathname == navItemsA[i] ? "Menuactive" : ""
-                }
               >
                 <ListItemButton
+                  className={
+                    location.pathname == navItemsA[i] ? "Menuactive" : ""
+                  }
                   sx={{ textAlign: "center" }}
                   onClick={() => his.push(navItemsA[i])}
                 >
@@ -206,6 +207,7 @@ function App() {
               </ListItem>
             )
         )}
+        <Divider />
         <ListItem
           disablePadding
           sx={{ display: { xs: "initial", md: "none" } }}
@@ -222,7 +224,6 @@ function App() {
             <ListItemText primary="Survey" />
           </ListItemButton>
         </ListItem>
-        <Divider />
         <ListItem disablePadding className="justify-content-center">
           <FormControlLabel
             control={
@@ -301,10 +302,10 @@ function App() {
                         color: splash
                           ? location.pathname === navItemsA[i]
                             ? "#000"
-                            : "#cfd0d1"
+                            : "#ededed"
                           : location.pathname === navItemsA[i]
-                            ? "#fff"
-                            : "#000",
+                          ? "#fff"
+                          : "#000",
                         boxShadow: splash
                           ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
                           : "",
@@ -318,7 +319,11 @@ function App() {
               )}
               <Button
                 sx={{
-                  color: "#010e80",
+                  color: splash ? "#93e1f5" : "#010e80",
+                  boxShadow: splash
+                    ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
+                    : "",
+                  backgroundColor: splash ? "rgba(0, 0, 0, 0.18)" : "",
                 }}
                 onClick={() =>
                   window.open(
