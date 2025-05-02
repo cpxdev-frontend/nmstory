@@ -61,9 +61,9 @@
   background-color: #adc8f7;
 }
 .Menuactive {
-  background-color: #adc8f7;
-  color: #414040;
-  border-radius: 10px;
+  background-color: #adc8f7 !important;
+  color: #414040 !important;
+  border-radius: 10px !important;
 }
 .spot{
   min-width: 100% !important;
