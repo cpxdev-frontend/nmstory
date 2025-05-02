@@ -39,6 +39,43 @@ const drawerWidth = 290;
 const navItemsA = ["/", "/nmplay", "/events", "/game"];
 const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
 
+function isElementVisible(el) {
+  if (!el) return false;                           // no element
+  const style = getComputedStyle(el);
+
+  // hidden by CSS?
+  if (style.display === 'none' ||
+    style.visibility === 'hidden' ||
+    style.opacity === '0') {
+    return false;
+  }
+  // hidden by zero size?
+  return el.offsetWidth > 0 || el.offsetHeight > 0;
+}
+
+/* ---------- locate the translate bar ---------- */
+function findTranslateBar() {
+  /* 1️⃣  Official Google widget – iframe with class goog-te-banner-frame */
+  let bar = document.querySelector('iframe.goog-te-banner-frame');
+  if (bar) return bar;
+
+  /* 2️⃣  Container DIV that wraps the iframe (class skiptranslate, etc.) */
+  bar = document.querySelector('.skiptranslate, .goog-te-banner');
+  if (bar) return bar;
+
+  /* 3️⃣  Fallback – look for known text if a custom plugin injected HTML */
+  const regex = /\b(แปลเป็นภาษา|Translate\s+(?:this\s+)?page|Translate\s+to)\b/i;
+  bar = Array.from(document.body.getElementsByTagName('*'))
+    .find(el => regex.test(el.textContent));
+  return bar || null;
+}
+
+/* ---------- public test ---------- */
+function isTranslateBarVisible() {
+  const bar = findTranslateBar();
+  return isElementVisible(bar);
+}
+
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [game, setInGame] = React.useState(false);
@@ -118,6 +155,10 @@ function App() {
     if (langcross) {
       localStorage.setItem("langconvert", "true");
     } else {
+      if (isTranslateBarVisible()) {
+        setLangCross(true);
+        return;
+      }
       localStorage.removeItem("langconvert");
       const currentLang = lang === "en" ? "/auto/en" : `/auto/${lang}`;
       document.cookie = `googtrans=${currentLang};path=/;domain=${window.location.hostname}`;
@@ -262,8 +303,8 @@ function App() {
                             ? "#000"
                             : "#cfd0d1"
                           : location.pathname === navItemsA[i]
-                          ? "#fff"
-                          : "#000",
+                            ? "#fff"
+                            : "#000",
                         boxShadow: splash
                           ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
                           : "",
