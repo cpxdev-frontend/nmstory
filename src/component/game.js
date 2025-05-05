@@ -800,15 +800,6 @@ const GameApp = ({ game, setInGame }) => {
                     aver.fromAll +
                     " คะแนน"}
                 </Typography>
-                <Typography className="ml-3" data-aos="fade-in">
-                  {"เวลาที่ใช้ไปโดยเฉลี่ยทั่วโลก " +
-                    (secondsToMinSec(aver.time).minutes > 0
-                      ? secondsToMinSec(aver.time).minutes +
-                        " นาที " +
-                        secondsToMinSec(aver.time).seconds +
-                        " วินาที"
-                      : secondsToMinSec(aver.time).seconds + " วินาที")}
-                </Typography>
                 {/* <Button
                   className="mt-4"
                   variant="outlined"
