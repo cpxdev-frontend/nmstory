@@ -174,12 +174,12 @@ const GameApp = ({ game, setInGame }) => {
       //   setNotReadyYet(false);
       //   return;
       // }
-      setNotReadyYet(true);
+      setNotReadyYet(false);
       setInterval(() => {
         if (
-          compareTimestamps(Date.now() / 1000).days == 0 &&
-          compareTimestamps(Date.now() / 1000).hours == 0 &&
-          compareTimestamps(Date.now() / 1000).minutes == 0
+          compareTimestamps(Date.now() / 1000).days <= 0 &&
+          compareTimestamps(Date.now() / 1000).hours <= 0 &&
+          compareTimestamps(Date.now() / 1000).minutes <= 0
         ) {
           setNotReadyYet(false);
         }
@@ -195,6 +195,8 @@ const GameApp = ({ game, setInGame }) => {
             " minutes."
         );
       }, 1);
+    } else {
+      setNotReadyYet(false);
     }
   }, []);
 
