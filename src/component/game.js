@@ -31,6 +31,7 @@ import {
   TableRow,
   TableCell,
   TableHead,
+  Divider,
 } from "@mui/material";
 import { QRCode } from "react-qrcode-logo";
 import HistoryIcon from "@mui/icons-material/History";
@@ -55,7 +56,6 @@ let timerInterval;
 let gamein = false;
 let lobbysession;
 let gameInterval;
-let onTimeGame = 0;
 let onTimeGameMax = 0;
 let changeques;
 let lobbyexit,
@@ -63,7 +63,7 @@ let lobbyexit,
 
 function secondsToMinSec(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
+  const seconds = String(totalSeconds % 60).padStart(2, '0');
 
   return { minutes, seconds };
 }
@@ -108,6 +108,7 @@ function compareTimestamps(timestamp1) {
 const GameApp = ({ game, setInGame }) => {
   const [gamemeet, setGame] = React.useState(0);
   const [quesList, setQuesList] = React.useState([]);
+  const [onTimeGame, setonTimeGame] = React.useState(0);
   const [correct, setCorrect] = React.useState(0);
   const [selected, setSelected] = React.useState(0);
   const [stat, setStatperques] = React.useState(0);
@@ -115,7 +116,7 @@ const GameApp = ({ game, setInGame }) => {
   const [checked, setCheck] = React.useState(false);
   const [startLoad, setLoad] = React.useState(false);
   const [airLoad, setLoadAir] = React.useState(false);
-  const [warningGame, setGameWarning] = React.useState("");
+  const [warningGame, setGameWarning] = React.useState(false);
   const [notreadyyet, setNotReadyYet] = React.useState(true);
   const [notreadyyett, setNotReadyYett] = React.useState(
     "Please wait for the game to be Generally Available. The game will be started soon."
@@ -132,6 +133,36 @@ const GameApp = ({ game, setInGame }) => {
   const [isRunning, setIsRunning] = React.useState(false);
   const [gamehis, setGameHistory] = React.useState(false);
   const [hisgame, setHis] = React.useState(null);
+
+  async function gameremainFunction() {
+    if (onTimeGame == parseInt(onTimeGameMax / 2)) {
+      timepopupapi()
+    } else if (onTimeGameMax - onTimeGame == 60) {
+      timepopupapi(true)
+    }
+    if ((onTimeGameMax - onTimeGame) <= 0) {
+      clearInterval(gameInterval)
+      setGame(0);
+      setStatperques(0);
+      setQuesList([]);
+      setCheck(false);
+      setSelected(0);
+      setInGame(false);
+      Swal.fire({
+        title: "Session is expired",
+        text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
+        icon: "error",
+      });
+    } else if ((onTimeGameMax - onTimeGame) <= 10) {
+      if (!isIOS()) {
+        navigator.vibrate([
+          100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 800,
+        ]);
+      }
+    } else {
+      setonTimeGame(x => x += 1);
+    }
+  }
 
   React.useEffect(() => {
     let intervalId;
@@ -285,7 +316,7 @@ const GameApp = ({ game, setInGame }) => {
             return;
           }
           clearInterval(lobbysession);
-          onTimeGame = (result.timeout);
+          setonTimeGame(0);
           onTimeGameMax = (result.timeout);
           lobbysession = undefined;
           gameInterval = undefined;
@@ -317,36 +348,9 @@ const GameApp = ({ game, setInGame }) => {
             },
           }).then((r) => {
             /* Read more about handling dismissals below */
-            gameInterval = setInterval(() => {
-              if (onTimeGame == parseInt(onTimeGameMax / 2)) {
-                setGameWarning('คุณยังเหลือเวลาเล่นเกมอีก ' + parseInt(onTimeGame / 1000) + ' นาที')
-              } else if (onTimeGame == 60) {
-                setGameWarning('คุณยังเหลือเวลาเล่นเกมอีกไม่ถึง 1 นาที เท่านั้น หากคุณตอบคำถามไม่ครบในระยะเวลาที่กำหนด เกมจะจบลงทันทีและคะแนนจะไม่ถูกบันทึกในระบบ')
-              }
-              if (onTimeGame <= 0) {
-                clearInterval(gameInterval)
-                clearInterval(timerInterval)
-                setGame(0);
-                setStatperques(0);
-                setQuesList([]);
-                setCheck(false);
-                setSelected(0);
-                setInGame(false);
-                Swal.fire({
-                  title: "Session is expired",
-                  text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
-                  icon: "error",
-                });
-              } else if (onTimeGame <= 10) {
-                navigator.vibrate([
-                  100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 800,
-                ]);
-              } else {
-                onTimeGame -= 1;
-              }
-            }, 1000);
             if (r.dismiss === Swal.DismissReason.timer) {
               setSession(result.sessionId);
+              timepopupapi();
               if (JSON.parse(result.data)[0].img != undefined) {
                 if (!isIOS()) {
                   navigator.vibrate([100, 200, 100]);
@@ -407,6 +411,8 @@ const GameApp = ({ game, setInGame }) => {
                     : 1000
                 );
               }
+
+              gameInterval = setInterval(gameremainFunction, 1000);
             }
           });
         } else {
@@ -486,6 +492,16 @@ const GameApp = ({ game, setInGame }) => {
     }
   };
 
+  const timepopupapi = (strict = false) => {
+    setGameWarning(true)
+    if (strict) {
+      return;
+    }
+    setTimeout(() => {
+      setGameWarning(false);
+    }, 8000);
+  }
+
   const SelectGame = (key, select) => {
     if (checked || readyans == false) {
       return;
@@ -511,6 +527,7 @@ const GameApp = ({ game, setInGame }) => {
         action: "Game Over",
       });
       clearInterval(gameInterval)
+      timepopupapi(true);
       fetch("https://cpxdevweb.koyeb.app/api/nm/quizprocess", {
         method: "put",
         headers: {
@@ -526,6 +543,7 @@ const GameApp = ({ game, setInGame }) => {
       })
         .then((response) => response.json())
         .then((result) => {
+          setGameWarning(false)
           if (result.status == false) {
             setGame(0);
             setStatperques(0);
@@ -1023,16 +1041,20 @@ const GameApp = ({ game, setInGame }) => {
                   </Button>
                 )}
               </CardContent>
+              <Divider />
+              <div className={"text-center text-primary fade" + (warningGame ? ' is-shown ' : '')} style={{ color: (onTimeGameMax - onTimeGame) <= 60 ? 'red' : '' }}>
+                <small>ระยะเวลาคงเหลือ: {secondsToMinSec(onTimeGameMax - onTimeGame).minutes} นาที {secondsToMinSec(onTimeGameMax - onTimeGame).seconds} วินาที</small>
+              </div>
               <LinearProgress
                 sx={{
                   width: "100%",
                   height: window.innerHeight * 0.02,
                   '& .MuiLinearProgress-barColorPrimary': {
-                    backgroundColor: onTimeGame <= 60 ? 'red' : onTimeGame <= 900 ? '#c45302' : ''
+                    backgroundColor: (onTimeGameMax - onTimeGame) <= 60 ? 'red !important' : (onTimeGameMax - onTimeGame) <= parseInt(onTimeGameMax / 2) ? '#c45302' : ''
                   }
                 }}
                 variant="determinate"
-                value={(onTimeGame / onTimeGameMax) * 100}
+                value={((onTimeGameMax - onTimeGame) / onTimeGameMax) * 100}
               />
             </Card>
           )
