@@ -54,6 +54,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 let timerInterval;
 let gamein = false;
 let lobbysession;
+let gameInterval;
+let onTimeGame = 0;
+let onTimeGameMax = 0;
 let changeques;
 let lobbyexit,
   skip = false;
@@ -72,7 +75,7 @@ function compareTimestamps(timestamp1) {
   // Calculate days
   const days =
     difference / (1000 * 60 * 60 * 24) >
-    Math.floor(difference / (1000 * 60 * 60 * 24))
+      Math.floor(difference / (1000 * 60 * 60 * 24))
       ? Math.floor(difference / (1000 * 60 * 60 * 24))
       : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
 
@@ -82,7 +85,7 @@ function compareTimestamps(timestamp1) {
   // Calculate hours
   const hours =
     remainingMilliseconds / (1000 * 60 * 60) >
-    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+      Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
 
@@ -112,6 +115,7 @@ const GameApp = ({ game, setInGame }) => {
   const [checked, setCheck] = React.useState(false);
   const [startLoad, setLoad] = React.useState(false);
   const [airLoad, setLoadAir] = React.useState(false);
+  const [warningGame, setGameWarning] = React.useState("");
   const [notreadyyet, setNotReadyYet] = React.useState(true);
   const [notreadyyett, setNotReadyYett] = React.useState(
     "Please wait for the game to be Generally Available. The game will be started soon."
@@ -185,14 +189,14 @@ const GameApp = ({ game, setInGame }) => {
         }
         setNotReadyYett(
           "Please wait for the game to be Generally Available. The game will be launched in " +
-            compareTimestamps(Date.now() / 1000).days +
-            " days " +
-            compareTimestamps(Date.now() / 1000).hours +
-            " hours " +
-            (compareTimestamps(Date.now() / 1000).minutes == 60
-              ? 0
-              : compareTimestamps(Date.now() / 1000).minutes) +
-            " minutes."
+          compareTimestamps(Date.now() / 1000).days +
+          " days " +
+          compareTimestamps(Date.now() / 1000).hours +
+          " hours " +
+          (compareTimestamps(Date.now() / 1000).minutes == 60
+            ? 0
+            : compareTimestamps(Date.now() / 1000).minutes) +
+          " minutes."
         );
       }, 1);
     } else {
@@ -281,7 +285,10 @@ const GameApp = ({ game, setInGame }) => {
             return;
           }
           clearInterval(lobbysession);
+          onTimeGame = (result.timeout);
+          onTimeGameMax = (result.timeout);
           lobbysession = undefined;
+          gameInterval = undefined;
           if (!isIOS()) {
             navigator.vibrate([
               100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 800,
@@ -310,6 +317,34 @@ const GameApp = ({ game, setInGame }) => {
             },
           }).then((r) => {
             /* Read more about handling dismissals below */
+            gameInterval = setInterval(() => {
+              if (onTimeGame == parseInt(onTimeGameMax / 2)) {
+                setGameWarning('คุณยังเหลือเวลาเล่นเกมอีก ' + parseInt(onTimeGame / 1000) + ' นาที')
+              } else if (onTimeGame == 60) {
+                setGameWarning('คุณยังเหลือเวลาเล่นเกมอีกไม่ถึง 1 นาที เท่านั้น หากคุณตอบคำถามไม่ครบในระยะเวลาที่กำหนด เกมจะจบลงทันทีและคะแนนจะไม่ถูกบันทึกในระบบ')
+              }
+              if (onTimeGame <= 0) {
+                clearInterval(gameInterval)
+                clearInterval(timerInterval)
+                setGame(0);
+                setStatperques(0);
+                setQuesList([]);
+                setCheck(false);
+                setSelected(0);
+                setInGame(false);
+                Swal.fire({
+                  title: "Session is expired",
+                  text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
+                  icon: "error",
+                });
+              } else if (onTimeGame <= 10) {
+                navigator.vibrate([
+                  100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 800,
+                ]);
+              } else {
+                onTimeGame -= 1;
+              }
+            }, 1000);
             if (r.dismiss === Swal.DismissReason.timer) {
               setSession(result.sessionId);
               if (JSON.parse(result.data)[0].img != undefined) {
@@ -914,15 +949,15 @@ const GameApp = ({ game, setInGame }) => {
                       className={
                         checked && item.key === choice.choiceId
                           ? "text-success" +
-                            (choice.choiceId == selected
-                              ? " bgSelectedquiz"
-                              : " shake")
+                          (choice.choiceId == selected
+                            ? " bgSelectedquiz"
+                            : " shake")
                           : checked && item.key !== choice.choiceId
-                          ? "text-danger" +
+                            ? "text-danger" +
                             (choice.choiceId == selected
                               ? " bgSelectedquiz"
                               : "")
-                          : ""
+                            : ""
                       }
                     >
                       <ListItemText
@@ -980,6 +1015,17 @@ const GameApp = ({ game, setInGame }) => {
                   </Button>
                 )}
               </CardContent>
+              <LinearProgress
+                sx={{
+                  width: "100%",
+                  height: window.innerHeight * 0.02,
+                  '& .MuiLinearProgress-barColorPrimary': {
+                    backgroundColor: onTimeGame <= 60 ? 'red' : onTimeGame <= 900 ? '#c45302' : ''
+                  }
+                }}
+                variant="determinate"
+                value={(onTimeGame / onTimeGameMax) * 100}
+              />
             </Card>
           )
       )}
