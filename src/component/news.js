@@ -171,13 +171,8 @@ const Event = ({ }) => {
       method: "POST",
     };
 
-    OneSignal.isPushNotificationsEnabled().then((enabled) => {
-      setOpen(enabled);
-    });
-    OneSignal.on('subscriptionChange', (isEnabled) => {
-      setOpen(isEnabled);
-    });
 
+    setOpen(OneSignal.Notifications.permission)
     fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", requestOptions)
       .then((response) => response.json())
       .then((result) => {
