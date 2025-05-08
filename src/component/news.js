@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import Swal from "sweetalert2";
-import { RefreshRounded, CircleNotifications } from "@mui/icons-material";
+import { NotificationsActive, CircleNotifications } from "@mui/icons-material";
 import OneSignal from "react-onesignal";
 
 function compareTimestamps(timestamp1, timestamp2) {
@@ -171,6 +171,13 @@ const Event = ({ }) => {
       method: "POST",
     };
 
+    OneSignal.isPushNotificationsEnabled().then((enabled) => {
+      setOpen(enabled);
+    });
+    OneSignal.on('subscriptionChange', (isEnabled) => {
+      setOpen(isEnabled);
+    });
+
     fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -189,38 +196,16 @@ const Event = ({ }) => {
       .catch((error) => console.log("error", error));
   }, []);
 
-  const pushMessageEnable = () => {
-    Swal.fire({
-      title: "ยืนยันการเปิดใช้งาน",
-      text: 'การเปิดการแจ้งเตือนจะทำให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์',
-      footer: 'คุณสามารถยกเลิกการแจ้งเตือนได้จากบราวเซอร์ที่คุณใช้งานอยู่',
-      showCancelButton: true,
-      confirmButtonText: "เปิดใช้งาน",
-      cancelButtonText: `ยกเลิก`
-    }).then((result) => {
-      if (result.isConfirmed) {
-        OneSignal.isPushNotificationsEnabled().then((enabled) => {
-          if (!enabled) {
-            OneSignal.showSlidedownPrompt({ force: true });
-          }
-        });
-        OneSignal.on('subscriptionChange', (isEnabled) => {
-          if (isEnabled) {
-            Swal.fire("เปิดใช้งานแล้ว", "คุณได้เปิดใช้งานการแจ้งเตือนข่าวสารแล้ว กรุณารอรับข้อความแจ้งเตือนยืนยันการเปิดใช้งานจากระบบ", "success");
-          }
-        });
-      }
-    });
-  }
-
   return (
     <Box sx={{ marginTop: 10 }} data-aos="fade-in">
       <Box sx={{ marginBottom: 15 }}>
         <CardHeader
           title={<h3>Incoming Events of Nammonn</h3>}
           subheader="เช็คกิจกรรมน้องน้ำมนต์ได้ทุกที่ ทุกเวลา"
-          action={<IconButton onClick={() => pushMessageEnable()} aria-label="enablenoti" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์">
-            <CircleNotifications color="primary" fontSize="large" />
+          action={<IconButton aria-label="enablenoti" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์">
+            {
+              open ? <NotificationsActive color="primary" fontSize="large" /> : <CircleNotifications color="primary" fontSize="large" />
+            }
           </IconButton>}
         />
         <div className="container mt-3">
