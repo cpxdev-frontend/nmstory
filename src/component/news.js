@@ -197,9 +197,13 @@ const Event = ({ }) => {
       showCancelButton: true,
       confirmButtonText: "เปิดใช้งาน",
       cancelButtonText: `ยกเลิก`
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.isConfirmed) {
-        await OneSignal.showSlidedownPrompt();
+        OneSignal.isPushNotificationsEnabled().then((enabled) => {
+          if (!enabled) {
+            OneSignal.showSlidedownPrompt({ force: true });
+          }
+        });
       }
     });
   }

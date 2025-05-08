@@ -122,6 +122,7 @@ function App() {
 
     OneSignal.init({
       appId: "85a68966-7b47-4ab5-8c66-83042f12289c",
+      autoRegister: false,
       notifyButton: {
         enable: false
       },
@@ -313,8 +314,8 @@ function App() {
                             ? "#000"
                             : "#ededed"
                           : location.pathname === navItemsA[i]
-                          ? "#fff"
-                          : "#000",
+                            ? "#fff"
+                            : "#000",
                         boxShadow: splash
                           ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
                           : "",
