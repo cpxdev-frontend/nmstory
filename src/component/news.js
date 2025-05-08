@@ -204,6 +204,9 @@ const Event = ({ }) => {
             OneSignal.showSlidedownPrompt({ force: true });
           }
         });
+        OneSignal.on('subscriptionChange', (isEnabled) => {
+          Swal.fire("เปิดใช้งานแล้ว", "คุณได้เปิดใช้งานการแจ้งเตือนข่าวสารแล้ว กรุณารอรับข้อความแจ้งเตือนยืนยันการเปิดใช้งานจากระบบ", "success");
+        });
       }
     });
   }
