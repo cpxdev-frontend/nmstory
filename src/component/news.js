@@ -171,8 +171,10 @@ const Event = ({ }) => {
       method: "POST",
     };
 
-
     setOpen(OneSignal.Notifications.permission)
+    setInterval(() => {
+      setOpen(OneSignal.Notifications.permission)
+    }, 1000);
     fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", requestOptions)
       .then((response) => response.json())
       .then((result) => {
