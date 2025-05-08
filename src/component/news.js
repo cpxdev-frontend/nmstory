@@ -201,7 +201,7 @@ const Event = ({ }) => {
           subheader="เช็คกิจกรรมน้องน้ำมนต์ได้ทุกที่ ทุกเวลา"
           action={<IconButton aria-label="enablenoti" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์">
             {
-              open ? <NotificationsActive color="primary" fontSize="large" /> : <CircleNotifications color="primary" fontSize="large" />
+              open ? <NotificationsActive color="primary" fontSize="large" /> : <CircleNotifications fontSize="large" />
             }
           </IconButton>}
         />
