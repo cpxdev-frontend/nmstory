@@ -124,7 +124,7 @@ function App() {
       appId: "85a68966-7b47-4ab5-8c66-83042f12289c",
       autoRegister: false,
       notifyButton: {
-        enable: false
+        enable: true
       },
       allowLocalhostAsSecureOrigin: true
     })
