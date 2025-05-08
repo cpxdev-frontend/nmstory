@@ -32,6 +32,7 @@ import Home from "./component/home";
 import NMPlay from "./component/ytplay";
 import Events from "./component/news";
 import Game from "./component/game";
+import OneSignal from "react-onesignal";
 
 import moment, { lang } from "moment";
 
@@ -118,6 +119,14 @@ function App() {
     );
     document.body.appendChild(addScript);
     window.googleTranslateElementInit = googleTranslateElementInit;
+
+    OneSignal.init({
+      appId: "85a68966-7b47-4ab5-8c66-83042f12289c",
+      notifyButton: {
+        enable: false
+      },
+      allowLocalhostAsSecureOrigin: true
+    })
   }, []);
 
   React.useEffect(() => {

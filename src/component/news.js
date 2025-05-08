@@ -22,7 +22,9 @@ import {
   DialogActions,
 } from "@mui/material";
 import moment from "moment";
-import { RefreshRounded } from "@mui/icons-material";
+import Swal from "sweetalert2";
+import { RefreshRounded, CircleNotifications } from "@mui/icons-material";
+import OneSignal from "react-onesignal";
 
 function compareTimestamps(timestamp1, timestamp2) {
   // Get the difference in milliseconds
@@ -31,7 +33,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate days
   const days =
     difference / (1000 * 60 * 60 * 24) >
-    Math.floor(difference / (1000 * 60 * 60 * 24))
+      Math.floor(difference / (1000 * 60 * 60 * 24))
       ? Math.floor(difference / (1000 * 60 * 60 * 24))
       : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
 
@@ -41,7 +43,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate hours
   const hours =
     remainingMilliseconds / (1000 * 60 * 60) >
-    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+      Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
 
@@ -63,7 +65,7 @@ function compareTimestamps(timestamp1, timestamp2) {
 
 const launch = moment().unix();
 
-const Event = ({}) => {
+const Event = ({ }) => {
   const [data, setData] = React.useState(null);
   const [getData, setGetData] = React.useState(null);
   const [unix, setUnix] = React.useState(launch);
@@ -187,12 +189,35 @@ const Event = ({}) => {
       .catch((error) => console.log("error", error));
   }, []);
 
+  const pushMessageEnable = () => {
+    Swal.fire({
+      title: "ยืนยันการเปิดใช้งาน",
+      text: 'การเปิดการแจ้งเตือนจะทำให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์',
+      footer: 'คุณสามารถยกเลิกการแจ้งเตือนได้จากบราวเซอร์ที่คุณใช้งานอยู่',
+      showCancelButton: true,
+      confirmButtonText: "เปิดใช้งาน",
+      cancelButtonText: `ยกเลิก`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await OneSignal.showSlidedownPrompt();
+          Swal.fire("เปิดใช้งานสำเร็จ", "คุณได้เปิดใช้งานการแจ้งเตือนข่าวสารของน้องน้ำมนต์แล้ว กรุณารอรับข้อความแจ้งเตือนยืนยันการเปิดใช้งาน", "success");
+        } catch {
+          Swal.fire("พบข้อผิดพลาด", "กรุณาตรวจสอบความเข้ากันได้ของบราวเซอร์ โดย iOS ให้ใช้ Safari และ Android ใช้ Chrome", "error");
+        }
+      }
+    });
+  }
+
   return (
     <Box sx={{ marginTop: 10 }} data-aos="fade-in">
       <Box sx={{ marginBottom: 15 }}>
         <CardHeader
           title={<h3>Incoming Events of Nammonn</h3>}
           subheader="เช็คกิจกรรมน้องน้ำมนต์ได้ทุกที่ ทุกเวลา"
+          action={<IconButton onClick={() => pushMessageEnable()} aria-label="enablenoti" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์">
+            <CircleNotifications color="primary" fontSize="large" />
+          </IconButton>}
         />
         <div className="container mt-3">
           {data != null ? (
@@ -287,11 +312,11 @@ const Event = ({}) => {
                         </h6>
 
                         {item.timerange[0] > 0 &&
-                        item.timerange[1] > 0 &&
-                        moment
-                          .unix(item.timerange[0])
-                          .local()
-                          .format("MMMM DD, YYYY") ===
+                          item.timerange[1] > 0 &&
+                          moment
+                            .unix(item.timerange[0])
+                            .local()
+                            .format("MMMM DD, YYYY") ===
                           moment
                             .unix(item.timerange[1])
                             .local()
@@ -314,10 +339,10 @@ const Event = ({}) => {
                             .unix(item.timerange[0])
                             .local()
                             .format("MMMM DD, YYYY") !==
-                            moment
-                              .unix(item.timerange[1])
-                              .local()
-                              .format("MMMM DD, YYYY") ? (
+                          moment
+                            .unix(item.timerange[1])
+                            .local()
+                            .format("MMMM DD, YYYY") ? (
                           <p>
                             {"Event duration"}:{" "}
                             {moment
