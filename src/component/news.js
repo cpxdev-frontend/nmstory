@@ -172,13 +172,15 @@ const Event = ({ }) => {
     };
 
     if (OneSignal.Notifications.permission == false) {
-      Notification.requestPermission()
-        .then(permission => {
-          console.log(`Permission: ${permission}`);
-        })
-        .catch(error => {
-          console.error(`Error: ${error}`);
-        });
+      if (('Notification' in window)) {
+        Notification.requestPermission()
+          .then(permission => {
+            console.log(`Permission: ${permission}`);
+          })
+          .catch(error => {
+            console.error(`Error: ${error}`);
+          });
+      }
     }
     setOpen(OneSignal.Notifications.permission)
     setInterval(() => {
