@@ -18,6 +18,8 @@ import {
   Skeleton,
   Fab,
   LinearProgress,
+  TextField,
+  MenuItem,
   DialogContent,
   Dialog,
   DialogActions,
@@ -52,6 +54,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Grow ref={ref} {...props} />;
 });
 
+const Level = [
+  {
+    value: 30,
+    label: "Free Style",
+  },
+  {
+    value: 15,
+    label: "The Greeting",
+  },
+  {
+    value: 8,
+    label: "Oshi Warrior",
+  },
+  {
+    value: 4,
+    label: "Kami-Oshi Master",
+  },
+];
+
 let timerInterval;
 let gamein = false;
 let lobbysession;
@@ -63,7 +84,7 @@ let lobbyexit,
 
 function secondsToMinSec(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60);
-  const seconds = String(totalSeconds % 60).padStart(2, '0');
+  const seconds = String(totalSeconds % 60).padStart(2, "0");
 
   return { minutes, seconds };
 }
@@ -75,7 +96,7 @@ function compareTimestamps(timestamp1) {
   // Calculate days
   const days =
     difference / (1000 * 60 * 60 * 24) >
-      Math.floor(difference / (1000 * 60 * 60 * 24))
+    Math.floor(difference / (1000 * 60 * 60 * 24))
       ? Math.floor(difference / (1000 * 60 * 60 * 24))
       : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
 
@@ -85,7 +106,7 @@ function compareTimestamps(timestamp1) {
   // Calculate hours
   const hours =
     remainingMilliseconds / (1000 * 60 * 60) >
-      Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
 
@@ -117,6 +138,7 @@ const GameApp = ({ game, setInGame }) => {
   const [startLoad, setLoad] = React.useState(false);
   const [airLoad, setLoadAir] = React.useState(false);
   const [warningGame, setGameWarning] = React.useState(false);
+  const [pressure, setP] = React.useState(30);
   const [notreadyyet, setNotReadyYet] = React.useState(true);
   const [notreadyyett, setNotReadyYett] = React.useState(
     "Please wait for the game to be Generally Available. The game will be started soon."
@@ -136,12 +158,12 @@ const GameApp = ({ game, setInGame }) => {
 
   async function gameremainFunction() {
     if (onTimeGame == parseInt(onTimeGameMax / 2)) {
-      timepopupapi()
+      timepopupapi();
     } else if (onTimeGameMax - onTimeGame == 60) {
-      timepopupapi(true)
+      timepopupapi(true);
     }
-    if ((onTimeGameMax - onTimeGame) <= 0) {
-      clearInterval(gameInterval)
+    if (onTimeGameMax - onTimeGame <= 0) {
+      clearInterval(gameInterval);
       setGame(0);
       setStatperques(0);
       setQuesList([]);
@@ -153,14 +175,15 @@ const GameApp = ({ game, setInGame }) => {
         text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
         icon: "error",
       });
-    } else if ((onTimeGameMax - onTimeGame) <= 10) {
+    } else if (onTimeGameMax - onTimeGame <= 10) {
       if (!isIOS()) {
         navigator.vibrate([
-          100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 800,
+          100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900,
+          100, 900, 100, 900, 100, 900, 800,
         ]);
       }
     } else {
-      setonTimeGame(x => x += 1);
+      setonTimeGame((x) => (x += 1));
     }
   }
 
@@ -220,14 +243,14 @@ const GameApp = ({ game, setInGame }) => {
         }
         setNotReadyYett(
           "Please wait for the game to be Generally Available. The game will be launched in " +
-          compareTimestamps(Date.now() / 1000).days +
-          " days " +
-          compareTimestamps(Date.now() / 1000).hours +
-          " hours " +
-          (compareTimestamps(Date.now() / 1000).minutes == 60
-            ? 0
-            : compareTimestamps(Date.now() / 1000).minutes) +
-          " minutes."
+            compareTimestamps(Date.now() / 1000).days +
+            " days " +
+            compareTimestamps(Date.now() / 1000).hours +
+            " hours " +
+            (compareTimestamps(Date.now() / 1000).minutes == 60
+              ? 0
+              : compareTimestamps(Date.now() / 1000).minutes) +
+            " minutes."
         );
       }, 1);
     } else {
@@ -317,7 +340,7 @@ const GameApp = ({ game, setInGame }) => {
           }
           clearInterval(lobbysession);
           setonTimeGame(0);
-          onTimeGameMax = (result.timeout);
+          onTimeGameMax = result.timeout;
           lobbysession = undefined;
           gameInterval = undefined;
           if (!isIOS()) {
@@ -493,14 +516,14 @@ const GameApp = ({ game, setInGame }) => {
   };
 
   const timepopupapi = (strict = false) => {
-    setGameWarning(true)
+    setGameWarning(true);
     if (strict) {
       return;
     }
     setTimeout(() => {
       setGameWarning(false);
     }, 8000);
-  }
+  };
 
   const SelectGame = (key, select) => {
     if (checked || readyans == false) {
@@ -526,7 +549,7 @@ const GameApp = ({ game, setInGame }) => {
         category: "Game",
         action: "Game Over",
       });
-      clearInterval(gameInterval)
+      clearInterval(gameInterval);
       timepopupapi(true);
       fetch("https://cpxdevweb.koyeb.app/api/nm/quizprocess", {
         method: "put",
@@ -543,7 +566,7 @@ const GameApp = ({ game, setInGame }) => {
       })
         .then((response) => response.json())
         .then((result) => {
-          setGameWarning(false)
+          setGameWarning(false);
           if (result.status == false) {
             setGame(0);
             setStatperques(0);
@@ -668,7 +691,11 @@ const GameApp = ({ game, setInGame }) => {
                 </ListItem>
                 <ListItem>
                   <ListItemText
-                    primary={"4. ในการเข้าเล่นเกมแต่ละรอบจะมีเวลา 30 นาทีในการตอบคำถามให้แล้วเสร็จครบทุกข้อ หากหมดเวลาก่อนจบเกม เกมจะจบลงทันทีและคะแนนจะไม่ถูกบันทึกในระบบในรอบนั้น"}
+                    primary={
+                      "4. ในการเข้าเล่นเกมแต่ละรอบจะมีเวลา " +
+                      pressure +
+                      " นาทีในการตอบคำถามให้แล้วเสร็จครบทุกข้อ หากคุณตอบคำถามไม่ครบภายในระยะเวลาที่กำหนด เกมจะจบลงทันทีและคะแนนจะไม่ถูกบันทึกในระบบในรอบนั้น"
+                    }
                   />
                 </ListItem>
                 <ListItem>
@@ -686,11 +713,22 @@ const GameApp = ({ game, setInGame }) => {
                   />
                 </ListItem>
               </List>
-              {/* <Typography className="mt-3 text-danger">
-                Note: This game is currently undergoing system testing. Some
-                features may not function correctly. We apologize for any
-                inconvenience.
-              </Typography> */}
+              {/* <TextField
+                select
+                disabled
+                label="Pressure Level"
+                defaultValue={pressure}
+                onChange={(e) => setP(e.target.value)}
+                sx={{ width: { xs: "100%", md: "60%" } }}
+                helperText="Pressure Level จะมีผลกับระยะเวลาในการเล่นเกมในรอบที่จะเล่น ซึ่งถ้าหากเวลาน้อย ความกดดันยิ่งมากขึ้น"
+              >
+                {Level.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label} ({option.value} นาที)
+                  </MenuItem>
+                ))}
+              </TextField> */}
+              <br />
 
               {!notreadyyet ? (
                 <Button
@@ -766,7 +804,11 @@ const GameApp = ({ game, setInGame }) => {
                 </ListItem>
                 <ListItem>
                   <ListItemText
-                    primary={"4. ในการเข้าเล่นเกมแต่ละรอบจะมีเวลา 30 นาทีในการตอบคำถามให้แล้วเสร็จครบทุกข้อ หากหมดเวลาก่อนจบเกม เกมจะจบลงทันทีและคะแนนจะไม่ถูกบันทึกในระบบในรอบนั้น"}
+                    primary={
+                      "4. ในการเข้าเล่นเกมแต่ละรอบจะมีเวลา " +
+                      pressure +
+                      " นาทีในการตอบคำถามให้แล้วเสร็จครบทุกข้อ หากคุณตอบคำถามไม่ครบภายในระยะเวลาที่กำหนด เกมจะจบลงทันทีและคะแนนจะไม่ถูกบันทึกในระบบในรอบนั้น"
+                    }
                   />
                 </ListItem>
                 <ListItem>
@@ -975,15 +1017,15 @@ const GameApp = ({ game, setInGame }) => {
                       className={
                         checked && item.key === choice.choiceId
                           ? "text-success" +
-                          (choice.choiceId == selected
-                            ? " bgSelectedquiz"
-                            : " shake")
+                            (choice.choiceId == selected
+                              ? " bgSelectedquiz"
+                              : " shake")
                           : checked && item.key !== choice.choiceId
-                            ? "text-danger" +
+                          ? "text-danger" +
                             (choice.choiceId == selected
                               ? " bgSelectedquiz"
                               : "")
-                            : ""
+                          : ""
                       }
                     >
                       <ListItemText
@@ -1042,16 +1084,32 @@ const GameApp = ({ game, setInGame }) => {
                 )}
               </CardContent>
               <Divider />
-              <div className={"text-center text-primary fade" + (warningGame ? ' is-shown ' : '')} style={{ color: (onTimeGameMax - onTimeGame) <= 60 ? 'red' : '' }}>
-                <small>ระยะเวลาคงเหลือ: {secondsToMinSec(onTimeGameMax - onTimeGame).minutes} นาที {secondsToMinSec(onTimeGameMax - onTimeGame).seconds} วินาที</small>
+              <div
+                className={
+                  "text-center text-primary fade" +
+                  (warningGame ? " is-shown " : "")
+                }
+                style={{ color: onTimeGameMax - onTimeGame <= 60 ? "red" : "" }}
+              >
+                <small>
+                  ระยะเวลาคงเหลือ:{" "}
+                  {secondsToMinSec(onTimeGameMax - onTimeGame).minutes} นาที{" "}
+                  {secondsToMinSec(onTimeGameMax - onTimeGame).seconds} วินาที
+                </small>
               </div>
               <LinearProgress
                 sx={{
                   width: "100%",
                   height: window.innerHeight * 0.02,
-                  '& .MuiLinearProgress-barColorPrimary': {
-                    backgroundColor: (onTimeGameMax - onTimeGame) <= 60 ? 'red !important' : (onTimeGameMax - onTimeGame) <= parseInt(onTimeGameMax / 2) ? '#c45302' : ''
-                  }
+                  "& .MuiLinearProgress-barColorPrimary": {
+                    backgroundColor:
+                      onTimeGameMax - onTimeGame <= 60
+                        ? "red !important"
+                        : onTimeGameMax - onTimeGame <=
+                          parseInt(onTimeGameMax / 2)
+                        ? "#c45302"
+                        : "",
+                  },
                 }}
                 variant="determinate"
                 value={((onTimeGameMax - onTimeGame) / onTimeGameMax) * 100}
