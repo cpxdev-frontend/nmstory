@@ -199,12 +199,7 @@ const Event = ({ }) => {
       cancelButtonText: `ยกเลิก`
     }).then(async (result) => {
       if (result.isConfirmed) {
-        try {
-          await OneSignal.showSlidedownPrompt();
-          Swal.fire("เปิดใช้งานสำเร็จ", "คุณได้เปิดใช้งานการแจ้งเตือนข่าวสารของน้องน้ำมนต์แล้ว กรุณารอรับข้อความแจ้งเตือนยืนยันการเปิดใช้งาน", "success");
-        } catch {
-          Swal.fire("พบข้อผิดพลาด", "กรุณาตรวจสอบความเข้ากันได้ของบราวเซอร์ โดย iOS ให้ใช้ Safari และ Android ใช้ Chrome", "error");
-        }
+        await OneSignal.showSlidedownPrompt();
       }
     });
   }
