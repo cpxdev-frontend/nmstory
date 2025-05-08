@@ -171,17 +171,17 @@ const Event = ({ }) => {
       method: "POST",
     };
 
-    if (OneSignal.Notifications.permission == false) {
-      if (('Notification' in window)) {
-        Notification.requestPermission()
-          .then(permission => {
-            console.log(`Permission: ${permission}`);
-          })
-          .catch(error => {
-            console.error(`Error: ${error}`);
-          });
-      }
-    }
+    // if (OneSignal.Notifications.permission == false) {
+    //   if (('Notification' in window)) {
+    //     Notification.requestPermission()
+    //       .then(permission => {
+    //         console.log(`Permission: ${permission}`);
+    //       })
+    //       .catch(error => {
+    //         console.error(`Error: ${error}`);
+    //       });
+    //   }
+    // }
     setOpen(OneSignal.Notifications.permission)
     setInterval(() => {
       setOpen(OneSignal.Notifications.permission)
