@@ -122,10 +122,6 @@ function App() {
 
     OneSignal.init({
       appId: "85a68966-7b47-4ab5-8c66-83042f12289c",
-      autoRegister: false,
-      notifyButton: {
-        enable: false
-      },
       allowLocalhostAsSecureOrigin: true
     })
   }, []);
