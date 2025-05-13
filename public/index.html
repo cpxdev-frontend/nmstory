@@ -18,9 +18,7 @@
       content="Nammonn Story is the collaboration projects between Nammonn BNK48 Thailand FanClub and CPXDev to support every project of Nammonn Nattamon or Nammonn BNK48" />
     <meta property="og:url" content="https://nammonnthfc.pages.dev" />
     <meta property="og:site_name" content="Nammonn BNK48 Thailand FC" />
-    <meta
-      property="og:image"
-      content="%REACT_APP_OVERLAY%" />
+    <meta property="og:image" content="%REACT_APP_OVERLAY%" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -28,9 +26,7 @@
     <meta
       name="twitter:description"
       content="Nammonn Story is the collaboration projects between Nammonn BNK48 Thailand FanClub and CPXDev to support every project of Nammonn Nattamon or Nammonn BNK48" />
-    <meta
-      name="twitter:image"
-      content="%REACT_APP_OVERLAY%" />
+    <meta name="twitter:image" content="%REACT_APP_OVERLAY%" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link
@@ -39,7 +35,9 @@
     <meta
       name="description"
       content="Nammonn Story is the collaboration projects between Nammonn BNK48 Thailand FanClub and CPXDev to support every project of Nammonn Nattamon or Nammonn BNK48" />
-    <link rel="apple-touch-icon" href="https://d3hhrps04devi8.cloudfront.net/nmstory/pwalogo.webp" />
+    <link
+      rel="apple-touch-icon"
+      href="https://d3hhrps04devi8.cloudfront.net/nmstory/pwalogo.webp" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -79,6 +77,17 @@
       gtag("js", new Date());
 
       gtag("config", "G-MEKYXZZQ7Y");
+    </script>
+    <script
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+      defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function (OneSignal) {
+        await OneSignal.init({
+          appId: "85a68966-7b47-4ab5-8c66-83042f12289c",
+        });
+      });
     </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
