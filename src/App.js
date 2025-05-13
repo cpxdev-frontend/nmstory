@@ -121,11 +121,8 @@ function App() {
     window.googleTranslateElementInit = googleTranslateElementInit;
 
     OneSignal.init({
-        appId: '85a68966-7b47-4ab5-8c66-83042f12289c',
-        notifyButton: {
-          enable: true,
-        },
-      });
+      appId: '85a68966-7b47-4ab5-8c66-83042f12289c',
+    });
   }, []);
 
   React.useEffect(() => {
