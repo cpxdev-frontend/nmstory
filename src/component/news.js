@@ -217,6 +217,15 @@ const Event = ({ }) => {
           </IconButton>}
         />
         <div className="container mt-3">
+          {
+            !open && (
+              <Card className="mb-3">
+                <CardContent>
+                  <CardHeader title='เว็บไซต์นี้รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification' subheader={(<p>เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn BNK48 คุณสามารถแตะที่ปุ่มลอยมุมขวาล่างเพื่อเปิดการแจ้งเตือนได้ (สำหรับผู้ใช้งาน iOS หรือ iPad OS จะรองรับเฉพาะ Safari เท่านั้น และอาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง) กรุณา<a href="https://cpxstatusservice.azurewebsites.net/home/notifymanual" target="_blank">คลิกที่นี่</a>เพื่อดูวิธีเปิดใช้งาน</p>)} />
+                </CardContent>
+              </Card>
+            )
+          }
           {data != null ? (
             <>
               {data.map((item, i) => (
