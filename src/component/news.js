@@ -33,7 +33,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate days
   const days =
     difference / (1000 * 60 * 60 * 24) >
-      Math.floor(difference / (1000 * 60 * 60 * 24))
+    Math.floor(difference / (1000 * 60 * 60 * 24))
       ? Math.floor(difference / (1000 * 60 * 60 * 24))
       : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
 
@@ -43,7 +43,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate hours
   const hours =
     remainingMilliseconds / (1000 * 60 * 60) >
-      Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
 
@@ -65,7 +65,7 @@ function compareTimestamps(timestamp1, timestamp2) {
 
 const launch = moment().unix();
 
-const Event = ({ }) => {
+const Event = ({}) => {
   const [data, setData] = React.useState(null);
   const [getData, setGetData] = React.useState(null);
   const [unix, setUnix] = React.useState(launch);
@@ -182,9 +182,9 @@ const Event = ({ }) => {
     //       });
     //   }
     // }
-    setOpen(OneSignal.Notifications.permission)
+    setOpen(OneSignal.Notifications.permission);
     setInterval(() => {
-      setOpen(OneSignal.Notifications.permission)
+      setOpen(OneSignal.Notifications.permission);
     }, 1000);
     fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", requestOptions)
       .then((response) => response.json())
@@ -210,22 +210,49 @@ const Event = ({ }) => {
         <CardHeader
           title={<h3>Incoming Events of Nammonn</h3>}
           subheader="เช็คกิจกรรมน้องน้ำมนต์ได้ทุกที่ ทุกเวลา"
-          action={<IconButton aria-label="enablenoti" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์">
-            {
-              open ? <NotificationsActive color="primary" fontSize="large" /> : <CircleNotifications fontSize="large" />
-            }
-          </IconButton>}
+          action={
+            <IconButton
+              aria-label="enablenoti"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์"
+            >
+              {open ? (
+                <NotificationsActive color="primary" fontSize="large" />
+              ) : (
+                <CircleNotifications fontSize="large" />
+              )}
+            </IconButton>
+          }
         />
         <div className="container mt-3">
-          {
-            !open && (
-              <Card className="mb-3">
-                <CardContent>
-                  <CardHeader title='เว็บไซต์นี้รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification' subheader={(<p>เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn BNK48 คุณสามารถแตะที่ปุ่มลอยมุมขวาล่างเพื่อเปิดการแจ้งเตือนได้ (สำหรับผู้ใช้งาน iOS หรือ iPad OS จะรองรับเฉพาะ Safari เท่านั้น และอาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง) กรุณา<a href="https://cpxstatusservice.azurewebsites.net/home/notifymanual" target="_blank">คลิกที่นี่</a>เพื่อดูวิธีเปิดใช้งาน</p>)} />
-                </CardContent>
-              </Card>
-            )
-          }
+          {!open && (
+            <Card className="mb-3">
+              <CardContent>
+                <CardHeader
+                  title="เว็บไซต์นี้รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification"
+                  subheader={
+                    <p>
+                      เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
+                      BNK48
+                      คุณสามารถแตะที่ปุ่มลอยมุมขวาล่างเพื่อเปิดการแจ้งเตือนได้
+                      (สำหรับผู้ใช้งาน iOS หรือ iPad OS จะรองรับเฉพาะ Safari
+                      เท่านั้น
+                      และอาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง)
+                      กรุณา
+                      <a
+                        href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
+                        target="_blank"
+                      >
+                        คลิกที่นี่
+                      </a>
+                      เพื่อดูวิธีเปิดใช้งาน
+                    </p>
+                  }
+                />
+              </CardContent>
+            </Card>
+          )}
           {data != null ? (
             <>
               {data.map((item, i) => (
@@ -318,11 +345,11 @@ const Event = ({ }) => {
                         </h6>
 
                         {item.timerange[0] > 0 &&
-                          item.timerange[1] > 0 &&
-                          moment
-                            .unix(item.timerange[0])
-                            .local()
-                            .format("MMMM DD, YYYY") ===
+                        item.timerange[1] > 0 &&
+                        moment
+                          .unix(item.timerange[0])
+                          .local()
+                          .format("MMMM DD, YYYY") ===
                           moment
                             .unix(item.timerange[1])
                             .local()
@@ -345,10 +372,10 @@ const Event = ({ }) => {
                             .unix(item.timerange[0])
                             .local()
                             .format("MMMM DD, YYYY") !==
-                          moment
-                            .unix(item.timerange[1])
-                            .local()
-                            .format("MMMM DD, YYYY") ? (
+                            moment
+                              .unix(item.timerange[1])
+                              .local()
+                              .format("MMMM DD, YYYY") ? (
                           <p>
                             {"Event duration"}:{" "}
                             {moment
