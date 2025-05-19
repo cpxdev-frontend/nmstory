@@ -235,53 +235,53 @@ const Event = ({ }) => {
             )
           }
         />
+        {OneSignal.Notifications.isPushSupported() && !open ? (
+          <Card className="mb-5 shake">
+            <CardContent>
+              <CardHeader
+                title="เว็บไซต์นี้รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification"
+                subheader={
+                  <p>
+                    เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
+                    BNK48
+                    คุณสามารถแตะที่ปุ่มลอยมุมขวาล่างเพื่อเปิดการแจ้งเตือนได้
+                    (สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง)
+                    กรุณา
+                    <a
+                      href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
+                      target="_blank"
+                    >
+                      คลิกที่นี่
+                    </a>
+                    เพื่อดูวิธีเปิดใช้งาน
+                  </p>
+                }
+              />
+            </CardContent>
+          </Card>
+        ) : OneSignal.Notifications.isPushSupported() == false ? (
+          <Card className="mb-5 shake">
+            <CardContent>
+              <CardHeader
+                title="เว็บไซต์นี้อาจไม่รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification ผ่านเว็บบราวเซอร์นี้ หรือคุณกำลังเข้าใช้งานผ่าน Safari โดยตรง (สำหรับผู้ใช้งาน iOS และ iPad OS)"
+                subheader={
+                  <p>เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
+                    BNK48 สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง
+                    กรุณา
+                    <a
+                      href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
+                      target="_blank"
+                    >
+                      คลิกที่นี่
+                    </a>
+                    เพื่อดูวิธีเปิดใช้งาน
+                  </p>
+                }
+              />
+            </CardContent>
+          </Card>
+        ) : null}
         <div className="container mt-3">
-          {OneSignal.Notifications.isPushSupported() && !open ? (
-            <Card className="mb-3 shake">
-              <CardContent>
-                <CardHeader
-                  title="เว็บไซต์นี้รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification"
-                  subheader={
-                    <p>
-                      เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
-                      BNK48
-                      คุณสามารถแตะที่ปุ่มลอยมุมขวาล่างเพื่อเปิดการแจ้งเตือนได้
-                      (สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง)
-                      กรุณา
-                      <a
-                        href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
-                        target="_blank"
-                      >
-                        คลิกที่นี่
-                      </a>
-                      เพื่อดูวิธีเปิดใช้งาน
-                    </p>
-                  }
-                />
-              </CardContent>
-            </Card>
-          ) : OneSignal.Notifications.isPushSupported() == false ? (
-            <Card className="mb-3 shake">
-              <CardContent>
-                <CardHeader
-                  title="เว็บไซต์นี้อาจไม่รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification ผ่านเว็บบราวเซอร์นี้ หรือคุณกำลังเข้าใช้งานผ่าน Safari โดยตรง (สำหรับผู้ใช้งาน iOS และ iPad OS)"
-                  subheader={
-                    <p>เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
-                      BNK48 สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง
-                      กรุณา
-                      <a
-                        href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
-                        target="_blank"
-                      >
-                        คลิกที่นี่
-                      </a>
-                      เพื่อดูวิธีเปิดใช้งาน
-                    </p>
-                  }
-                />
-              </CardContent>
-            </Card>
-          ) : null}
           {data != null ? (
             <>
               {data.map((item, i) => (
