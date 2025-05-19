@@ -33,7 +33,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate days
   const days =
     difference / (1000 * 60 * 60 * 24) >
-    Math.floor(difference / (1000 * 60 * 60 * 24))
+      Math.floor(difference / (1000 * 60 * 60 * 24))
       ? Math.floor(difference / (1000 * 60 * 60 * 24))
       : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
 
@@ -43,7 +43,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate hours
   const hours =
     remainingMilliseconds / (1000 * 60 * 60) >
-    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+      Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
 
@@ -63,9 +63,17 @@ function compareTimestamps(timestamp1, timestamp2) {
   };
 }
 
+const notiCheck = () => {
+  try {
+    return OneSignal.Notifications.permission && OneSignal.User.PushSubscription.optedIn
+  } catch {
+    return false;
+  }
+}
+
 const launch = moment().unix();
 
-const Event = ({}) => {
+const Event = ({ }) => {
   const [data, setData] = React.useState(null);
   const [getData, setGetData] = React.useState(null);
   const [unix, setUnix] = React.useState(launch);
@@ -182,9 +190,9 @@ const Event = ({}) => {
     //       });
     //   }
     // }
-    setOpen(OneSignal.Notifications.permission);
+    setOpen(notiCheck());
     setInterval(() => {
-      setOpen(OneSignal.Notifications.permission);
+      setOpen(notiCheck());
     }, 1000);
     fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", requestOptions)
       .then((response) => response.json())
@@ -345,11 +353,11 @@ const Event = ({}) => {
                         </h6>
 
                         {item.timerange[0] > 0 &&
-                        item.timerange[1] > 0 &&
-                        moment
-                          .unix(item.timerange[0])
-                          .local()
-                          .format("MMMM DD, YYYY") ===
+                          item.timerange[1] > 0 &&
+                          moment
+                            .unix(item.timerange[0])
+                            .local()
+                            .format("MMMM DD, YYYY") ===
                           moment
                             .unix(item.timerange[1])
                             .local()
@@ -372,10 +380,10 @@ const Event = ({}) => {
                             .unix(item.timerange[0])
                             .local()
                             .format("MMMM DD, YYYY") !==
-                            moment
-                              .unix(item.timerange[1])
-                              .local()
-                              .format("MMMM DD, YYYY") ? (
+                          moment
+                            .unix(item.timerange[1])
+                            .local()
+                            .format("MMMM DD, YYYY") ? (
                           <p>
                             {"Event duration"}:{" "}
                             {moment
