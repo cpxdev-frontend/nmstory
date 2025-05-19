@@ -237,7 +237,7 @@ const Event = ({ }) => {
         />
         <div className="container mt-3">
           {OneSignal.Notifications.isPushSupported() && !open ? (
-            <Card className="mb-3">
+            <Card className="mb-3 shake">
               <CardContent>
                 <CardHeader
                   title="เว็บไซต์นี้รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification"
@@ -261,12 +261,13 @@ const Event = ({ }) => {
               </CardContent>
             </Card>
           ) : OneSignal.Notifications.isPushSupported() == false ? (
-            <Card className="mb-3">
+            <Card className="mb-3 shake">
               <CardContent>
                 <CardHeader
-                  title="เว็บไซต์นี้อาจไม่รองรับการทำงานผ่านเว็บบราวเซอร์นี้ หรือคุณกำลังเข้าใช้งานผ่าน Safari โดยตรง (สำหรับผู้ใช้งาน iOS และ iPad OS)"
+                  title="เว็บไซต์นี้อาจไม่รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification ผ่านเว็บบราวเซอร์นี้ หรือคุณกำลังเข้าใช้งานผ่าน Safari โดยตรง (สำหรับผู้ใช้งาน iOS และ iPad OS)"
                   subheader={
-                    <p>สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง
+                    <p>เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
+                      BNK48 สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง
                       กรุณา
                       <a
                         href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
