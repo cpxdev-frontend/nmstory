@@ -219,22 +219,24 @@ const Event = ({ }) => {
           title={<h3>Incoming Events of Nammonn</h3>}
           subheader="เช็คกิจกรรมน้องน้ำมนต์ได้ทุกที่ ทุกเวลา"
           action={
-            <IconButton
-              aria-label="enablenoti"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์"
-            >
-              {open ? (
-                <NotificationsActive color="primary" fontSize="large" />
-              ) : (
-                <CircleNotifications fontSize="large" />
-              )}
-            </IconButton>
+            OneSignal.Notifications.isPushSupported() && (
+              <IconButton
+                aria-label="enablenoti"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-title="เปิดการแจ้งเตือนเพื่อไม่พลาดทุกข่าวสารกิจกรรมของน้องน้ำมนต์"
+              >
+                {open ? (
+                  <NotificationsActive color="primary" fontSize="large" />
+                ) : (
+                  <CircleNotifications fontSize="large" />
+                )}
+              </IconButton>
+            )
           }
         />
         <div className="container mt-3">
-          {!open && (
+          {OneSignal.Notifications.isPushSupported() && !open ? (
             <Card className="mb-3">
               <CardContent>
                 <CardHeader
@@ -244,9 +246,7 @@ const Event = ({ }) => {
                       เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
                       BNK48
                       คุณสามารถแตะที่ปุ่มลอยมุมขวาล่างเพื่อเปิดการแจ้งเตือนได้
-                      (สำหรับผู้ใช้งาน iOS หรือ iPad OS จะรองรับเฉพาะ Safari
-                      เท่านั้น
-                      และอาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง)
+                      (สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง)
                       กรุณา
                       <a
                         href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
@@ -260,7 +260,27 @@ const Event = ({ }) => {
                 />
               </CardContent>
             </Card>
-          )}
+          ) : OneSignal.Notifications.isPushSupported() == false ? (
+            <Card className="mb-3">
+              <CardContent>
+                <CardHeader
+                  title="เว็บไซต์นี้อาจไม่รองรับการทำงานผ่านเว็บบราวเซอร์นี้ หรือคุณกำลังเข้าใช้งานผ่าน Safari โดยตรง (สำหรับผู้ใช้งาน iOS และ iPad OS)"
+                  subheader={
+                    <p>สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง
+                      กรุณา
+                      <a
+                        href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
+                        target="_blank"
+                      >
+                        คลิกที่นี่
+                      </a>
+                      เพื่อดูวิธีเปิดใช้งาน
+                    </p>
+                  }
+                />
+              </CardContent>
+            </Card>
+          ) : null}
           {data != null ? (
             <>
               {data.map((item, i) => (
