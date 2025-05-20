@@ -429,16 +429,6 @@ const Event = ({ }) => {
                         <p className="mt-4">
                           {"Description"}: {item.desc2.replaceAll('\\"', '"')}
                         </p>
-                        {item.timerange[0] > 0 && item.timerange[1] > 0 && (
-                          <small>
-                            <i>
-                              {"Notes"}:{" "}
-                              {
-                                "Event time duration are based on device timezone."
-                              }
-                            </i>
-                          </small>
-                        )}
                         <br />
                         {!(item.locate == null && item.place == "") && (
                           <Button
@@ -541,6 +531,13 @@ const Event = ({ }) => {
             </Card>
           )}
         </div>
+        <div className='container mt-5'>
+          <hr />
+          <p>* Hybrid Event เป็นกิจกรรมที่เปิดให้เข้าร่วมทั้งแบบในงานและแบบออนไลน์</p>
+          <p>** วันและเวลาที่ปรากฎจะอ้างอิงตามไทม์โซนของอุปกรณ์ที่คุณกำลังใช้งาน เพื่อให้ความเข้าใจง่ายและสามารถติดตามกิจกรรมของน้องน้ำมนต์ได้ทัดเทียมกันจากทั่วโลก</p>
+          <p>*** บางกิจกรรมอาจมีการเปลี่ยนแปลงวันและเวลาตามความเหมาะสม คุณยังสามารถติดตามการอัปเดตข่าวสารของน้ำมนต์ได้ที่ BNK48 Official ทุกช่องทาง</p>
+        </div>
+
         <Dialog open={getData != undefined} maxWidth="xl">
           <DialogTitle id="alert-dialog-title">{"Event Location"}</DialogTitle>
           <DialogContent>
