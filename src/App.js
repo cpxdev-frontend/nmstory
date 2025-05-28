@@ -16,8 +16,13 @@ import {
   Slide,
   Switch,
   FormControlLabel,
+  Snackbar,
+  Alert,
+  CardHeader,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import Confetti from "react-confetti";
+import CelebrationIcon from '@mui/icons-material/Celebration';
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
   useLocation,
@@ -82,6 +87,8 @@ function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [game, setInGame] = React.useState(false);
   const [splash, setSplash] = React.useState(true);
+  const [eight, setEightYear] = React.useState(true);
+  const [fire, setFire] = React.useState(false);
 
   const [langcross, setLangCross] = React.useState(
     localStorage.getItem("langconvert") !== null
@@ -259,7 +266,37 @@ function App() {
 
   return (
     <Box className="bg-theme">
-      {" "}
+      <Confetti
+        numberOfPieces={fire ? 400 : 0}
+        initialVelocityY={200}
+        style={{ position: "fixed" }}
+      />
+      {
+        moment().unix() <= 1748883599 && (
+          <Snackbar anchorOrigin={{ vertical: window.innerWidth > 800 ? 'top' : 'buttom', horizontal: 'center' }} sx={{
+            cursor: 'pointer',
+            width: '97%'
+          }} open={eight} autoHideDuration={1} onClick={() => {
+            if (fire || moment().unix() <= 1748628000 || moment().unix() > 1748883599) {
+              return;
+            }
+            setFire(true)
+            setTimeout(() => {
+              setFire(false)
+            }, 4000);
+          }}>
+            <Alert
+              onClose={() => setEightYear(false)}
+              icon={<CelebrationIcon />}
+              variant="filled"
+              sx={{ background: 'linear-gradient(120deg,rgba(203, 150, 194, 1) 0%, rgba(73, 197, 168, 1) 100%);' }}
+            >
+              <CardHeader title={<h5>8 Years, Eight'finity of Happiness with Nammonn.</h5>} subheader={<small style={{ color: '#333333' }}>มาร่วมเฉลิมฉลองครบรอบ 8 ปีแห่งความสำเร็จของวง BNK48 ไปกับน้ำมนต์กัน{moment().unix() > 1748628000 && moment().unix() <= 1748883599 ? ' แตะหรือคลิกที่การ์ดนี้เลย!' : ''}</small>} />
+            </Alert>
+          </Snackbar>
+        )
+      }
+
       <Slide in={!game} timeout={600}>
         <AppBar
           className="newnav"
@@ -424,7 +461,7 @@ function App() {
           </small>
         </div>
       </footer>
-    </Box>
+    </Box >
   );
 }
 
