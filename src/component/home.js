@@ -17,6 +17,7 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Typography,
   DialogContent,
   ListItemButton,
 } from "@mui/material";
@@ -123,7 +124,7 @@ const Home = () => {
           setUpdate(data.response.data);
           setInterval(() => {
             ramdomnewswithoutdup(data.response.data.length, 2);
-          }, 15000);
+          }, 30000);
         }
       });
   }, []);
@@ -980,8 +981,11 @@ const Home = () => {
                       <div className="col-lg-6 col-sm-12 mb-3" data-aos="zoom-in">
                         {update.map(
                           (item, i) => i === getupdate && (
-                            <XEmbed url={"https://twitter.com/NammonnBNK48FC/status/" + item.id} height={400}  className="tweetx" />
+                            <>
+                              <XEmbed url={"https://twitter.com/NammonnBNK48FC/status/" + item.id} className="tweetx" style={{ height: 350 }} />
+                            </>
                           ))}
+                        <Typography className="mt-1 text-center">หมายเหตุ: ทวิตจะสุ่มแสดงผลเทรนทุกๆ 30 วินาที กรณีหากเป็นคลิปวีดีโอ แนะนำให้แตะที่โพสต์ทวิตเพื่อรับชมวีดีโอแบบเต็ม</Typography>
                       </div>
                       <div className="col-md-6" data-aos="zoom-in">
                         <iframe
