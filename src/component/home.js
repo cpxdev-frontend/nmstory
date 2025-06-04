@@ -112,10 +112,6 @@ const Home = () => {
         setTimeout(() => {
           setReady(true);
         }, 1000);
-        setInterval(() => {
-          ramdomnewswithoutdup(data.length, 1);
-        }, 15000);
-        console.log(data);
       });
     fetch("https://cpxdevweb.koyeb.app/api/nm/nmupdateFloat", {
       method: "post",
@@ -129,7 +125,6 @@ const Home = () => {
             ramdomnewswithoutdup(data.response.data.length, 2);
           }, 15000);
         }
-        console.log(data);
       });
   }, []);
 
@@ -598,7 +593,7 @@ const Home = () => {
                 <hr />
                 <div className="row mt-3">
                   <h4 className="card-title">
-                    <i>Highlight Event</i>
+                    <i>Incoming Event</i>
                   </h4>
                   {news != null && news.length > 0 ? (
                     news.map(
@@ -889,7 +884,7 @@ const Home = () => {
                                     variant="contained"
                                     onClick={() => his.push("/events")}
                                   >
-                                    All incoming event
+                                    View other events
                                   </Button>
                                 </Grid>
                               </Grid>
