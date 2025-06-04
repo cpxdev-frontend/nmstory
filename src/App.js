@@ -271,7 +271,7 @@ function App() {
         initialVelocityY={200}
         style={{ position: "fixed" }}
       />
-      {
+      {/* {
         moment().unix() <= 1748883599 && (
           <Snackbar anchorOrigin={{ vertical: window.innerWidth > 800 ? 'top' : 'buttom', horizontal: 'center' }} sx={{
             cursor: 'pointer',
@@ -295,7 +295,7 @@ function App() {
             </Alert>
           </Snackbar>
         )
-      }
+      } */}
 
       <Slide in={!game} timeout={600}>
         <AppBar

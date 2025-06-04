@@ -23,6 +23,7 @@ import {
 import moment from "moment";
 import getAge from "get-age";
 import { useHistory } from "react-router-dom";
+import { XEmbed } from 'react-social-media-embed';
 
 function compareTimestamps(timestamp1, timestamp2) {
   // Get the difference in milliseconds
@@ -31,7 +32,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate days
   const days =
     difference / (1000 * 60 * 60 * 24) >
-    Math.floor(difference / (1000 * 60 * 60 * 24))
+      Math.floor(difference / (1000 * 60 * 60 * 24))
       ? Math.floor(difference / (1000 * 60 * 60 * 24))
       : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
 
@@ -41,7 +42,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate hours
   const hours =
     remainingMilliseconds / (1000 * 60 * 60) >
-    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+      Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
 
@@ -65,18 +66,24 @@ const Home = () => {
   const his = useHistory();
   const [data, setData] = React.useState(null);
   const [news, setNews] = React.useState(null);
+  const [update, setUpdate] = React.useState(null);
   const [getData, setGetData] = React.useState(null);
   const [getnews, setNewsi] = React.useState(null);
+  const [getupdate, setUpdatei] = React.useState(null);
   const [getnewsready, setReady] = React.useState(false);
   const [launch, setUnix] = React.useState(0);
 
   const [nicknameslide, setNickname] = React.useState(0);
 
-  const ramdomnewswithoutdup = (d) => {
+  const ramdomnewswithoutdup = (d, session) => {
     while (true) {
       const randomIndex = Math.floor(Math.random() * d);
-      if (randomIndex !== getnews) {
+      if (randomIndex !== getnews && session === 1) {
         setNewsi(randomIndex);
+        break;
+      }
+      if (randomIndex !== update && session === 2) {
+        setUpdatei(randomIndex);
         break;
       }
     }
@@ -106,8 +113,22 @@ const Home = () => {
           setReady(true);
         }, 1000);
         setInterval(() => {
-          ramdomnewswithoutdup(data.length);
+          ramdomnewswithoutdup(data.length, 1);
         }, 15000);
+        console.log(data);
+      });
+    fetch("https://cpxdevweb.koyeb.app/api/nm/nmupdateFloat", {
+      method: "post",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status == 200) {
+          setUpdatei(0);
+          setUpdate(data.response.data);
+          setInterval(() => {
+            ramdomnewswithoutdup(data.response.data.length, 2);
+          }, 15000);
+        }
         console.log(data);
       });
   }, []);
@@ -594,7 +615,7 @@ const Home = () => {
                               sx={{
                                 opacity:
                                   item.timerange[1] > 0 &&
-                                  launch >= item.timerange[1]
+                                    launch >= item.timerange[1]
                                     ? 0.4
                                     : 1,
                               }}
@@ -629,27 +650,27 @@ const Home = () => {
                                           item.timerange[0]
                                         ).days > 0
                                           ? "About " +
-                                            compareTimestamps(
-                                              launch,
-                                              item.timerange[0]
-                                            ).days +
-                                            " day(s) and " +
-                                            compareTimestamps(
-                                              launch,
-                                              item.timerange[0]
-                                            ).hours +
-                                            " hr(s) "
+                                          compareTimestamps(
+                                            launch,
+                                            item.timerange[0]
+                                          ).days +
+                                          " day(s) and " +
+                                          compareTimestamps(
+                                            launch,
+                                            item.timerange[0]
+                                          ).hours +
+                                          " hr(s) "
                                           : "In " +
-                                            compareTimestamps(
-                                              launch,
-                                              item.timerange[0]
-                                            ).hours +
-                                            " hr(s) " +
-                                            compareTimestamps(
-                                              launch,
-                                              item.timerange[0]
-                                            ).minutes +
-                                            " minute(s)"
+                                          compareTimestamps(
+                                            launch,
+                                            item.timerange[0]
+                                          ).hours +
+                                          " hr(s) " +
+                                          compareTimestamps(
+                                            launch,
+                                            item.timerange[0]
+                                          ).minutes +
+                                          " minute(s)"
                                       }
                                       color="primary"
                                     />
@@ -677,27 +698,27 @@ const Home = () => {
                                         item.timerange[0]
                                       ).days > 0
                                         ? "About " +
-                                          compareTimestamps(
-                                            launch,
-                                            item.timerange[0]
-                                          ).days +
-                                          " day(s) and " +
-                                          compareTimestamps(
-                                            launch,
-                                            item.timerange[0]
-                                          ).hours +
-                                          " hr(s) "
+                                        compareTimestamps(
+                                          launch,
+                                          item.timerange[0]
+                                        ).days +
+                                        " day(s) and " +
+                                        compareTimestamps(
+                                          launch,
+                                          item.timerange[0]
+                                        ).hours +
+                                        " hr(s) "
                                         : "In " +
-                                          compareTimestamps(
-                                            launch,
-                                            item.timerange[0]
-                                          ).hours +
-                                          " hr(s) " +
-                                          compareTimestamps(
-                                            launch,
-                                            item.timerange[0]
-                                          ).minutes +
-                                          " minute(s)"
+                                        compareTimestamps(
+                                          launch,
+                                          item.timerange[0]
+                                        ).hours +
+                                        " hr(s) " +
+                                        compareTimestamps(
+                                          launch,
+                                          item.timerange[0]
+                                        ).minutes +
+                                        " minute(s)"
                                     }
                                     color="primary"
                                   />
@@ -748,11 +769,11 @@ const Home = () => {
                                   </h6>
 
                                   {item.timerange[0] > 0 &&
-                                  item.timerange[1] > 0 &&
-                                  moment
-                                    .unix(item.timerange[0])
-                                    .local()
-                                    .format("MMMM DD, YYYY") ===
+                                    item.timerange[1] > 0 &&
+                                    moment
+                                      .unix(item.timerange[0])
+                                      .local()
+                                      .format("MMMM DD, YYYY") ===
                                     moment
                                       .unix(item.timerange[1])
                                       .local()
@@ -775,10 +796,10 @@ const Home = () => {
                                       .unix(item.timerange[0])
                                       .local()
                                       .format("MMMM DD, YYYY") !==
-                                      moment
-                                        .unix(item.timerange[1])
-                                        .local()
-                                        .format("MMMM DD, YYYY") ? (
+                                    moment
+                                      .unix(item.timerange[1])
+                                      .local()
+                                      .format("MMMM DD, YYYY") ? (
                                     <p>
                                       {"Event duration"}:{" "}
                                       {moment
@@ -819,18 +840,18 @@ const Home = () => {
                                   {!(
                                     item.locate == null && item.place == ""
                                   ) && (
-                                    <Button
-                                      onClick={() => getMap(item)}
-                                      disabled={
-                                        item.timerange[1] > 0 &&
-                                        launch >= item.timerange[1]
-                                      }
-                                      variant="outlined"
-                                      className="mt-3 mr-1"
-                                    >
-                                      {"Event location"}
-                                    </Button>
-                                  )}
+                                      <Button
+                                        onClick={() => getMap(item)}
+                                        disabled={
+                                          item.timerange[1] > 0 &&
+                                          launch >= item.timerange[1]
+                                        }
+                                        variant="outlined"
+                                        className="mt-3 mr-1"
+                                      >
+                                        {"Event location"}
+                                      </Button>
+                                    )}
                                   {item.link != "" && (
                                     <Button
                                       variant="outlined"
@@ -843,7 +864,7 @@ const Home = () => {
                                           item.link.includes("http")
                                             ? item.link
                                             : "https://cp-bnk48.pages.dev/" +
-                                                item.link,
+                                            item.link,
                                           "_blank"
                                         )
                                       }
@@ -958,46 +979,100 @@ const Home = () => {
                       style={{ marginTop: -2 }}
                     />
                   </div>
-                  <div
-                    className="col-lg-6 col-sm-12 text-center"
-                    data-aos="zoom-in"
-                  >
-                    <div className="col-12">
-                      <iframe
-                        width="100%"
-                        height="360"
-                        src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                      ></iframe>
-                    </div>
-                    <br />
-                    <Button
-                      variant="outlined"
-                      className="text-dark border-dark mb-3"
-                      sx={{
-                        marginTop: -3,
-                      }}
-                      onClick={() => his.push("/nmplay")}
-                    >
-                      View on Nammonn Play
-                    </Button>
-                  </div>
-                  <div className="col-md-6" data-aos="zoom-in">
-                    <iframe
-                      src="https://open.spotify.com/embed/playlist/0G9srwf10s3QC0lObFXhQe?utm_source=generator"
-                      width="100%"
-                      height="400"
-                      className="spot"
-                      frameBorder="0"
-                      allowfullscreen=""
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"
-                    ></iframe>
-                  </div>
+
+                  {update != null ? (
+                    <>
+                      <div className="col-lg-6 col-sm-12 mb-3" data-aos="zoom-in">
+                        {update.map(
+                          (item, i) => i === getupdate && (
+                            <XEmbed url={"https://twitter.com/NammonnBNK48FC/status/" + item.id} height={400}  className="tweetx" />
+                          ))}
+                      </div>
+                      <div className="col-md-6" data-aos="zoom-in">
+                        <iframe
+                          src="https://open.spotify.com/embed/playlist/0G9srwf10s3QC0lObFXhQe?utm_source=generator"
+                          width="100%"
+                          height="400"
+                          className="spot"
+                          frameBorder="0"
+                          allowfullscreen=""
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                      <div
+                        className="col-12 text-center"
+                        data-aos="zoom-in"
+                      >
+                        <div className="col-12">
+                          <iframe
+                            width="100%"
+                            height="360"
+                            src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                          ></iframe>
+                        </div>
+                        <br />
+                        <Button
+                          variant="outlined"
+                          className="text-dark border-dark mb-3"
+                          sx={{
+                            marginTop: -3,
+                          }}
+                          onClick={() => his.push("/nmplay")}
+                        >
+                          View on Nammonn Play
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        className="col-lg-6 col-sm-12 text-center"
+                        data-aos="zoom-in"
+                      >
+                        <div className="col-12">
+                          <iframe
+                            width="100%"
+                            height="360"
+                            src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                          ></iframe>
+                        </div>
+                        <br />
+                        <Button
+                          variant="outlined"
+                          className="text-dark border-dark mb-3"
+                          sx={{
+                            marginTop: -3,
+                          }}
+                          onClick={() => his.push("/nmplay")}
+                        >
+                          View on Nammonn Play
+                        </Button>
+                      </div>
+                      <div className="col-md-6" data-aos="zoom-in">
+                        <iframe
+                          src="https://open.spotify.com/embed/playlist/0G9srwf10s3QC0lObFXhQe?utm_source=generator"
+                          width="100%"
+                          height="400"
+                          className="spot"
+                          frameBorder="0"
+                          allowfullscreen=""
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

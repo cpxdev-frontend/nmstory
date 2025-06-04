@@ -251,3 +251,7 @@ iframe {
   opacity: 1;
   transition: opacity 300ms ease, visibility 0s;
 }
+
+.tweetx {
+  overflow-y: auto !important;
+}
