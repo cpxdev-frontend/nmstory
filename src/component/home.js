@@ -77,18 +77,40 @@ const Home = () => {
   const [nicknameslide, setNickname] = React.useState(0);
 
   const ramdomnewswithoutdup = (d, session) => {
-    while (true) {
-      const randomIndex = Math.floor(Math.random() * d);
-      if (randomIndex !== getnews && session === 1) {
-        setNewsi(randomIndex);
-        break;
+    let indices = [];
+    let pointer = 0;
+    let lastD = 0;
+
+    if (d !== lastD) {
+      lastD = d;
+
+      indices = Array.from({ length: d }, (_, i) => i);
+
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
       }
-      if (randomIndex !== update && session === 2) {
-        setUpdatei(randomIndex);
-        break;
-      }
+
+      pointer = 0;
     }
-  };
+
+    if (pointer >= indices.length) {
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      pointer = 0;
+    }
+
+    const randomIndex = indices[pointer];
+    pointer++;
+
+    if (session === 1) {
+      setNewsi(randomIndex);
+    } else if (session === 2) {
+      setUpdatei(randomIndex);
+    }
+  }
 
   React.useEffect(() => {
     setUnix(moment().unix());
@@ -121,9 +143,9 @@ const Home = () => {
       .then((data) => {
         if (data.status == 200) {
           setUpdatei(0);
-          setUpdate(data.response.data);
+          setUpdate(data.response);
           setInterval(() => {
-            ramdomnewswithoutdup(data.response.data.length, 2);
+            ramdomnewswithoutdup(data.response.length, 2);
           }, 30000);
         }
       });
@@ -982,7 +1004,7 @@ const Home = () => {
                         {update.map(
                           (item, i) => i === getupdate && (
                             <>
-                              <XEmbed url={"https://twitter.com/NammonnBNK48FC/status/" + item.id} className="tweetx" style={{ height: 350 }} />
+                              <XEmbed url={"https://twitter.com/NammonnBNK48FC/status/" + item.id_str} className="tweetx" style={{ height: 350 }} />
                             </>
                           ))}
                         <Typography className="mt-1 text-center">หมายเหตุ: ทวิตจะสุ่มแสดงผลเทรนทุกๆ 30 วินาที กรณีหากเป็นคลิปวีดีโอ แนะนำให้แตะที่โพสต์ทวิตเพื่อรับชมวีดีโอแบบเต็ม</Typography>
