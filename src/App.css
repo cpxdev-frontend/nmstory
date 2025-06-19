@@ -38,6 +38,10 @@
   color: #fff;
 }
 
+.colorpink {
+  color: #91068f;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
