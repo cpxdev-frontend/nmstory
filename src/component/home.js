@@ -253,7 +253,7 @@ const Home = () => {
       <div className="cover" data-aos="fade-in">
         <div className="profile-pic col-md-4 justify-content-end">
           <Avatar
-            src={process.env."https://d3hhrps04devi8.cloudfront.net/bnk48profile/nammonn.jpg"}
+            src={"https://d3hhrps04devi8.cloudfront.net/bnk48profile/nammonn.jpg"}
             className="prof h-100"
           />
         </div>

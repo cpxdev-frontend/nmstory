@@ -46,7 +46,7 @@ const drawerWidth = 290;
 const navItemsA = ["/", "/nmplay", "/events", "/game"];
 const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
 
-const iconLink = process.env.‎"https://d3hhrps04devi8.cloudfront.net/nmstory/icon.png";
+const iconLink = "https://d3hhrps04devi8.cloudfront.net/nmstory/icon.png";
 
 function isElementVisible(el) {
   if (!el) return false; // no element
