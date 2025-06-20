@@ -46,6 +46,8 @@ const drawerWidth = 290;
 const navItemsA = ["/", "/nmplay", "/events", "/game"];
 const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
 
+const iconLink = process.env.‎REACT_APP_ICON;
+
 function isElementVisible(el) {
   if (!el) return false; // no element
   const style = getComputedStyle(el);
@@ -281,7 +283,7 @@ function App() {
               <Avatar
                 alt="pverlayshow"
                 sx={{ width: "100%", height: "100%" }}
-                src={process.env.‎REACT_APP_ICON}
+                src={iconLink}
               />
             </div>
             <div className="col d-flex align-items-center justify-content-center">
@@ -329,7 +331,7 @@ function App() {
                   width: { xs: "50vw", md: "30vw" },
                   height: { xs: "50vw", md: "30vw" },
                 }}
-                src={process.env.‎REACT_APP_ICON}
+                src={iconLink}
               />
             </div>
             <div className="col mt-5 d-flex align-items-center justify-content-center">
