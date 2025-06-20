@@ -281,7 +281,7 @@ function App() {
               <Avatar
                 alt="pverlayshow"
                 sx={{ width: "100%", height: "100%" }}
-                src={process.env.‎REACT_APP_ICON}
+                src={process.env.‎REACT_APP_OVERLAY}
               />
             </div>
             <div className="col d-flex align-items-center justify-content-center">
@@ -329,7 +329,7 @@ function App() {
                   width: { xs: "50vw", md: "30vw" },
                   height: { xs: "50vw", md: "30vw" },
                 }}
-                src={process.env.‎REACT_APP_ICON}
+                src={process.env.‎REACT_APP_OVERLAY}
               />
             </div>
             <div className="col mt-5 d-flex align-items-center justify-content-center">
