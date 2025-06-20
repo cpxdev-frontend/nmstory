@@ -46,7 +46,7 @@ const drawerWidth = 290;
 const navItemsA = ["/", "/nmplay", "/events", "/game"];
 const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
 
-const iconLink = process.env.‎REACT_APP_ICON;
+const iconLink = process.env.‎REACT_APP_ICONLINK;
 
 function isElementVisible(el) {
   if (!el) return false; // no element
