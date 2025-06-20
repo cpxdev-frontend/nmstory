@@ -259,3 +259,20 @@ iframe {
 .tweetx {
   overflow-y: auto !important;
 }
+
+.preloadbg {
+  background: linear-gradient(135deg, #034ebe, #9ec0f6, #034ebe);
+  background-size: 600% 600%;
+  animation: gradientShift 7s ease infinite;
+}
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

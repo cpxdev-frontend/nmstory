@@ -123,18 +123,23 @@ function App() {
 
   React.useEffect(() => {
     Aos.init({ duration: 900, once: true });
-    var addScript = document.createElement("script");
-    addScript.setAttribute(
-      "src",
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-    );
-    document.body.appendChild(addScript);
-    window.googleTranslateElementInit = googleTranslateElementInit;
 
     setTimeout(() => {
       setOverTure(true);
     }, 4800);
   }, []);
+
+  React.useEffect(() => {
+    if (overture) {
+      var addScript = document.createElement("script");
+      addScript.setAttribute(
+        "src",
+        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+      );
+      document.body.appendChild(addScript);
+      window.googleTranslateElementInit = googleTranslateElementInit;
+    }
+  }, [overture]);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -269,10 +274,10 @@ function App() {
         slots={{ transition: Slide }}
         open={!overture}
         timeout={overture ? 1200 : 0}
+        className="preloadbg"
         sx={{
           display: { xs: "none", lg: "flex" },
           zIndex: 30000,
-          backgroundColor: "#abdef7",
           borderBottomLeftRadius: overture ? 20 : 0,
           borderBottomRightRadius: overture ? 20 : 0,
         }}
@@ -384,10 +389,7 @@ function App() {
                     padding: 1,
                   }}
                 >
-                  <Avatar
-                    onClick={() => his.push("/")}
-                    src={iconLink}
-                  />{" "}
+                  <Avatar onClick={() => his.push("/")} src={iconLink} />{" "}
                   <Typography
                     sx={{
                       fontSize: { xs: 18, sm: 23 },
