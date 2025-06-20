@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: "Mitr", "Shippori Antique";
+  -webkit-font-smoothing: antialiased;
+  font-weight: 100;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #adc8f7;
+  top: 0px !important;
+}
+
+div .skiptranslate {
+  margin-top: 70px;
+  z-index: 1000 !important;
+}
+#google_translate_element > .goog-te-gadget {
+  margin-top: 0px !important;
+}
+
+.iconweb {
+  font-family: "Knewave" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconwebnonsize {
+  font-family: "Knewave" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2 {
+  font-family: "Sriracha", "Shippori Antique";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
