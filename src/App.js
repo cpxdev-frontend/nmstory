@@ -191,7 +191,7 @@ function App() {
           padding: 1,
         }}
       >
-        <Avatar src={process.env.REACT_APP_ICON} />{" "}
+        <Avatar src={iconLink} />{" "}
         <Typography
           onClick={handleDrawerToggle}
           className="d-flex align-items-center iconwebnonsize"
@@ -386,7 +386,7 @@ function App() {
                 >
                   <Avatar
                     onClick={() => his.push("/")}
-                    src={process.env.REACT_APP_ICON}
+                    src={iconLink}
                   />{" "}
                   <Typography
                     sx={{
