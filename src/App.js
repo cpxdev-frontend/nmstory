@@ -316,10 +316,10 @@ function App() {
         slots={{ transition: Slide }}
         open={!overture}
         timeout={overture ? 1200 : 0}
+        className="preloadbg"
         sx={{
           display: { xs: "flex", lg: "none" },
           zIndex: 3,
-          backgroundColor: "#abdef7",
           borderBottomLeftRadius: overture ? 20 : 0,
           borderBottomRightRadius: overture ? 20 : 0,
         }}
