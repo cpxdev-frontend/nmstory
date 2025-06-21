@@ -120,7 +120,7 @@ const BirthdayCampaigns = () => {
   };
 
   React.useEffect(() => {
-    fetch("https://cpxdevweb.koyeb.app/api/nm/getBirthCampain?memid=87", {
+    fetch("https://cpxdevweb.koyeb.app/api/nm/getBirthCampain", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
