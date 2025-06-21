@@ -25,6 +25,8 @@ import {
 } from "@mui/material";
 import { InfoOutlined } from "@mui/icons-material";
 import Confetti from "react-confetti";
+import moment from "moment";
+import "moment/locale/th";
 
 let loopdata = null;
 
@@ -118,7 +120,7 @@ const BirthdayCampaigns = () => {
   };
 
   React.useEffect(() => {
-    fetch("https://cpxdevweb.koyeb.app/api/nm/getBirthCampain", {
+    fetch("https://cpxdevweb.koyeb.app/api/nm/getBirthCampain?memid=87", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -190,6 +192,21 @@ const BirthdayCampaigns = () => {
                 <InfoOutlined />
               </h6>
             </CardActionArea>
+            <div className="text-end">
+              {moment() > moment(campaigns?.endAt) ? (
+                <Typography className="text-muted">
+                  โหวตได้จนถึง{" "}
+                  {moment(campaigns?.endAt)
+                    .local()
+                    .locale("th-TH")
+                    .format("DD MMMM YYYY HH:mm")}
+                </Typography>
+              ) : (
+                <Typography className="text-muted">
+                  แคมเปญนี้ได้สิ้นสุดลงแล้ว
+                </Typography>
+              )}
+            </div>
           </CardContent>
           <CardActions>
             <Button onClick={() => setCampaigns(null)} disabled={!close}>
