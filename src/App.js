@@ -38,7 +38,7 @@ import Home from "./component/home";
 import NMPlay from "./component/ytplay";
 import Events from "./component/news";
 import Game from "./component/game";
-import OneSignal from "react-onesignal";
+import P404Page from "./component/p404";
 
 import moment, { lang } from "moment";
 import BirthdayCampaigns from "./modules/birthdayCampaigns";
@@ -277,7 +277,7 @@ function App() {
         timeout={overture ? 1200 : 0}
         className="preloadbg"
         sx={{
-          display: { xs: "none", lg: "flex" },
+          display: { xs: "none", md: "flex" },
           zIndex: 30000,
           borderBottomLeftRadius: overture ? 20 : 0,
           borderBottomRightRadius: overture ? 20 : 0,
@@ -319,7 +319,7 @@ function App() {
         timeout={overture ? 1200 : 0}
         className="preloadbg"
         sx={{
-          display: { xs: "flex", lg: "none" },
+          display: { xs: "flex", md: "none" },
           zIndex: 3,
           borderBottomLeftRadius: overture ? 20 : 0,
           borderBottomRightRadius: overture ? 20 : 0,
@@ -512,7 +512,7 @@ function App() {
           </nav>
           <BirthdayCampaigns />
           <BasicSwitch data-aos="fade-in">
-            <Route path="/test" render={() => <Home />} />
+            <Route exact path="/" render={() => <Home />} />
             <Route path="/events" render={() => <Events />} />
             <Route
               path="/game"
@@ -521,7 +521,7 @@ function App() {
               )}
             />
             <Route path="/nmplay" render={() => <NMPlay />} />
-            <Route exact render={() => <Home />} />
+            <Route path="*" render={() => <P404Page />} />
           </BasicSwitch>
           <footer className="card text-center" translate="no">
             <div className="card-body">
@@ -538,6 +538,21 @@ function App() {
           </footer>
         </>
       )}
+      <div
+        id="blockwhenland"
+        className="d-flex justify-content-center align-items-center text-center"
+      >
+        <h5>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/6737/6737502.png"
+            width={150}
+          />
+          <br />
+          {lang == "th"
+            ? "เว็บไซต์ไม่รองรับขนาดหน้าจอนี้ กรุณาหมุนจอเป็นแนวตั้งหรือทางทิศที่เหมาะสม"
+            : "This screen size is not support on this device. Please rotate your device screen."}
+        </h5>
+      </div>
     </Box>
   );
 }

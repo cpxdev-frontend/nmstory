@@ -39,7 +39,7 @@
 }
 
 .colorpink {
-  color: #91068f;
+  color: #fa96f5;
 }
 
 @keyframes App-logo-spin {
@@ -260,10 +260,15 @@ iframe {
   overflow-y: auto !important;
 }
 
-.preloadbg {
-  background: linear-gradient(135deg, #034ebe, #d0e0fb, #034ebe);
+.errorpage {
+  background: linear-gradient(270deg, #034ebe, #f696f2, rgb(86, 145, 247));
   background-size: 600% 600%;
-  animation: gradientShift 7s ease infinite;
+  animation: gradientShift 20s ease infinite;
+}
+.preloadbg {
+  background: linear-gradient(135deg, rgb(166, 3, 139), rgb(86, 145, 247));
+  background-size: 600% 600%;
+  animation: gradientShift 4s ease infinite;
 }
 @keyframes gradientShift {
   0% {
@@ -274,5 +279,24 @@ iframe {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+#blockwhenland {
+  display: none !important;
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  #blockwhenland {
+    display: grid !important;
+    position: fixed;
+    z-index: 8000;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    background: linear-gradient(270deg, #034ebe, #f696f2, rgb(86, 145, 247));
+    background-size: 600% 600%;
+    animation: gradientShift 20s ease infinite;
   }
 }
