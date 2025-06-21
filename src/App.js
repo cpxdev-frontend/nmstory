@@ -41,6 +41,7 @@ import Game from "./component/game";
 import OneSignal from "react-onesignal";
 
 import moment, { lang } from "moment";
+import BirthdayCampaigns from "./modules/birthdayCampaigns";
 
 const drawerWidth = 290;
 const navItemsA = ["/", "/nmplay", "/events", "/game"];
@@ -509,6 +510,7 @@ function App() {
               {drawer}
             </Drawer>
           </nav>
+          <BirthdayCampaigns />
           <BasicSwitch data-aos="fade-in">
             <Route path="/test" render={() => <Home />} />
             <Route path="/events" render={() => <Events />} />

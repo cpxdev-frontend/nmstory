@@ -261,7 +261,7 @@ iframe {
 }
 
 .preloadbg {
-  background: linear-gradient(135deg, #034ebe, #b1cbf4, #034ebe);
+  background: linear-gradient(135deg, #034ebe, #d0e0fb, #034ebe);
   background-size: 600% 600%;
   animation: gradientShift 7s ease infinite;
 }
