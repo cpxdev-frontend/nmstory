@@ -23,7 +23,7 @@ import {
   TableHead,
   TableBody,
 } from "@mui/material";
-import { InfoOutlined } from "@mui/icons-material";
+import { InfoOutlined, Celebration} from "@mui/icons-material";
 import Confetti from "react-confetti";
 import moment from "moment";
 import "moment/locale/th";
@@ -172,6 +172,7 @@ const BirthdayCampaigns = () => {
             <CardHeader
               title="Nammonn BNK48's Birthday Campaigns"
               subheader={cokkiecount.toLocaleString("en-US") + " Cookies"}
+              action={<Celebration />}
             />
             <LinearProgressWithLabel
               valueBuffer={
