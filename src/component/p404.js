@@ -10,7 +10,7 @@ const p404 = () => {
       open={true}
       className="errorpage"
     >
-      <Box className="text-center">
+      <Box className="text-center text-dark">
         <Typography variant="h4">This page is not found.</Typography>
         <p>
           หน้านี้คุณอาจจะไม่เจอน้องน้ำมนต์ก็ได้ แต่ไม่เป็นไร เราจะนำทางให้คุณเอง
