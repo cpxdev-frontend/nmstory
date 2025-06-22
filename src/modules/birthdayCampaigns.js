@@ -23,7 +23,7 @@ import {
   TableHead,
   TableBody,
 } from "@mui/material";
-import { InfoOutlined, Celebration} from "@mui/icons-material";
+import { InfoOutlined, Celebration } from "@mui/icons-material";
 import Confetti from "react-confetti";
 import moment from "moment";
 import "moment/locale/th";
@@ -47,6 +47,7 @@ function LinearProgressWithLabel(props) {
 
 const BirthdayCampaigns = () => {
   const [campaigns, setCampaigns] = React.useState(null);
+  const [update, setUpdate] = React.useState(null);
   const [cokkiecount, setCookie] = React.useState(0);
   const [close, setclose] = React.useState(false);
   const [tier, setTier] = React.useState(false);
@@ -54,6 +55,7 @@ const BirthdayCampaigns = () => {
 
   const getLoadNum = (numx, max) => {
     let numcount = 0;
+    let ok = false;
     loopdata = setInterval(
       () => {
         if (numcount >= numx) {
@@ -65,8 +67,9 @@ const BirthdayCampaigns = () => {
           }, 5000);
         } else {
           numcount = numcount + (numx - numcount >= 1000 ? 1000 : 1);
-          if (numcount >= max) {
+          if (numcount >= max && ok == false) {
             setSuccess(true);
+            ok = true;
           }
           setCookie(() => numcount);
         }
@@ -136,6 +139,7 @@ const BirthdayCampaigns = () => {
         console.log("Birthday Campaigns:", data);
         if (data.status) {
           setCampaigns(data.data);
+          setUpdate(data.latest);
           if (data.data != null) {
             getLoadNum(
               data.data.currentBackedCoinAmount,
@@ -174,6 +178,7 @@ const BirthdayCampaigns = () => {
               subheader={cokkiecount.toLocaleString("en-US") + " Cookies"}
               action={<Celebration />}
             />
+            <p>อัปเดตล่าสุดเมื่อ: {moment(update).local().format('DD MMMM YYYY HH:mm')}</p>
             <LinearProgressWithLabel
               valueBuffer={
                 (tierState(cokkiecount).tier / campaigns?.targetCoinAmount) *
