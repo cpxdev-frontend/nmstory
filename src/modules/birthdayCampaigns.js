@@ -132,7 +132,7 @@ const BirthdayCampaigns = () => {
 
   React.useEffect(() => {
     fetch(
-      "https://cpxdevweb.azurewebsites.net/api/nm/getBirthCampain?memid=87",
+      "https://cpxdevweb.azurewebsites.net/api/nm/getBirthCampain",
       {
         method: "POST",
         headers: {
