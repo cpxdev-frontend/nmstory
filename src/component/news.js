@@ -33,7 +33,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate days
   const days =
     difference / (1000 * 60 * 60 * 24) >
-      Math.floor(difference / (1000 * 60 * 60 * 24))
+    Math.floor(difference / (1000 * 60 * 60 * 24))
       ? Math.floor(difference / (1000 * 60 * 60 * 24))
       : Math.floor(difference / (1000 * 60 * 60 * 24)) - 1;
 
@@ -43,7 +43,7 @@ function compareTimestamps(timestamp1, timestamp2) {
   // Calculate hours
   const hours =
     remainingMilliseconds / (1000 * 60 * 60) >
-      Math.floor(remainingMilliseconds / (1000 * 60 * 60))
+    Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       ? Math.floor(remainingMilliseconds / (1000 * 60 * 60))
       : Math.floor(remainingMilliseconds / (1000 * 60 * 60)) - 1;
 
@@ -65,15 +65,18 @@ function compareTimestamps(timestamp1, timestamp2) {
 
 const notiCheck = () => {
   try {
-    return OneSignal.Notifications.permission && OneSignal.User.PushSubscription.optedIn
+    return (
+      OneSignal.Notifications.permission &&
+      OneSignal.User.PushSubscription.optedIn
+    );
   } catch {
     return false;
   }
-}
+};
 
 const launch = moment().unix();
 
-const Event = ({ }) => {
+const Event = ({}) => {
   const [data, setData] = React.useState(null);
   const [getData, setGetData] = React.useState(null);
   const [unix, setUnix] = React.useState(launch);
@@ -236,7 +239,7 @@ const Event = ({ }) => {
           }
         />
         {OneSignal.Notifications.isPushSupported() && !open ? (
-          <Card className="mb-5 shake">
+          <Card className="container mb-5 shake">
             <CardContent>
               <CardHeader
                 title="เว็บไซต์นี้รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification"
@@ -245,7 +248,8 @@ const Event = ({ }) => {
                     เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
                     BNK48
                     คุณสามารถแตะที่ปุ่มลอยมุมขวาล่างเพื่อเปิดการแจ้งเตือนได้
-                    (สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง)
+                    (สำหรับผู้ใช้งาน iOS หรือ iPad OS
+                    อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง)
                     กรุณา
                     <a
                       href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
@@ -260,13 +264,15 @@ const Event = ({ }) => {
             </CardContent>
           </Card>
         ) : OneSignal.Notifications.isPushSupported() == false ? (
-          <Card className="mb-5 shake">
+          <Card className="container mb-5 shake">
             <CardContent>
               <CardHeader
                 title="เว็บไซต์นี้อาจไม่รองรับการรับการแจ้งเตือนข่าวสารผ่านระบบ Web Push Notification ผ่านเว็บบราวเซอร์นี้ หรือคุณกำลังเข้าใช้งานผ่าน Safari โดยตรง (สำหรับผู้ใช้งาน iOS และ iPad OS)"
                 subheader={
-                  <p>เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
-                    BNK48 สำหรับผู้ใช้งาน iOS หรือ iPad OS อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง
+                  <p>
+                    เพื่อให้คุณไม่พลาดทุกกิจกรรมของน้องน้ำมนต์ หรือ Nammonn
+                    BNK48 สำหรับผู้ใช้งาน iOS หรือ iPad OS
+                    อาจจะไม่เห็นปุ่มลอยดังกล่าวนี้หากเปิดบนเบราว์เซอร์โดยตรง
                     กรุณา
                     <a
                       href="https://cpxstatusservice.azurewebsites.net/home/notifymanual?lang=th"
@@ -374,11 +380,11 @@ const Event = ({ }) => {
                         </h6>
 
                         {item.timerange[0] > 0 &&
-                          item.timerange[1] > 0 &&
-                          moment
-                            .unix(item.timerange[0])
-                            .local()
-                            .format("MMMM DD, YYYY") ===
+                        item.timerange[1] > 0 &&
+                        moment
+                          .unix(item.timerange[0])
+                          .local()
+                          .format("MMMM DD, YYYY") ===
                           moment
                             .unix(item.timerange[1])
                             .local()
@@ -401,10 +407,10 @@ const Event = ({ }) => {
                             .unix(item.timerange[0])
                             .local()
                             .format("MMMM DD, YYYY") !==
-                          moment
-                            .unix(item.timerange[1])
-                            .local()
-                            .format("MMMM DD, YYYY") ? (
+                            moment
+                              .unix(item.timerange[1])
+                              .local()
+                              .format("MMMM DD, YYYY") ? (
                           <p>
                             {"Event duration"}:{" "}
                             {moment
@@ -531,11 +537,21 @@ const Event = ({ }) => {
             </Card>
           )}
         </div>
-        <div className='container mt-5'>
+        <div className="container mt-5">
           <hr />
-          <p>* Hybrid Event เป็นกิจกรรมที่เปิดให้เข้าร่วมทั้งแบบในงานและแบบออนไลน์</p>
-          <p>** วันและเวลาที่ปรากฎจะอ้างอิงตามไทม์โซนของอุปกรณ์ที่คุณกำลังใช้งาน เพื่อให้ความเข้าใจง่ายและสามารถติดตามกิจกรรมของน้องน้ำมนต์ได้ทัดเทียมกันจากทั่วโลก</p>
-          <p>*** บางกิจกรรมอาจมีการเปลี่ยนแปลงวันและเวลาตามความเหมาะสม คุณยังสามารถติดตามการอัปเดตข่าวสารของน้ำมนต์ได้ที่ BNK48 Official ทุกช่องทาง</p>
+          <p>
+            * Hybrid Event
+            เป็นกิจกรรมที่เปิดให้เข้าร่วมทั้งแบบในงานและแบบออนไลน์
+          </p>
+          <p>
+            ** วันและเวลาที่ปรากฎจะอ้างอิงตามไทม์โซนของอุปกรณ์ที่คุณกำลังใช้งาน
+            เพื่อให้ความเข้าใจง่ายและสามารถติดตามกิจกรรมของน้องน้ำมนต์ได้ทัดเทียมกันจากทั่วโลก
+          </p>
+          <p>
+            *** บางกิจกรรมอาจมีการเปลี่ยนแปลงวันและเวลาตามความเหมาะสม
+            คุณยังสามารถติดตามการอัปเดตข่าวสารของน้ำมนต์ได้ที่ BNK48 Official
+            ทุกช่องทาง
+          </p>
         </div>
 
         <Dialog open={getData != undefined} maxWidth="xl">

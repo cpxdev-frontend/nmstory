@@ -26,7 +26,6 @@ import {
 import { InfoOutlined, Celebration } from "@mui/icons-material";
 import Confetti from "react-confetti";
 import moment from "moment";
-import "moment/locale/th";
 
 let loopdata = null;
 
@@ -43,6 +42,10 @@ function LinearProgressWithLabel(props) {
       </Box>
     </Box>
   );
+}
+
+function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent);
 }
 
 const BirthdayCampaigns = () => {
@@ -63,18 +66,23 @@ const BirthdayCampaigns = () => {
           setCookie(() => numx);
           setTimeout(() => {
             setclose(true);
-            setSuccess(false);
           }, 5000);
         } else {
           numcount = numcount + (numx - numcount >= 1000 ? 1000 : 1);
           if (numcount >= max && ok == false) {
             setSuccess(true);
             ok = true;
+            if (!isIOS()) {
+              navigator.vibrate([200]);
+            }
+            setTimeout(() => {
+              setSuccess(false);
+            }, 10000);
           }
           setCookie(() => numcount);
         }
       },
-      numx - numcount >= 1000 ? 1 : 1000
+      numcount >= max - 100000 ? 800 : 1
     );
   };
 
@@ -123,12 +131,15 @@ const BirthdayCampaigns = () => {
   };
 
   React.useEffect(() => {
-    fetch("https://cpxdevweb.koyeb.app/api/nm/getBirthCampain", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      "https://cpxdevweb.azurewebsites.net/api/nm/getBirthCampain?memid=87",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -169,16 +180,30 @@ const BirthdayCampaigns = () => {
       <Grow
         in={campaigns != null}
         timeout={600}
-        sx={{ position: "fixed", zIndex: 2000, top: 0, left: 0, width: "100%" }}
+        sx={{
+          position: "fixed",
+          zIndex: 2000,
+          bottom: 0,
+          left: 0,
+          width: "100%",
+        }}
       >
-        <Card>
+        <Card
+          className={cokkiecount >= campaigns?.targetCoinAmount ? "shake" : ""}
+        >
           <CardContent>
             <CardHeader
               title="Nammonn BNK48's Birthday Campaigns"
               subheader={cokkiecount.toLocaleString("en-US") + " Cookies"}
               action={<Celebration />}
             />
-            <p>อัปเดตล่าสุดเมื่อ: {moment(update).local().format('DD MMMM YYYY HH:mm')}</p>
+            <p>
+              อัปเดตล่าสุดเมื่อ:{" "}
+              {moment(update)
+                .local()
+                .locale("th-TH")
+                .format("DD MMMM YYYY HH:mm")}
+            </p>
             <LinearProgressWithLabel
               valueBuffer={
                 (tierState(cokkiecount).tier / campaigns?.targetCoinAmount) *
@@ -228,7 +253,12 @@ const BirthdayCampaigns = () => {
           IAM48
         </DialogTitle>
         <DialogContent>
-          <TableContainer component={Paper}>
+          <TableContainer
+            component={Paper}
+            className={
+              cokkiecount >= campaigns?.targetCoinAmount ? "shake" : ""
+            }
+          >
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <caption>
                 *ป้าย Billboard ได้รับการสนับสนุนโดย <b>PlanB Media</b>
