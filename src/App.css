@@ -260,6 +260,10 @@ iframe {
   overflow-y: auto !important;
 }
 
+.tweetx > div > .twitter-tweet > iframe {
+  width: 100% !important;
+}
+
 .errorpage {
   background: linear-gradient(270deg, rgb(253, 216, 247), #ffffff, rgb(179, 201, 239));
   background-size: 600% 600%;
