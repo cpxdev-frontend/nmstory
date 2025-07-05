@@ -70,8 +70,6 @@ function compareTimestamps(timestamp1, timestamp2) {
   };
 }
 
-const newHome = false;
-
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -107,6 +105,8 @@ const Home = () => {
 
   const [nicknameslide, setNickname] = React.useState(0);
   const [value, setValue] = React.useState(0);
+
+  const [newHome, setNewHome] = React.useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -159,6 +159,19 @@ const Home = () => {
         setInterval(() => {
           setNickname((prevNick) => (prevNick === 2 ? 0 : prevNick + 1));
         }, 10000);
+      });
+
+    if (moment().unix() > 1754758800) {
+      setNewHome(true);
+    }
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/getcurrenttime", {
+      method: "post",
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        if (parseInt(data) > 1754758800) {
+          setNewHome(true);
+        }
       });
 
     fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", {
@@ -1958,7 +1971,7 @@ const Home = () => {
                   <hr className="mt-3" />
                   <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                     <Tabs
-                    sx={{display: { xs: "none", lg: "block" }}}
+                      sx={{ display: { xs: "none", lg: "block" } }}
                       value={value}
                       onChange={handleChange}
                       centered
@@ -1972,7 +1985,7 @@ const Home = () => {
                       />
                     </Tabs>
                     <Tabs
-                    sx={{display: { xs: "flex", lg: "none" }}}
+                      sx={{ display: { xs: "flex", lg: "none" } }}
                       value={value}
                       onChange={handleChange}
                       variant="scrollable"
@@ -2036,9 +2049,11 @@ const Home = () => {
                                                 item.text.includes("RT ")
                                                   ? [
                                                       item.retweeted_status
-                                                        .favorite_count,
+                                                        .favorite_count +
+                                                        item.favorite_count,
                                                       item.retweeted_status
-                                                        .retweet_count,
+                                                        .retweet_count +
+                                                        item.retweet_count,
                                                     ]
                                                   : [
                                                       item.favorite_count,
