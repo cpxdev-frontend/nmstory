@@ -235,6 +235,7 @@ const Event = ({}) => {
       })
       .catch((error) => console.log("error", error));
 
+   
     if (moment().unix() > 1754758800) {
       setNewsLayout(true);
     }
@@ -1006,15 +1007,19 @@ const Event = ({}) => {
                                       .local()
                                       .format("MMMM DD, YYYY") ? (
                                     <p>
-                                      {moment
-                                        .unix(item.timerange[0])
-                                        .local()
-                                        .format("MMMM DD, YYYY HH:mm")}
+                                      <b>
+                                        {moment
+                                          .unix(item.timerange[0])
+                                          .local()
+                                          .format("MMMM DD, YYYY HH:mm")}
+                                      </b>
                                       &nbsp;to&nbsp;
-                                      {moment
-                                        .unix(item.timerange[1])
-                                        .local()
-                                        .format("HH:mm")}
+                                      <b>
+                                        {moment
+                                          .unix(item.timerange[1])
+                                          .local()
+                                          .format("HH:mm")}
+                                      </b>
                                     </p>
                                   ) : item.timerange[0] > 0 &&
                                     item.timerange[1] > 0 &&
@@ -1027,15 +1032,19 @@ const Event = ({}) => {
                                         .local()
                                         .format("MMMM DD, YYYY") ? (
                                     <p>
-                                      {moment
-                                        .unix(item.timerange[0])
-                                        .local()
-                                        .format("MMMM DD, YYYY HH:mm")}
+                                      <b>
+                                        {moment
+                                          .unix(item.timerange[0])
+                                          .local()
+                                          .format("MMMM DD, YYYY HH:mm")}
+                                      </b>
                                       {" to "}
-                                      {moment
-                                        .unix(item.timerange[1])
-                                        .local()
-                                        .format("MMMM DD, YYYY HH:mm")}
+                                      <b>
+                                        {moment
+                                          .unix(item.timerange[1])
+                                          .local()
+                                          .format("MMMM DD, YYYY HH:mm")}
+                                      </b>
                                     </p>
                                   ) : (
                                     <p>

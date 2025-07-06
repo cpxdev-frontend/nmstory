@@ -29,7 +29,11 @@ import { Doughnut } from "react-chartjs-2";
 import moment from "moment";
 import getAge from "get-age";
 import { useHistory } from "react-router-dom";
-import { XEmbed } from "react-social-media-embed";
+import {
+  XEmbed,
+  InstagramEmbed,
+  FacebookEmbed,
+} from "react-social-media-embed";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -2097,8 +2101,8 @@ const Home = () => {
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1}>
                       <div className="container" data-aos="fade-in">
-                        <iframe
-                          src="https://instagram.com/nammonn.bnk48official/embed"
+                        <InstagramEmbed
+                          url="https://instagram.com/nammonn.bnk48official"
                           height="400px"
                           width="100%"
                         />
