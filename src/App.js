@@ -495,14 +495,16 @@ function App() {
               open={mobileOpen}
               onClose={handleDrawerToggle}
               ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                keepMounted: true,
               }}
               sx={{
                 "& .MuiDrawer-paper": {
                   boxSizing: "border-box",
                   borderTopRightRadius: 10,
                   borderBottomRightRadius: 10,
-                  backgroundColor: "#ade9f7",
+                  background:
+                    "linear-gradient(110deg, rgb(179, 201, 239), #ffffff, rgb(253, 216, 247)) !important",
+                  overflowX: "hidden",
                   width: drawerWidth,
                 },
               }}
