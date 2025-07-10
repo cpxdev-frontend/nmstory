@@ -240,7 +240,7 @@ const BirthdayCampaigns = () => {
             </div>
           </CardContent>
           <CardActions sx={{paddingBottom: 5}}>
-            <Button onClick={() => window.open('https://app.bnk48.com/campaign/' + campaigns?.id, '_blank')} disabled={!close}>
+            <Button onClick={() => window.open('https://app.bnk48.com/campaign/' + campaigns?.id, '_blank')}>
               เข้าร่วมแคมเปญนี้
             </Button>
             <Button onClick={() => setCampaigns(null)} disabled={!close}>
