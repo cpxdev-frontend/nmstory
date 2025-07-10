@@ -224,7 +224,7 @@ const BirthdayCampaigns = () => {
               </h6>
             </CardActionArea>
             <div className="text-end">
-              {moment() > moment(campaigns?.endAt) ? (
+              {moment() <= moment(campaigns?.endAt) ? (
                 <Typography className="text-muted">
                   โหวตได้จนถึง{" "}
                   {moment(campaigns?.endAt)
@@ -239,7 +239,7 @@ const BirthdayCampaigns = () => {
               )}
             </div>
           </CardContent>
-          <CardActions>
+          <CardActions sx={{paddingBottom: 5}}>
             <Button onClick={() => setCampaigns(null)} disabled={!close}>
               ปิดหน้าจอนี้
             </Button>
