@@ -154,7 +154,7 @@ const BirthdayCampaigns = () => {
           if (data.data != null) {
             getLoadNum(
               data.data.currentBackedCoinAmount,
-              data.data.targetCoinAmount
+              data.data.tierList[1]
             );
           }
         }
