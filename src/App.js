@@ -20,7 +20,13 @@ import {
   Alert,
   CardHeader,
   Backdrop,
+  Fab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
+import ChatIcon from "@mui/icons-material/Chat";
+import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import Confetti from "react-confetti";
 import CelebrationIcon from "@mui/icons-material/Celebration";
@@ -38,6 +44,7 @@ import Home from "./component/home";
 import NMPlay from "./component/ytplay";
 import Events from "./component/news";
 import Game from "./component/game";
+import StoryAI from "./component/chatai";
 import P404Page from "./component/p404";
 
 import moment, { lang } from "moment";
@@ -92,6 +99,10 @@ function App() {
   const [game, setInGame] = React.useState(false);
   const [splash, setSplash] = React.useState(true);
   const [fire, setFire] = React.useState(false);
+
+  const [chat, setChat] = React.useState(false);
+
+  const handleToggle = () => setChat((prev) => !prev);
 
   const [overture, setOverTure] = React.useState(false);
 
@@ -229,6 +240,15 @@ function App() {
               </ListItem>
             )
         )}
+        <ListItem onClick={handleDrawerToggle} disablePadding>
+          <ListItemButton
+            className={location.pathname == "/nmstoryai" ? "Menuactive" : ""}
+            sx={{ textAlign: "center" }}
+            onClick={() => his.push("/nmstoryai")}
+          >
+            <ListItemText primary={"NM Story AI (Beta)"} />
+          </ListItemButton>
+        </ListItem>
         <Divider />
         <ListItem
           disablePadding
@@ -466,7 +486,7 @@ function App() {
                       color: splash ? "#fff !important" : "",
                     }}
                   >
-                    <SettingsIcon />
+                    More
                   </Button>
                 </Box>
                 <IconButton
@@ -523,6 +543,7 @@ function App() {
               )}
             />
             <Route path="/nmplay" render={() => <NMPlay />} />
+            <Route path="/nmstoryai" render={() => <StoryAI />} />
             <Route path="*" render={() => <P404Page />} />
           </BasicSwitch>
           <footer className="card text-center" translate="no">

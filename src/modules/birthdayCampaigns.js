@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogActions,
   DialogContent,
-  DialogContentText,
+  Backdrop,
   TableContainer,
   Paper,
   Table,
@@ -22,8 +22,10 @@ import {
   TableCell,
   TableHead,
   TableBody,
+  Fab,
+  Fade,
 } from "@mui/material";
-import { InfoOutlined, Celebration } from "@mui/icons-material";
+import { InfoOutlined, Celebration, PlayArrowSharp } from "@mui/icons-material";
 import Confetti from "react-confetti";
 import moment from "moment";
 
@@ -55,6 +57,8 @@ const BirthdayCampaigns = () => {
   const [close, setclose] = React.useState(false);
   const [tier, setTier] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
+  const [birthLaunch, setBirth] = React.useState(false);
+  const [mute, setMute] = React.useState(true);
 
   const getLoadNum = (numx, max) => {
     let numcount = 0;
@@ -131,15 +135,26 @@ const BirthdayCampaigns = () => {
   };
 
   React.useEffect(() => {
-    fetch(
-      "https://cpxdevweb.azurewebsites.net/api/nm/getBirthCampain",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch("https://cpxdevweb.koyeb.app/api/nm/getcurrenttime", {
+      method: "post",
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        if (parseInt(data) >= 1754758800 && parseInt(data) < 1755363600) {
+          setTimeout(() => {
+            setBirth(true);
+          }, 3000);
+          setTimeout(() => {
+            setMute(false);
+          }, 6000);
+        }
+      });
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/getBirthCampain", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -194,7 +209,17 @@ const BirthdayCampaigns = () => {
           <CardContent>
             <CardHeader
               title="Nammonn BNK48's Birthday Campaigns"
-              subheader={cokkiecount.toLocaleString("en-US") + " Cookies" + (cokkiecount < campaigns?.tierList[1] ? ' (more ' + (campaigns?.tierList[1] - cokkiecount).toLocaleString("en-US") + ' remaining)' : '')}
+              subheader={
+                cokkiecount.toLocaleString("en-US") +
+                " Cookies" +
+                (cokkiecount < campaigns?.tierList[1]
+                  ? " (more " +
+                    (campaigns?.tierList[1] - cokkiecount).toLocaleString(
+                      "en-US"
+                    ) +
+                    " remaining)"
+                  : "")
+              }
               action={<Celebration />}
             />
             <p>
@@ -239,8 +264,15 @@ const BirthdayCampaigns = () => {
               )}
             </div>
           </CardContent>
-          <CardActions sx={{paddingBottom: 5}}>
-            <Button onClick={() => window.open('https://app.bnk48.com/campaign/' + campaigns?.id, '_blank')}>
+          <CardActions sx={{ paddingBottom: 5 }}>
+            <Button
+              onClick={() =>
+                window.open(
+                  "https://app.bnk48.com/campaign/" + campaigns?.id,
+                  "_blank"
+                )
+              }
+            >
               เข้าร่วมแคมเปญนี้
             </Button>
             <Button onClick={() => setCampaigns(null)} disabled={!close}>
@@ -355,6 +387,66 @@ const BirthdayCampaigns = () => {
           <Button onClick={() => setTier(false)}>เข้าใจแล้ว</Button>
         </DialogActions>
       </Dialog>
+
+      <Backdrop
+        open={birthLaunch}
+        timeout={600}
+        className="preloadbg"
+        sx={(theme) => ({ color: "#fff", zIndex: 3001 })}
+      >
+        {!mute && (
+          <Fab
+            sx={{
+              position: "fixed",
+              translate: "0% -50%",
+              zIndex: 3002,
+              opacity: 0.65,
+            }}
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              document.getElementById("stream")?.play();
+              setMute(true);
+            }}
+          >
+            <PlayArrowSharp />
+          </Fab>
+        )}
+        {birthLaunch && (
+          <video
+            disablePictureInPicture
+            controlsList="nodownload"
+            id="stream"
+            onLoad={() => setMute(false)}
+            style={{ pointerEvents: "none" }}
+            onEnded={() => {
+              setTimeout(() => {
+                setBirth(false);
+              }, 1000);
+            }}
+            height="100%"
+          >
+            <source src="https://tinyurl.com/nm22birthday" type="video/mp4" />
+            เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+          </video>
+        )}
+        <Card
+          component={Fade}
+          in={!mute}
+          sx={{
+            position: "fixed",
+            zIndex: 3010,
+            bottom: 10,
+          }}
+        >
+          <CardContent>
+            <h6 className="text-primary text-center">
+              คำอวยพรสุดพิเศษจาก Bamboo (อดีตสมาชิก BNK48 รุ่นที่สอง)
+              ถึงน้องน้ำมนต์
+            </h6>
+          </CardContent>
+        </Card>
+      </Backdrop>
     </>
   );
 };
