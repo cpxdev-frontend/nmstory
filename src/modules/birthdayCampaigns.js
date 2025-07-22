@@ -209,7 +209,7 @@ const BirthdayCampaigns = () => {
           <CardContent>
             <CardHeader
               title="Nammonn BNK48's Birthday Campaigns"
-              subheader={cokkiecount.toLocaleString("en-US") + " Cookies" + (cokkiecount < campaigns?.tierList[1] ? ' (more ' + (campaigns?.tierList[1] - cokkiecount).toLocaleString("en-US") + ' remaining)' : '')}
+              subheader={cokkiecount.toLocaleString("en-US") + " Cookies" + (cokkiecount < campaigns?.tierList[1] ? ' (' + (campaigns?.tierList[1] - cokkiecount).toLocaleString("en-US") + ' more Cookies remaining)' : '')}
               action={<Celebration />}
             />
             <p>
