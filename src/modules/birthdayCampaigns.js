@@ -416,7 +416,7 @@ const BirthdayCampaigns = () => {
             }}
             height="100%"
           >
-            <source src="https://tinyurl.com/nm22birthday" type="video/mp4" />
+            <source src="https://tinyurl.com/nm22birthdaygreeting" type="video/mp4" />
             เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
           </video>
         )}
