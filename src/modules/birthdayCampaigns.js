@@ -61,33 +61,21 @@ const BirthdayCampaigns = () => {
   const [mute, setMute] = React.useState(true);
 
   const getLoadNum = (numx, max) => {
-    let numcount = 0;
     let ok = false;
-    loopdata = setInterval(
-      () => {
-        if (numcount >= numx) {
-          clearInterval(loopdata);
-          setCookie(() => numx);
-          setTimeout(() => {
-            setclose(true);
-          }, 5000);
-        } else {
-          numcount = numcount + (numx - numcount >= 1000 ? 1000 : 1);
-          if (numcount >= max && ok == false) {
-            setSuccess(true);
-            ok = true;
-            if (!isIOS()) {
-              navigator.vibrate([200]);
-            }
-            setTimeout(() => {
-              setSuccess(false);
-            }, 10000);
-          }
-          setCookie(() => numcount);
-        }
-      },
-      numcount >= max - 100000 ? 800 : 1
-    );
+    if (ok == false) {
+      setSuccess(true);
+      ok = true;
+      if (!isIOS()) {
+        navigator.vibrate([200]);
+      }
+      setTimeout(() => {
+        setSuccess(false);
+      }, 10000);
+    }
+    setCookie(numx);
+    setTimeout(() => {
+      setclose(true);
+    }, 5000);
   };
 
   const tierState = (currentcount) => {
@@ -167,10 +155,12 @@ const BirthdayCampaigns = () => {
           setCampaigns(data.data);
           setUpdate(data.latest);
           if (data.data != null) {
-            getLoadNum(
-              data.data.currentBackedCoinAmount,
-              data.data.tierList[1]
-            );
+            setTimeout(() => {
+              getLoadNum(
+                data.data.currentBackedCoinAmount,
+                data.data.tierList[1]
+              );
+            }, 800);
           }
         }
       })
@@ -209,7 +199,17 @@ const BirthdayCampaigns = () => {
           <CardContent>
             <CardHeader
               title="Nammonn BNK48's Birthday Campaigns"
-              subheader={cokkiecount.toLocaleString("en-US") + " Cookies" + (cokkiecount < campaigns?.tierList[1] ? ' (' + (campaigns?.tierList[1] - cokkiecount).toLocaleString("en-US") + ' more Cookies remaining)' : '')}
+              subheader={
+                cokkiecount.toLocaleString("en-US") +
+                " Cookies" +
+                (cokkiecount < campaigns?.tierList[1]
+                  ? " (" +
+                    (campaigns?.tierList[1] - cokkiecount).toLocaleString(
+                      "en-US"
+                    ) +
+                    " more Cookies remaining)"
+                  : "")
+              }
               action={<Celebration />}
             />
             <p>
@@ -256,6 +256,7 @@ const BirthdayCampaigns = () => {
           </CardContent>
           <CardActions sx={{ paddingBottom: 5 }}>
             <Button
+              disabled={moment() > moment(campaigns?.endAt)}
               onClick={() =>
                 window.open(
                   "https://app.bnk48.com/campaign/" + campaigns?.id,
@@ -416,7 +417,10 @@ const BirthdayCampaigns = () => {
             }}
             height="100%"
           >
-            <source src="https://tinyurl.com/nm22birthdaygreeting" type="video/mp4" />
+            <source
+              src="https://tinyurl.com/nm22birthdaygreeting"
+              type="video/mp4"
+            />
             เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
           </video>
         )}
