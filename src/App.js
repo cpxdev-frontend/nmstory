@@ -24,6 +24,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  ListItemIcon,
 } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import CloseIcon from "@mui/icons-material/Close";
@@ -47,12 +48,23 @@ import Game from "./component/game";
 import StoryAI from "./component/chatai";
 import P404Page from "./component/p404";
 
+import HomeIcon from "@mui/icons-material/Home";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import EventIcon from "@mui/icons-material/Event";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+
 import moment, { lang } from "moment";
 import BirthdayCampaigns from "./modules/birthdayCampaigns";
 
 const drawerWidth = 290;
 const navItemsA = ["/", "/nmplay", "/events", "/game"];
 const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
+const navItemsIcon = [
+  <HomeIcon />,
+  <PlayCircleIcon />,
+  <EventIcon />,
+  <SportsEsportsIcon />,
+];
 
 const iconLink = "https://d3hhrps04devi8.cloudfront.net/nmstory/icon.png";
 
@@ -232,9 +244,10 @@ function App() {
                   className={
                     location.pathname == navItemsA[i] ? "Menuactive" : ""
                   }
-                  sx={{ textAlign: "center" }}
                   onClick={() => his.push(navItemsA[i])}
+                  sx={{ paddingLeft: 5 }}
                 >
+                  <ListItemIcon>{navItemsIcon[i]}</ListItemIcon>
                   <ListItemText primary={item} />
                 </ListItemButton>
               </ListItem>
@@ -243,9 +256,12 @@ function App() {
         <ListItem onClick={handleDrawerToggle} disablePadding>
           <ListItemButton
             className={location.pathname == "/nmstoryai" ? "Menuactive" : ""}
-            sx={{ textAlign: "center" }}
+            sx={{ paddingLeft: 5 }}
             onClick={() => his.push("/nmstoryai")}
           >
+            <ListItemIcon>
+              <ChatIcon />
+            </ListItemIcon>
             <ListItemText primary={"NM Story AI (Beta)"} />
           </ListItemButton>
         </ListItem>
