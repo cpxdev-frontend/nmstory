@@ -147,26 +147,25 @@ function App() {
   }
 
   async function fetchData() {
+    const urls = [
+      "https://cpxdevweb.azurewebsites.net",
+      "https://cpxdevweb.koyeb.app",
+    ];
+
     try {
-      const response = await fetch(
-        "https://cpxdevweb.azurewebsites.net/home/status"
+      const results = await Promise.all(
+        urls.map(async (url) => {
+          const response = await fetch(url);
+          if (!response.ok)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          return true;
+        })
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.text();
+
+      // ถ้าทุก URL ผ่าน ให้ setOffline(false)
       setOffline(false);
     } catch (error) {
-      setOffline(true);
-    }
-    try {
-      const response = await fetch("https://cpxdevweb.koyeb.app/home/status");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.text();
-      setOffline(false);
-    } catch (error) {
+      // ถ้ามีอันใดอันหนึ่ง error ให้ถือว่า offline
       setOffline(true);
     }
   }
