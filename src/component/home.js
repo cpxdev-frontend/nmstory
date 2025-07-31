@@ -165,18 +165,7 @@ const Home = () => {
         }, 10000);
       });
 
-    if (moment().unix() > 1754758800) {
-      setNewHome(true);
-    }
-    fetch("https://cpxdevweb.azurewebsites.net/api/nm/getcurrenttime", {
-      method: "post",
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        if (parseInt(data) > 1754758800) {
-          setNewHome(true);
-        }
-      });
+    setNewHome(true);
 
     fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", {
       method: "post",
@@ -2006,31 +1995,21 @@ const Home = () => {
                     </Tabs>
                   </Box>
                   <div className="justify-content-center">
-                    <CustomTabPanel value={value} index={0}>
+                    <CustomTabPanel value={value} index={0} className="p-0 m-0">
                       {update != null ? (
                         <div className="container" data-aos="fade-in">
                           {update.map(
                             (item, i) =>
                               i === getupdate && (
                                 <div className="row" key={item.id_str}>
-                                  <div className="col-md col-12 d-md-block d-none">
+                                  <div className="col-md col-12">
                                     <XEmbed
                                       url={
                                         "https://twitter.com/NammonnBNK48FC/status/" +
                                         item.id_str
                                       }
                                       className="tweetx"
-                                      style={{ height: 400, width: 580 }}
-                                    />
-                                  </div>
-                                  <div className="col-12 d-md-none d-block">
-                                    <XEmbed
-                                      url={
-                                        "https://twitter.com/NammonnBNK48FC/status/" +
-                                        item.id_str
-                                      }
-                                      className="tweetx"
-                                      style={{ height: 400, width: "100%" }}
+                                      style={{ height: 400, width: '100%' }}
                                     />
                                   </div>
                                   <div className="col-md col-12 mt-3 mt-md-0">
