@@ -154,7 +154,7 @@ function App() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
+      const data = await response.text();
       setOffline(false);
     } catch (error) {
       setOffline(true);
@@ -164,7 +164,7 @@ function App() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
+      const data = await response.text();
       setOffline(false);
     } catch (error) {
       setOffline(true);
