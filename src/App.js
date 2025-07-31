@@ -360,8 +360,8 @@ function App() {
                   data-aos="fade-up"
                   data-aos-delay="400"
                 >
-                  ขณะนี้อยู่ระหว่างการปรับปรุงระบบให้ดีขึ้น อาจใช้เวลาประมาณ
-                  1-2 ชั่วโมง ไว้ค่อยกลับมาใหม่นะ!
+                  ขณะนี้อยู่ระหว่างการปรับปรุงระบบให้ดีขึ้น อาจใช้เวลาประมาณ 1-2
+                  ชั่วโมง ไว้ค่อยกลับมาใหม่นะ!
                 </p>
               </div>
             </div>
@@ -622,7 +622,12 @@ function App() {
                 )}
               />
               <Route path="/nmplay" render={() => <NMPlay />} />
-              <Route path="/nmstoryai" render={() => <StoryAI />} />
+              <Route path="*" render={() => <P404Page />} />
+              <Route path="*" render={() => <P404Page />} />
+              {moment().unix() >= 1754006400 && (
+                <Route path="/nmstoryai" render={() => <StoryAI />} />
+              )}
+
               <Route path="*" render={() => <P404Page />} />
             </BasicSwitch>
           )}

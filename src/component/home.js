@@ -165,7 +165,9 @@ const Home = () => {
         }, 10000);
       });
 
-    setNewHome(true);
+    if (moment().unix() >= 1754006400) {
+      setNewHome(true);
+    }
 
     fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", {
       method: "post",
@@ -2009,7 +2011,7 @@ const Home = () => {
                                         item.id_str
                                       }
                                       className="tweetx"
-                                      style={{ height: 400, width: '100%' }}
+                                      style={{ height: 400, width: "100%" }}
                                     />
                                   </div>
                                   <div className="col-md-5 col-12 mt-3 mt-md-0">
