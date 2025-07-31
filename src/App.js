@@ -337,7 +337,7 @@ function App() {
         slots={{ transition: Slide }}
         open={offline}
         timeout={600}
-        className="preloadbg"
+        className="errorpage"
         sx={{
           zIndex: 30000,
           borderBottomLeftRadius: overture ? 20 : 0,
