@@ -111,6 +111,7 @@ function App() {
   const [game, setInGame] = React.useState(false);
   const [splash, setSplash] = React.useState(true);
   const [fire, setFire] = React.useState(false);
+  const [offline, setOffline] = React.useState(null);
 
   const [chat, setChat] = React.useState(false);
 
@@ -145,9 +146,34 @@ function App() {
     }
   }
 
+  async function fetchData() {
+    try {
+      const response = await fetch(
+        "https://cpxdevweb.azurewebsites.net/home/status"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setOffline(false);
+    } catch (error) {
+      setOffline(true);
+    }
+    try {
+      const response = await fetch("https://cpxdevweb.koyeb.app/home/status");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setOffline(false);
+    } catch (error) {
+      setOffline(true);
+    }
+  }
+
   React.useEffect(() => {
     Aos.init({ duration: 900, once: true });
-
+    fetchData();
     setTimeout(() => {
       setOverTure(true);
     }, 4800);
@@ -307,6 +333,42 @@ function App() {
 
   return (
     <Box className="bg-theme">
+      <Backdrop
+        slots={{ transition: Slide }}
+        open={offline}
+        timeout={600}
+        className="preloadbg"
+        sx={{
+          zIndex: 30000,
+          borderBottomLeftRadius: overture ? 20 : 0,
+          borderBottomRightRadius: overture ? 20 : 0,
+        }}
+      >
+        <div className="container">
+          <div className="row">
+            <div className="col d-flex align-items-center justify-content-center">
+              <div className="text-center">
+                <h1
+                  className="colorpink"
+                  data-aos="zoom-out"
+                  data-aos-duration="12000"
+                >
+                  System is temporary offline
+                </h1>
+                <p
+                  className="colorpink"
+                  data-aos="fade-up"
+                  data-aos-delay="400"
+                >
+                  ขณะนี้อยู่ระหว่างการปรับปรุงระบบให้ดีขึ้น อาจใช้เวลาประมาณ
+                  1-2 ชั่วโมง ไว้ค่อยกลับมาใหม่นะ!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Backdrop>
+
       <Backdrop
         slots={{ transition: Slide }}
         open={!overture}
@@ -548,20 +610,22 @@ function App() {
               {drawer}
             </Drawer>
           </nav>
-          <BirthdayCampaigns />
-          <BasicSwitch data-aos="fade-in">
-            <Route exact path="/" render={() => <Home />} />
-            <Route path="/events" render={() => <Events />} />
-            <Route
-              path="/game"
-              render={() => (
-                <Game game={game} setInGame={(v) => setInGame(v)} />
-              )}
-            />
-            <Route path="/nmplay" render={() => <NMPlay />} />
-            <Route path="/nmstoryai" render={() => <StoryAI />} />
-            <Route path="*" render={() => <P404Page />} />
-          </BasicSwitch>
+          {offline == false && <BirthdayCampaigns />}
+          {offline == false && (
+            <BasicSwitch data-aos="fade-in">
+              <Route exact path="/" render={() => <Home />} />
+              <Route path="/events" render={() => <Events />} />
+              <Route
+                path="/game"
+                render={() => (
+                  <Game game={game} setInGame={(v) => setInGame(v)} />
+                )}
+              />
+              <Route path="/nmplay" render={() => <NMPlay />} />
+              <Route path="/nmstoryai" render={() => <StoryAI />} />
+              <Route path="*" render={() => <P404Page />} />
+            </BasicSwitch>
+          )}
           <footer className="card text-center" translate="no">
             <div className="card-body">
               <p className="card-title">

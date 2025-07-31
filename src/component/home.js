@@ -2002,7 +2002,7 @@ const Home = () => {
                             (item, i) =>
                               i === getupdate && (
                                 <div className="row" key={item.id_str}>
-                                  <div className="col-md col-12">
+                                  <div className="col-md-7 col-12">
                                     <XEmbed
                                       url={
                                         "https://twitter.com/NammonnBNK48FC/status/" +
@@ -2012,7 +2012,7 @@ const Home = () => {
                                       style={{ height: 400, width: '100%' }}
                                     />
                                   </div>
-                                  <div className="col-md col-12 mt-3 mt-md-0">
+                                  <div className="col-md-5 col-12 mt-3 mt-md-0">
                                     <Typography
                                       className="text-muted"
                                       variant="h6"
