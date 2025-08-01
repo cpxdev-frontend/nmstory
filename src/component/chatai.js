@@ -45,6 +45,7 @@ const ChatAI = () => {
 
   React.useEffect(() => {
     checkpoint();
+    alert();
     refresh = setInterval(() => checkpoint(), 10000);
   }, []);
 
