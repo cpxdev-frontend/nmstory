@@ -1997,7 +1997,7 @@ const Home = () => {
                     </Tabs>
                   </Box>
                   <div className="justify-content-center">
-                    <CustomTabPanel value={value} index={0} className="p-0 m-0">
+                    <CustomTabPanel value={value} index={0} className="p-0 m-0 px-0">
                       {update != null ? (
                         <div className="container" data-aos="fade-in">
                           {update.map(
@@ -2080,7 +2080,7 @@ const Home = () => {
                         </>
                       )}
                     </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1}>
+                    <CustomTabPanel value={value} index={1} className="p-0 m-0 px-0">
                       <div className="container" data-aos="fade-in">
                         <InstagramEmbed
                           url="https://instagram.com/nammonn.bnk48official"
@@ -2089,7 +2089,7 @@ const Home = () => {
                         />
                       </div>
                     </CustomTabPanel>
-                    <CustomTabPanel value={value} index={2}>
+                    <CustomTabPanel value={value} index={2} className="p-0 m-0 px-0">
                       <div className="container" data-aos="fade-in">
                         <iframe
                           src="https://www.tiktok.com/embed/@nammonn.bnk48official"
@@ -2099,7 +2099,7 @@ const Home = () => {
                         />
                       </div>
                     </CustomTabPanel>
-                    <CustomTabPanel value={value} index={3}>
+                    <CustomTabPanel value={value} index={3} className="p-0 m-0 px-0">
                       <div className="container" data-aos="fade-in">
                         <iframe
                           src="https://open.spotify.com/embed/playlist/0G9srwf10s3QC0lObFXhQe?utm_source=generator"
