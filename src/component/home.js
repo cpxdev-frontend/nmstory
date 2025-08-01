@@ -85,7 +85,7 @@ function CustomTabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box className="m-0 px-0 p-0">{children}</Box>}
+      {value === index && <Box className="m-0 px-0 p-0 pt-3 pb-3">{children}</Box>}
     </div>
   );
 }
@@ -2003,7 +2003,7 @@ const Home = () => {
                           {update.map(
                             (item, i) =>
                               i === getupdate && (
-                                <div className="row" key={item.id_str}>
+                                <div className="row p-0 px-0 m-0" key={item.id_str}>
                                   <div className="col-md-7 col-12">
                                     <XEmbed
                                       url={
