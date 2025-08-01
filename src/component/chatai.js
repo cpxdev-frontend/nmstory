@@ -14,7 +14,7 @@ import {
   Button,
 } from "@mui/material";
 var refresh;
-const eula = "eulav1";
+const eula = "eulav2";
 
 const ChatAI = () => {
   const his = useHistory();
@@ -96,7 +96,7 @@ const ChatAI = () => {
               ทางผู้พัฒนาขอสงวนสิทธิ์ในการระงับการใช้งานโดยมิต้องแจ้งให้ทราบล่วงหน้า
             </DialogContentText>
             <DialogContentText className="mb-3">
-              5. คุณสามารถส่งข้อความเพื่อสอบถามข้อมูลได้สูงสุด 10
+              5. คุณสามารถส่งข้อความเพื่อสอบถามข้อมูลได้สูงสุด 5
               ข้อความต่อชั่วโมง ต่อ 1 อุปกรณ์ หลังจากนั้น
               ระบบจะบล็อคสิทธิ์การเข้าถึงชั่วคราวจนกว่าจะครบกำหนดเวลาที่ระบุ
             </DialogContentText>
