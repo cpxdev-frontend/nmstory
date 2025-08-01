@@ -2003,7 +2003,7 @@ const Home = () => {
                           {update.map(
                             (item, i) =>
                               i === getupdate && (
-                                <div className="row p-0 px-0 m-0" key={item.id_str}>
+                                <div className="row g-0 p-0 px-0 m-0" key={item.id_str}>
                                   <div className="col-md-7 col-12">
                                     <XEmbed
                                       url={
