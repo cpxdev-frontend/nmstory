@@ -623,10 +623,7 @@ function App() {
               <Route path="/nmplay" render={() => <NMPlay />} />
               <Route path="*" render={() => <P404Page />} />
               <Route path="*" render={() => <P404Page />} />
-              {moment().unix() >= 1754006400 && (
                 <Route path="/nmstoryai" render={() => <StoryAI />} />
-              )}
-
               <Route path="*" render={() => <P404Page />} />
             </BasicSwitch>
           )}
