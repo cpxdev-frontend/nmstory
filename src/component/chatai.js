@@ -174,7 +174,7 @@ const ChatAI = () => {
         }
       />
       <iframe
-        src="https://app.thinkstack.ai/bot/index.html?chatbot_id=68726fe3d55e4dcc0f89ce0a&type=inline"
+        src="https://app.fastbots.ai/embed/cmdsu9jch00fvp61mz4avdpuw"
         frameborder="0"
         width="100%"
         height="100%"
