@@ -621,8 +621,6 @@ function App() {
                 )}
               />
               <Route path="/nmplay" render={() => <NMPlay />} />
-              <Route path="*" render={() => <P404Page />} />
-              <Route path="*" render={() => <P404Page />} />
                 <Route path="/nmstoryai" render={() => <StoryAI />} />
               <Route path="*" render={() => <P404Page />} />
             </BasicSwitch>
