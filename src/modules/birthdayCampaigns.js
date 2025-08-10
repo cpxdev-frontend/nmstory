@@ -330,15 +330,18 @@ const BirthdayCampaigns = () => {
             controlsList="nodownload"
             id="stream"
             onPause={() => setMute(true)}
-             preload="auto"
+            preload="auto"
             onLoad={() => setMute(false)}
-            style={{ pointerEvents: "none", height: "99%", borderRadius: "10px" }}
+            style={{
+              pointerEvents: "none",
+              height: "99%",
+              borderRadius: "10px",
+            }}
             onEnded={() => {
               setTimeout(() => {
                 setBirth(false);
               }, 1000);
             }}
-            
           >
             <source
               src="https://tinyurl.com/nm22birthdaygreeting"
