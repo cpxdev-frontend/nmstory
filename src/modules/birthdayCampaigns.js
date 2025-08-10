@@ -327,6 +327,7 @@ const BirthdayCampaigns = () => {
             playInline
             disablePictureInPicture
             webkit-playsinline
+            muted
             controlsList="nodownload"
             id="stream"
             preload="auto"
