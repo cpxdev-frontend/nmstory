@@ -308,6 +308,7 @@ const BirthdayCampaigns = () => {
             color="primary"
             onClick={() => {
               document.getElementById("stream")?.play();
+              document.getElementById("stream").muted = false;
               setMute(true);
             }}
           >
