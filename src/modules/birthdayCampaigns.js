@@ -308,7 +308,6 @@ const BirthdayCampaigns = () => {
             color="primary"
             onClick={() => {
               document.getElementById("stream")?.play();
-              document.getElementById("stream").muted = false;
               setMute(true);
             }}
           >
@@ -328,10 +327,8 @@ const BirthdayCampaigns = () => {
             playInline
             disablePictureInPicture
             webkit-playsinline
-            muted
-            controlsList="nodownload"
+            controlsList="nofullscreen,nodownload"
             id="stream"
-            preload="auto"
             onLoad={() => setMute(false)}
             style={{
               height: "99%",
