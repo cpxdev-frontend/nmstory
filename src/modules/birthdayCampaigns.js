@@ -319,9 +319,8 @@ const BirthdayCampaigns = () => {
         )}
         {birthLaunch && (
           <video
-            playsinline
+            playInline
             webkit-playsinline
-            disablepictureinpicture
             disablePictureInPicture
             controlsList="nodownload"
             id="stream"
