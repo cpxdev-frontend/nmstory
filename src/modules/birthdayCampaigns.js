@@ -333,7 +333,6 @@ const BirthdayCampaigns = () => {
             preload="auto"
             onLoad={() => setMute(false)}
             style={{
-              pointerEvents: "none",
               height: "99%",
               borderRadius: "10px",
             }}
