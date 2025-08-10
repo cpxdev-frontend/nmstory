@@ -318,31 +318,27 @@ const BirthdayCampaigns = () => {
           <img
             height="100%"
             data-aos="fade-in"
-            style={{ position: "fixed" }}
+            style={{ position: "fixed", borderRadius: "10px" }}
             src="https://d3hhrps04devi8.cloudfront.net/nmstory/Greeting%20Video%20Spot%20(Stock%20image).JPG"
           />
         )}
         {birthLaunch && (
           <video
             playInline
-            webkit-playsinline
             disablePictureInPicture
+            webkit-playsinline
             controlsList="nodownload"
             id="stream"
             onPause={() => setMute(true)}
+             preload="auto"
             onLoad={() => setMute(false)}
-            style={{ pointerEvents: "none" }}
-            onTouchEnd={() => {
-              setTimeout(() => {
-                setBirth(false);
-              }, 1000);
-            }}
+            style={{ pointerEvents: "none", height: "99%", borderRadius: "10px" }}
             onEnded={() => {
               setTimeout(() => {
                 setBirth(false);
               }, 1000);
             }}
-            height="100%"
+            
           >
             <source
               src="https://tinyurl.com/nm22birthdaygreeting"
