@@ -321,6 +321,7 @@ const BirthdayCampaigns = () => {
           <video
             playsinline
             webkit-playsinline
+            disablepictureinpicture
             disablePictureInPicture
             controlsList="nodownload"
             id="stream"
