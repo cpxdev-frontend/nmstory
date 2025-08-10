@@ -329,7 +329,6 @@ const BirthdayCampaigns = () => {
             webkit-playsinline
             controlsList="nodownload"
             id="stream"
-            onPause={() => setMute(true)}
             preload="auto"
             onLoad={() => setMute(false)}
             style={{
@@ -341,11 +340,8 @@ const BirthdayCampaigns = () => {
                 setBirth(false);
               }, 1000);
             }}
+            src="https://tinyurl.com/nm22birthdaygreeting"
           >
-            <source
-              src="https://tinyurl.com/nm22birthdaygreeting"
-              type="video/mp4"
-            />
             เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
           </video>
         )}
