@@ -315,7 +315,12 @@ const BirthdayCampaigns = () => {
           </Fab>
         )}
         {birthLaunch && !mute && (
-          <img height='100%' data-aos="fade-in" style={{position: 'fixed'}} src="https://d3hhrps04devi8.cloudfront.net/nmstory/Greeting%20Video%20Spot%20(Stock%20image).JPG" />
+          <img
+            height="100%"
+            data-aos="fade-in"
+            style={{ position: "fixed" }}
+            src="https://d3hhrps04devi8.cloudfront.net/nmstory/Greeting%20Video%20Spot%20(Stock%20image).JPG"
+          />
         )}
         {birthLaunch && (
           <video
@@ -324,8 +329,14 @@ const BirthdayCampaigns = () => {
             disablePictureInPicture
             controlsList="nodownload"
             id="stream"
+            onPause={() => setMute(true)}
             onLoad={() => setMute(false)}
             style={{ pointerEvents: "none" }}
+            onTouchEnd={() => {
+              setTimeout(() => {
+                setBirth(false);
+              }, 1000);
+            }}
             onEnded={() => {
               setTimeout(() => {
                 setBirth(false);
