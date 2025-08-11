@@ -45,6 +45,7 @@ import Home from "./component/home";
 import NMPlay from "./component/ytplay";
 import Events from "./component/news";
 import Game from "./component/game";
+import ClassicQuiz from "./component/classicquiz";
 import StoryAI from "./component/chatai";
 import P404Page from "./component/p404";
 
@@ -615,13 +616,25 @@ function App() {
               <Route exact path="/" render={() => <Home />} />
               <Route path="/events" render={() => <Events />} />
               <Route
+                path="/game/classic"
+                render={() => (
+                  <ClassicQuiz game={game} setInGame={(v) => setInGame(v)} demo='Classic' />
+                )}
+              />
+              <Route
+                path="/game/survival"
+                render={() => (
+                  <ClassicQuiz game={game} setInGame={(v) => setInGame(v)} demo='Survival' />
+                )}
+              />
+              <Route
                 path="/game"
                 render={() => (
                   <Game game={game} setInGame={(v) => setInGame(v)} />
                 )}
               />
               <Route path="/nmplay" render={() => <NMPlay />} />
-                <Route path="/nmstoryai" render={() => <StoryAI />} />
+              <Route path="/nmstoryai" render={() => <StoryAI />} />
               <Route path="*" render={() => <P404Page />} />
             </BasicSwitch>
           )}

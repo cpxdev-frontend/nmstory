@@ -25,7 +25,7 @@ import {
   Fab,
   Fade,
 } from "@mui/material";
-import { InfoOutlined, Celebration, PlayArrowSharp } from "@mui/icons-material";
+import { Close, Celebration, PlayArrowSharp } from "@mui/icons-material";
 import Confetti from "react-confetti";
 import moment from "moment";
 
@@ -297,22 +297,41 @@ const BirthdayCampaigns = () => {
         sx={(theme) => ({ color: "#fff", zIndex: 3001 })}
       >
         {!mute && (
-          <Fab
-            sx={{
-              position: "fixed",
-              translate: "0% -50%",
-              zIndex: 3002,
-              opacity: 0.65,
-            }}
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              document.getElementById("stream")?.play();
-              setMute(true);
-            }}
-          >
-            <PlayArrowSharp />
-          </Fab>
+          <>
+            <Fab
+              sx={{
+                position: "fixed",
+                translate: "0% -50%",
+                zIndex: 3002,
+                opacity: 0.65,
+              }}
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                document.getElementById("stream")?.play();
+                setMute(true);
+              }}
+            >
+              <PlayArrowSharp />
+            </Fab>
+            <Fab
+              sx={{
+                position: "fixed",
+                zIndex: 3003,
+                top: 4,
+                right: 4,
+                opacity: 0.65,
+              }}
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setBirth(false);
+                setMute(true);
+              }}
+            >
+              <Close />
+            </Fab>
+          </>
         )}
         {birthLaunch && !mute && (
           <img
