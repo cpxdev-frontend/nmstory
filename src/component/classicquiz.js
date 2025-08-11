@@ -309,6 +309,7 @@ const GameApp = ({ game, setInGame, demo }) => {
       body: JSON.stringify({
         quizIP: ip,
         quizCountry: currentCountry,
+        pressureLevel: pressure,
       }),
     };
     setExitReady(true);
@@ -702,21 +703,27 @@ const GameApp = ({ game, setInGame, demo }) => {
                 <ListItem>
                   <ListItemText
                     primary={
-                      "5. สำหรับผู้ใช้งาน Android ทางผู้พัฒนาได้พัฒนาระบบคำสั่งสั่นที่ตัวอุปกรณ์เพื่อเพิ่มอรรถรสในการเล่น"
+                      "5. คุณสามารถปรับโหมด Pressure เพื่อเพิ่มหรือลดระยะเวลาในการเล่นเกมเพื่อเพิ่มความท้าทายของเกมได้"
                     }
                   />
                 </ListItem>
                 <ListItem>
                   <ListItemText
                     primary={
-                      "6. หลังเกมจบ คุณสามารถเข้ามาเล่นซ้ำได้ แต่คำถามจะถูกเปลี่ยนสลับกันไปโดยไม่ซ้ำลำดับกัน"
+                      "6. สำหรับผู้ใช้งาน Android ทางผู้พัฒนาได้พัฒนาระบบคำสั่งสั่นที่ตัวอุปกรณ์เพื่อเพิ่มอรรถรสในการเล่น"
+                    }
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary={
+                      "7. หลังเกมจบ คุณสามารถเข้ามาเล่นซ้ำได้ แต่คำถามจะถูกเปลี่ยนสลับกันไปโดยไม่ซ้ำลำดับกัน"
                     }
                   />
                 </ListItem>
               </List>
-              {/* <TextField
+              <TextField
                 select
-                disabled
                 label="Pressure Level"
                 defaultValue={pressure}
                 onChange={(e) => setP(e.target.value)}
@@ -728,7 +735,7 @@ const GameApp = ({ game, setInGame, demo }) => {
                     {option.label} ({option.value} นาที)
                   </MenuItem>
                 ))}
-              </TextField> */}
+              </TextField>
               <br />
 
               {!notreadyyet ? (
