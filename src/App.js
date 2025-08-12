@@ -44,6 +44,7 @@ import "./App.css";
 import Home from "./component/home";
 import NMPlay from "./component/ytplay";
 import Events from "./component/news";
+import Trend from "./component/trend";
 import Game from "./component/game";
 import ClassicQuiz from "./component/classicquiz";
 import StoryAI from "./component/chatai";
@@ -631,6 +632,12 @@ function App() {
                 path="/game"
                 render={() => (
                   <Game game={game} setInGame={(v) => setInGame(v)} />
+                )}
+              />
+               <Route
+                path="/trendboost/:id"
+                render={() => (
+                  <Trend />
                 )}
               />
               <Route path="/nmplay" render={() => <NMPlay />} />
