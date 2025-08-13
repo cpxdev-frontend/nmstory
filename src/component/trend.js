@@ -32,10 +32,12 @@ const Trend = () => {
   const { id } = useParams();
   const his = useHistory();
   const [data, setData] = React.useState(null);
+  const [delay, setDelay] = React.useState(false);
   const [linkfech, setLink] = React.useState("");
 
   const fetchData = () => {
     setData(null);
+    setDelay(true);
     var requestOptions = {
       method: "POST",
     };
@@ -52,6 +54,9 @@ const Trend = () => {
         if (result.status) {
           setData(result.response);
           setLink(result.trendstart ? result.url : "");
+          setTimeout(() => {
+            setDelay(false);
+          }, 30000);
         } else {
           his.push("/404");
         }
@@ -63,6 +68,13 @@ const Trend = () => {
     console.log("trendid", id);
     fetchData();
   }, []);
+
+  React.useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [data]);
 
   return (
     <Box sx={{ marginTop: 10 }} data-aos="fade-in">
@@ -116,7 +128,9 @@ const Trend = () => {
                           Start Trend Now!
                         </Button>
                       ) : (
-                        <Button onClick={() => fetchData()}>Refresh</Button>
+                        <Button disabled={delay} onClick={() => fetchData()}>
+                          Refresh
+                        </Button>
                       )}
                     </CardActions>
                   </Card>
