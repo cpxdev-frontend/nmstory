@@ -68,7 +68,7 @@ const Level = [
     label: "Oshi Warrior",
   },
   {
-    value: 4,
+    value: 1,
     label: "Kami-Oshi Master",
   },
 ];
@@ -162,7 +162,7 @@ const GameApp = ({ game, setInGame, demo }) => {
     } else if (onTimeGameMax - onTimeGame == 60) {
       timepopupapi(true);
     }
-    if (onTimeGameMax <= onTimeGame) {
+    if (onTimeGameMax - onTimeGame <= 0) {
       clearInterval(gameInterval);
       setGame(0);
       setStatperques(0);
