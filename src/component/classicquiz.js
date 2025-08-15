@@ -157,13 +157,18 @@ const GameApp = ({ game, setInGame, demo }) => {
   const [hisgame, setHis] = React.useState(null);
 
   async function gameremainFunction() {
-    if (onTimeGame == parseInt(onTimeGameMax / 2)) {
+  setonTimeGame(prev => {
+    const newTime = prev + 1;
+
+    if (newTime === parseInt(onTimeGameMax / 2)) {
       timepopupapi();
-    } else if (onTimeGameMax - onTimeGame == 60) {
+    } else if (onTimeGameMax - newTime === 60) {
       timepopupapi(true);
     }
-    alert(onTimeGame)
-    if (onTimeGameMax <= onTimeGame) {
+
+    alert(newTime);
+
+    if (onTimeGameMax <= newTime) {
       clearInterval(gameInterval);
       setGame(0);
       setStatperques(0);
@@ -176,17 +181,18 @@ const GameApp = ({ game, setInGame, demo }) => {
         text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
         icon: "error",
       });
-    } else if (onTimeGameMax >= onTimeGame && onTimeGameMax - onTimeGame == 10) {
+    } else if (onTimeGameMax >= newTime && onTimeGameMax - newTime === 10) {
       if (!isIOS()) {
         navigator.vibrate([
-          100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900,
-          100, 900, 100, 900, 100, 900, 800,
+          100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900,
+          100, 900, 100, 900, 100, 900, 100, 900, 800,
         ]);
       }
-    } else {
-      setonTimeGame((x) => (x += 1));
     }
-  }
+
+    return newTime;
+  });
+}
 
   React.useEffect(() => {
     let intervalId;
