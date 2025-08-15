@@ -162,7 +162,7 @@ const GameApp = ({ game, setInGame, demo }) => {
 
     if (newTime === parseInt(onTimeGameMax / 2)) {
       timepopupapi();
-    } else if (onTimeGameMax - newTime === 60) {
+    } else if (onTimeGameMax - newTime <= 60) {
       timepopupapi(true);
     }
 
@@ -175,9 +175,9 @@ const GameApp = ({ game, setInGame, demo }) => {
       setSelected(0);
       setInGame(false);
       Swal.fire({
-        title: "Session is expired",
-        text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
-        icon: "error",
+        title: "Times up!",
+        text: "หมดเวลาในการตอบคำถามในเกมนี้แล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
+        icon: "warning",
       });
     } else if (onTimeGameMax >= newTime && onTimeGameMax - newTime === 10) {
       if (!isIOS()) {
