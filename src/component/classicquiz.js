@@ -163,7 +163,7 @@ const GameApp = ({ game, setInGame, demo }) => {
       timepopupapi(true);
     }
     alert(onTimeGame)
-    if (onTimeGameMax - onTimeGame <= 0) {
+    if (onTimeGameMax <= onTimeGame) {
       clearInterval(gameInterval);
       setGame(0);
       setStatperques(0);
@@ -176,7 +176,7 @@ const GameApp = ({ game, setInGame, demo }) => {
         text: "เซสชั่นหมดอายุแล้ว คุณไม่ได้คะแนนในเกมนี้นะครับ",
         icon: "error",
       });
-    } else if (onTimeGameMax - onTimeGame <= 10) {
+    } else if (onTimeGameMax >= onTimeGame && onTimeGameMax - onTimeGame == 10) {
       if (!isIOS()) {
         navigator.vibrate([
           100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900, 100, 900,
