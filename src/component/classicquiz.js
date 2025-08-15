@@ -162,7 +162,7 @@ const GameApp = ({ game, setInGame, demo }) => {
     } else if (onTimeGameMax - onTimeGame == 60) {
       timepopupapi(true);
     }
-    if (onTimeGameMax - onTimeGame <= 0) {
+    if (onTimeGameMax <= onTimeGame) {
       clearInterval(gameInterval);
       setGame(0);
       setStatperques(0);
