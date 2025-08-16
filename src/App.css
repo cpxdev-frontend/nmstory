@@ -304,3 +304,27 @@ iframe {
     animation: gradientShift 10s ease infinite;
   }
 }
+
+.text-box {
+  display: inline-block;
+  overflow: hidden;
+  height: 2em; /* กำหนดความสูงให้พอดีกับข้อความ */
+}
+
+.text-box span {
+  display: block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.text-box span.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.text-box span.exit {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+

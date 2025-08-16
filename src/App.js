@@ -114,6 +114,9 @@ function App() {
   const [splash, setSplash] = React.useState(true);
   const [fire, setFire] = React.useState(false);
   const [offline, setOffline] = React.useState(null);
+  const [words, setWord] = React.useState([
+    "Nammonn BNK48 TH FC"
+  ]);
 
   const [chat, setChat] = React.useState(false);
 
@@ -124,9 +127,27 @@ function App() {
   const [langcross, setLangCross] = React.useState(
     localStorage.getItem("langconvert") !== null
   );
+  const [index, setIndex] = React.useState(0);
+  const [text, setText] = React.useState(words[0]);
+  const [animating, setAnimating] = React.useState(false);
 
   const location = useLocation();
   const his = useHistory();
+
+  const changeText = () => {
+    setAnimating(true);
+    setTimeout(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+      setText(words[(index + 1) % words.length]);
+      setAnimating(false);
+    }, 400);
+  };
+  React.useEffect(() => {
+    if (overture) {
+      const timer = setInterval(changeText, 10000);
+      return () => clearInterval(timer);
+    }
+  }, [index, overture]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -178,6 +199,16 @@ function App() {
     setTimeout(() => {
       setOverTure(true);
     }, 4800);
+   
+    fetch("https://jsonblob.com/api/1406307559249469440")
+      .then((response) => response.json())
+      .then((data) => {
+        setWord(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
   }, []);
 
   React.useEffect(() => {
@@ -496,16 +527,18 @@ function App() {
                       display: splash
                         ? { xs: "none !important", md: "block !important" }
                         : "block",
-                      color: splash ? "#fff" : "#000",
+                      color: splash ? "#1a6bf7ff" : "#000",
                       textShadow: splash
-                        ? "0px 0px 40px 70px rgb(0, 0, 0) !important;"
+                        ? "0px 0px 40px 70px rgba(19, 19, 19, 1) !important;"
                         : "",
                     }}
-                    className="d-flex align-items-center link iconweb"
+                    className="text-box slide-up d-flex align-items-center link iconweb"
                     translate="no"
                     onClick={() => his.push("/")}
                   >
-                    &nbsp;&nbsp;Nammonn BNK48 TH FC
+                    <span className={animating ? "exit" : "active"}>
+                      &nbsp;&nbsp;{text}
+                    </span>
                   </Typography>
                 </Box>
                 <Box sx={{ display: { xs: "none", md: "block" } }}>
@@ -518,15 +551,18 @@ function App() {
                             color: splash
                               ? location.pathname === navItemsA[i]
                                 ? "#000"
-                                : "#ededed"
+                                : "#649cfcff"
                               : location.pathname === navItemsA[i]
                               ? "#fff"
                               : "#000",
+                            textShadow: splash
+                              ? "0px 0px 40px 20px rgba(255, 255, 255, 1);"
+                              : "",
                             boxShadow: splash
-                              ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
+                              ? "0px 0px 40px 20px rgba(0, 0, 0, 0.08);"
                               : "",
                             backgroundColor: splash
-                              ? "rgba(0, 0, 0, 0.18)"
+                              ? "rgba(0, 0, 0, 0.09)"
                               : "",
                           }}
                           onClick={() => his.push(navItemsA[i])}
@@ -537,7 +573,7 @@ function App() {
                   )}
                   <Button
                     sx={{
-                      color: splash ? "#93e1f5" : "#010e80",
+                      color: splash ? "#09b2ccff" : "#010e80",
                       boxShadow: splash
                         ? "0px 0px 40px 20px rgba(0, 0, 0, 0.13);"
                         : "",
@@ -611,7 +647,7 @@ function App() {
               {drawer}
             </Drawer>
           </nav>
-          {offline == false && <BirthdayCampaigns />}
+          {/* {offline == false && <BirthdayCampaigns />} */}
           {offline == false && (
             <BasicSwitch data-aos="fade-in">
               <Route exact path="/" render={() => <Home />} />
@@ -619,13 +655,21 @@ function App() {
               <Route
                 path="/game/classic"
                 render={() => (
-                  <ClassicQuiz game={game} setInGame={(v) => setInGame(v)} demo='Classic' />
+                  <ClassicQuiz
+                    game={game}
+                    setInGame={(v) => setInGame(v)}
+                    demo="Classic"
+                  />
                 )}
               />
               <Route
                 path="/game/survival"
                 render={() => (
-                  <ClassicQuiz game={game} setInGame={(v) => setInGame(v)} demo='Survival' />
+                  <ClassicQuiz
+                    game={game}
+                    setInGame={(v) => setInGame(v)}
+                    demo="Survival"
+                  />
                 )}
               />
               <Route
@@ -634,12 +678,7 @@ function App() {
                   <Game game={game} setInGame={(v) => setInGame(v)} />
                 )}
               />
-               <Route
-                path="/trendboost/:id"
-                render={() => (
-                  <Trend />
-                )}
-              />
+              <Route path="/trendboost/:id" render={() => <Trend />} />
               <Route path="/nmplay" render={() => <NMPlay />} />
               <Route path="/nmstoryai" render={() => <StoryAI />} />
               <Route path="*" render={() => <P404Page />} />
