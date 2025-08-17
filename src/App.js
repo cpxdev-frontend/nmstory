@@ -141,7 +141,7 @@ function App() {
     }, 400);
   };
   React.useEffect(() => {
-    const timer = setInterval(changeText, index == 0 ? 10000 : 6000);
+    const timer = setInterval(changeText, index == 0 ? 15000 : 6000);
     return () => clearInterval(timer);
   }, [index, overture]);
 
