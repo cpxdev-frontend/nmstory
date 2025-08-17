@@ -114,9 +114,7 @@ function App() {
   const [splash, setSplash] = React.useState(true);
   const [fire, setFire] = React.useState(false);
   const [offline, setOffline] = React.useState(null);
-  const [words, setWord] = React.useState([
-    "Nammonn BNK48 TH FC"
-  ]);
+  const [words, setWord] = React.useState(["Nammonn BNK48 TH FC"]);
 
   const [chat, setChat] = React.useState(false);
 
@@ -143,10 +141,8 @@ function App() {
     }, 400);
   };
   React.useEffect(() => {
-    if (overture) {
-      const timer = setInterval(changeText, 10000);
-      return () => clearInterval(timer);
-    }
+    const timer = setInterval(changeText, index == 0 ? 10000 : 6000);
+    return () => clearInterval(timer);
   }, [index, overture]);
 
   const handleDrawerToggle = () => {
@@ -199,7 +195,7 @@ function App() {
     setTimeout(() => {
       setOverTure(true);
     }, 4800);
-   
+
     fetch("https://jsonblob.com/api/1406307559249469440")
       .then((response) => response.json())
       .then((data) => {
@@ -208,7 +204,6 @@ function App() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
   }, []);
 
   React.useEffect(() => {
