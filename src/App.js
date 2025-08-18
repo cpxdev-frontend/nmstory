@@ -497,9 +497,9 @@ function App() {
 
           <Slide in={overture && !game} timeout={600}>
             <AppBar
-              className="newnav"
+              className={splash ? "navhd" : "newnav"}
               sx={{
-                background: splash ? "transparent !important" : "",
+                // background: splash ? "transparent !important" : "",
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,
                 boxShadow: splash ? "none !important" : "",
@@ -522,7 +522,7 @@ function App() {
                       display: splash
                         ? { xs: "none !important", md: "block !important" }
                         : "block",
-                      color: splash ? "#1a6bf7ff" : "#000",
+                      color: splash ? "#0353a2ff" : "#000",
                       textShadow: splash
                         ? "0px 0px 40px 70px rgba(19, 19, 19, 1) !important;"
                         : "",
@@ -546,7 +546,7 @@ function App() {
                             color: splash
                               ? location.pathname === navItemsA[i]
                                 ? "#000"
-                                : "#649cfcff"
+                                : "#04478aff"
                               : location.pathname === navItemsA[i]
                               ? "#fff"
                               : "#000",

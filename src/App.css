@@ -51,6 +51,15 @@
   }
 }
 
+.navhd {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 169, 247, 1) 0%,
+    rgba(80, 180, 251, 0.634) 20%,
+    rgba(90, 220, 253, 0.298) 50%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+}
 .newnav {
   background: linear-gradient(
     180deg,
@@ -265,7 +274,12 @@ iframe {
 }
 
 .errorpage {
-  background: linear-gradient(270deg, rgb(253, 216, 247), #ffffff, rgb(179, 201, 239));
+  background: linear-gradient(
+    270deg,
+    rgb(253, 216, 247),
+    #ffffff,
+    rgb(179, 201, 239)
+  );
   background-size: 600% 600%;
   animation: gradientShift 20s ease infinite;
 }
@@ -299,7 +313,12 @@ iframe {
     width: 100%;
     height: 100vh;
     pointer-events: none;
-    background: linear-gradient(270deg, rgb(253, 216, 247), #ffffff, rgb(179, 201, 239));
+    background: linear-gradient(
+      270deg,
+      rgb(253, 216, 247),
+      #ffffff,
+      rgb(179, 201, 239)
+    );
     background-size: 600% 600%;
     animation: gradientShift 10s ease infinite;
   }
@@ -327,4 +346,3 @@ iframe {
   transform: translateY(-100%);
   opacity: 0;
 }
-
