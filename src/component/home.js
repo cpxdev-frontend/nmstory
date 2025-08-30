@@ -85,7 +85,9 @@ function CustomTabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box className="m-0 px-0 p-0 pt-3 pb-3">{children}</Box>}
+      {value === index && (
+        <Box className="m-0 px-0 p-0 pt-3 pb-3">{children}</Box>
+      )}
     </div>
   );
 }
@@ -1052,13 +1054,20 @@ const Home = () => {
                     </Tabs>
                   </Box>
                   <div className="justify-content-center">
-                    <CustomTabPanel value={value} index={0} className="p-0 m-0 px-0">
+                    <CustomTabPanel
+                      value={value}
+                      index={0}
+                      className="p-0 m-0 px-0"
+                    >
                       {update != null ? (
                         <div className="container" data-aos="fade-in">
                           {update.map(
                             (item, i) =>
                               i === getupdate && (
-                                <div className="row g-0 p-0 px-0 m-0" key={item.id_str}>
+                                <div
+                                  className="row g-0 p-0 px-0 m-0"
+                                  key={item.id_str}
+                                >
                                   <div className="col-md-7 col-12">
                                     <XEmbed
                                       url={
@@ -1135,7 +1144,11 @@ const Home = () => {
                         </>
                       )}
                     </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1} className="p-0 m-0 px-0">
+                    <CustomTabPanel
+                      value={value}
+                      index={1}
+                      className="p-0 m-0 px-0"
+                    >
                       <div className="container" data-aos="fade-in">
                         <InstagramEmbed
                           url="https://instagram.com/nammonn.bnk48official"
@@ -1144,7 +1157,11 @@ const Home = () => {
                         />
                       </div>
                     </CustomTabPanel>
-                    <CustomTabPanel value={value} index={2} className="p-0 m-0 px-0">
+                    <CustomTabPanel
+                      value={value}
+                      index={2}
+                      className="p-0 m-0 px-0"
+                    >
                       <div className="container" data-aos="fade-in">
                         <iframe
                           src="https://www.tiktok.com/embed/@nammonn.bnk48official"
@@ -1155,30 +1172,17 @@ const Home = () => {
                       </div>
                     </CustomTabPanel>
                   </div>
-
-                  <div className="col-12 text-center" data-aos="zoom-in">
-                    <div className="col-12">
-                      <iframe
-                        width="100%"
-                        height="400"
-                        src="https://www.youtube.com/embed/?listType=playlist&list=PL6s4BOFw0ckBCZAjlzPq4zrklTeKJ1OVz"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                      ></iframe>
-                    </div>
-                    <br />
+                  <Divider className="mt-3" />
+                  <div className="col-12 text-center mt-5" data-aos="zoom-in">
                     <Button
                       variant="outlined"
                       className="text-dark border-dark mb-3"
                       sx={{
                         marginTop: -3,
                       }}
-                      onClick={() => his.push("/nmplay")}
+                      onClick={() => his.push("/nmspace")}
                     >
-                      View on Nammonn Play
+                      View contents on Nammonn Space
                     </Button>
                   </div>
                 </div>

@@ -20,7 +20,6 @@ import {
   Divider,
 } from "@mui/material";
 import moment from "moment";
-import "moment/locale/th";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
@@ -87,23 +86,30 @@ const NMSound = () => {
       <Typography variant="body2" gutterBottom className="text-center">
         ผลงานเพลงของน้ำมนต์บนสตรีมมิ่งแพลตฟอร์ม ให้บริการโดย Spotify
       </Typography>
-      <Box className="mt-3" sx={{ display: { xs: "none", md: "initial" } }}>
+      <Box
+        className="mt-3 mb-3"
+        sx={{ display: { xs: "none", md: "initial" } }}
+      >
         {data != null ? (
-          <Grid className="d-flex justify-content-center" container spacing={1}>
+          <Grid
+            className="d-flex justify-content-center mt-3"
+            container
+            spacing={1}
+          >
             {data.map((item, i) => (
               <Grid
                 key={item.track.id}
-                size={{ md: 3, xs: 6 }}
+                size={{ lg: 3, xs: 6 }}
                 data-aos="fade-right"
-                data-aos-delay={i * 400}
+                data-aos-delay={i * 200}
               >
                 <Card>
                   <CardContent className="text-center">
                     <Typography className="mb-3" variant="subtitle">
-                      เผยแพร่เมื่อ{" "}
+                      Released since{" "}
                       {moment(item.track.album.release_date)
                         .lang("th")
-                        .format("DD MMMM YYYY")}
+                        .format("MMMM DD, YYYY")}
                     </Typography>
                   </CardContent>
                   <CardMedia
@@ -169,9 +175,16 @@ const NMSound = () => {
           </Card>
         )}
       </Box>
-      <Box className="mt-3" sx={{ display: { xs: "initial", md: "none" } }}>
+      <Box
+        className="mt-3 mb-3"
+        sx={{ display: { xs: "initial", md: "none" } }}
+      >
         {data != null ? (
-          <Grid className="d-flex justify-content-center" container spacing={1}>
+          <Grid
+            className="d-flex justify-content-center mt-3"
+            container
+            spacing={1}
+          >
             {data.map(
               (item, i) =>
                 i == tag && (
@@ -229,10 +242,10 @@ const NMSound = () => {
                     <Card>
                       <CardContent className="text-center">
                         <Typography className="mb-3" variant="subtitle">
-                          เผยแพร่เมื่อ{" "}
+                          Released since{" "}
                           {moment(item.track.album.release_date)
                             .lang("th")
-                            .format("DD MMMM YYYY")}
+                            .format("MMMM DD, YYYY")}
                         </Typography>
                       </CardContent>
                       <CardMedia
