@@ -56,11 +56,10 @@ import EventIcon from "@mui/icons-material/Event";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 
 import moment, { lang } from "moment";
-import BirthdayCampaigns from "./modules/birthdayCampaigns";
 
 const drawerWidth = 290;
-const navItemsA = ["/", "/nmplay", "/events", "/game"];
-const navItems = ["Biography", "Nammonn Play", "All Events", "Quiz Game"];
+const navItemsA = ["/", "/nmspace", "/events", "/game"];
+const navItems = ["Biography", "Nammonn Space", "All Events", "Quiz Game"];
 const navItemsIcon = [
   <HomeIcon />,
   <PlayCircleIcon />,
@@ -674,7 +673,7 @@ function App() {
                 )}
               />
               <Route path="/trendboost/:id" render={() => <Trend />} />
-              <Route path="/nmplay" render={() => <NMPlay />} />
+              <Route path="/nmspace" render={() => <NMPlay />} />
               <Route path="/nmstoryai" render={() => <StoryAI />} />
               <Route path="*" render={() => <P404Page />} />
             </BasicSwitch>
