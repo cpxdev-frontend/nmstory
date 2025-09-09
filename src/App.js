@@ -681,8 +681,7 @@ function App() {
           <footer className="card text-center" translate="no">
             <div className="card-body">
               <p className="card-title">
-                &copy; Copyright {moment().format("YYYY")} <b>CPXDev</b>, design
-                and maintain for <b>Nammonn BNK48 Thailand Fanclub</b>
+                &copy; Copyright {moment().format("YYYY")} <b>CPXDev Studio</b>
               </p>
               <small className="card-text">
                 All BNK48 contents are licensed by Independent Artist Management

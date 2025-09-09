@@ -631,6 +631,23 @@ const Home = () => {
                   <ListItemButton
                     data-aos="fade-right"
                     className="link"
+                    onClick={() => HyLink("https://twitter.com/Nammonnshinyuu")}
+                  >
+                    <ListItemAvatar>
+                      <Avatar className="icon-core">
+                        <i class="bi bi-twitter-x"></i>
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Nammonn no Shinyuu - X (Twitter)"
+                      secondary={
+                        data != null ? "@Nammonnshinyuu" : <Skeleton />
+                      }
+                    />
+                  </ListItemButton>
+                  <ListItemButton
+                    data-aos="fade-right"
+                    className="link"
                     onClick={() =>
                       HyLink(
                         "https://line.me/ti/g2/YXDDHDlDgbq7MxAN0yuDMNDQupyLuWMc6GvzQg"
