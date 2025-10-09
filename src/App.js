@@ -45,6 +45,7 @@ import Home from "./component/home";
 import NMPlay from "./component/ytplay";
 import Events from "./component/news";
 import Trend from "./component/trend";
+import Gift from "./component/gift";
 import Game from "./component/game";
 import ClassicQuiz from "./component/classicquiz";
 import StoryAI from "./component/chatai";
@@ -54,16 +55,24 @@ import HomeIcon from "@mui/icons-material/Home";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import EventIcon from "@mui/icons-material/Event";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import RedeemIcon from "@mui/icons-material/Redeem";
 
 import moment, { lang } from "moment";
 
 const drawerWidth = 290;
-const navItemsA = ["/", "/nmspace", "/events", "/game"];
-const navItems = ["Biography", "Nammonn Space", "All Events", "Quiz Game"];
+const navItemsA = ["/", "/nmspace", "/events", "/sendgifts", "/game"];
+const navItems = [
+  "Biography",
+  "Nammonn Space",
+  "All Events",
+  "Send Gifts",
+  "Quiz Game",
+];
 const navItemsIcon = [
   <HomeIcon />,
   <PlayCircleIcon />,
   <EventIcon />,
+  <RedeemIcon />,
   <SportsEsportsIcon />,
 ];
 
@@ -646,6 +655,7 @@ function App() {
             <BasicSwitch data-aos="fade-in">
               <Route exact path="/" render={() => <Home />} />
               <Route path="/events" render={() => <Events />} />
+              <Route path="/sendgifts" render={() => <Gift />} />
               <Route
                 path="/game/classic"
                 render={() => (
