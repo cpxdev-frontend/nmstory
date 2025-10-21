@@ -40,6 +40,7 @@ import {
 } from "react-router-dom";
 import Aos from "aos";
 import "./App.css";
+import Swal from "sweetalert2";
 
 import Home from "./component/home";
 import NMPlay from "./component/ytplay";
@@ -77,6 +78,9 @@ const navItemsIcon = [
 ];
 
 const iconLink = "https://d3hhrps04devi8.cloudfront.net/nmstory/icon.png";
+
+const activitypath = "moonlight2025";
+const eventurl = "https://emmafans.vercel.app/moonlight";
 
 function isElementVisible(el) {
   if (!el) return false; // no element
@@ -406,7 +410,9 @@ function App() {
 
       <Backdrop
         slots={{ transition: Slide }}
-        open={!overture}
+        open={
+          window.location.pathname.includes(activitypath) ? true : !overture
+        }
         timeout={overture ? 1200 : 0}
         className="preloadbg"
         sx={{
@@ -685,6 +691,20 @@ function App() {
               <Route path="/trendboost/:id" render={() => <Trend />} />
               <Route path="/nmspace" render={() => <NMPlay />} />
               <Route path="/nmstoryai" render={() => <StoryAI />} />
+              <Route
+                path={"/" + activitypath}
+                render={() => {
+                  Swal.fire({
+                    title: "You will be navigated to another website",
+                    text: "คุณกำลังจะออกจากเว็บไซต์น้ำมนต์ไปยังเว็บไซต์อื่น โดยเว็บไซต์น้ำมนต์เป็นแค่เพียงสื่อกลางในการประชาสัมพันธ์เท่านั้น",
+                    icon: "info",
+                  }).then(() => {
+                    window.location.href = eventurl;
+                  });
+
+                  return null;
+                }}
+              />
               <Route path="*" render={() => <P404Page />} />
             </BasicSwitch>
           )}
