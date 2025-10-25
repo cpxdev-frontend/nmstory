@@ -489,9 +489,9 @@ function App() {
           </div>
         </div>
       </Backdrop>
-
+      <div className="mainPage"></div>
       {overture && (
-        <>
+        <div>
           <Confetti
             numberOfPieces={fire ? 400 : 0}
             initialVelocityY={200}
@@ -711,7 +711,7 @@ function App() {
               </small>
             </div>
           </footer>
-        </>
+        </div>
       )}
       <div
         id="blockwhenland"
