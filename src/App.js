@@ -49,7 +49,6 @@ import Trend from "./component/trend";
 import Gift from "./component/gift";
 import Game from "./component/game";
 import ClassicQuiz from "./component/classicquiz";
-import StoryAI from "./component/chatai";
 import P404Page from "./component/p404";
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -208,7 +207,9 @@ function App() {
       setOverTure(true);
     }, 4800);
 
-    fetch("https://jsonblob.com/api/1406307559249469440")
+    fetch(
+      "https://api.jsonsilo.com/public/e207bafd-092e-4432-8249-37835d3f1053"
+    )
       .then((response) => response.json())
       .then((data) => {
         setWord(data.data);
@@ -318,18 +319,6 @@ function App() {
               </ListItem>
             )
         )}
-        <ListItem onClick={handleDrawerToggle} disablePadding>
-          <ListItemButton
-            className={location.pathname == "/nmstoryai" ? "Menuactive" : ""}
-            sx={{ paddingLeft: 5 }}
-            onClick={() => his.push("/nmstoryai")}
-          >
-            <ListItemIcon>
-              <ChatIcon />
-            </ListItemIcon>
-            <ListItemText primary={"NM Story AI (Beta)"} />
-          </ListItemButton>
-        </ListItem>
         <Divider />
         <ListItem
           disablePadding
@@ -371,7 +360,7 @@ function App() {
   );
 
   return (
-    <Box className="bg-theme">
+    <Box className="bg-theme" id="app">
       <Backdrop
         slots={{ transition: Slide }}
         open={offline}
@@ -657,57 +646,59 @@ function App() {
             </Drawer>
           </nav>
           {/* {offline == false && <BirthdayCampaigns />} */}
-          {offline == false && (
-            <BasicSwitch data-aos="fade-in">
-              <Route exact path="/" render={() => <Home />} />
-              <Route path="/events" render={() => <Events />} />
-              <Route path="/sendgifts" render={() => <Gift />} />
-              <Route
-                path="/game/classic"
-                render={() => (
-                  <ClassicQuiz
-                    game={game}
-                    setInGame={(v) => setInGame(v)}
-                    demo="Classic"
-                  />
-                )}
-              />
-              <Route
-                path="/game/survival"
-                render={() => (
-                  <ClassicQuiz
-                    game={game}
-                    setInGame={(v) => setInGame(v)}
-                    demo="Survival"
-                  />
-                )}
-              />
-              <Route
-                path="/game"
-                render={() => (
-                  <Game game={game} setInGame={(v) => setInGame(v)} />
-                )}
-              />
-              <Route path="/trendboost/:id" render={() => <Trend />} />
-              <Route path="/nmspace" render={() => <NMPlay />} />
-              <Route path="/nmstoryai" render={() => <StoryAI />} />
-              <Route
-                path={"/" + activitypath}
-                render={() => {
-                  Swal.fire({
-                    title: "You will be navigated to another website",
-                    text: "คุณกำลังจะออกจากเว็บไซต์น้ำมนต์ไปยังเว็บไซต์อื่น โดยเว็บไซต์น้ำมนต์เป็นแค่เพียงสื่อกลางในการประชาสัมพันธ์เท่านั้น",
-                    icon: "info",
-                  }).then(() => {
-                    window.location.href = eventurl;
-                  });
+          <div id="main">
+            {offline == false && (
+              <BasicSwitch data-aos="fade-in">
+                <Route exact path="/" render={() => <Home />} />
+                <Route path="/events" render={() => <Events />} />
+                <Route path="/sendgifts" render={() => <Gift />} />
+                <Route
+                  path="/game/classic"
+                  render={() => (
+                    <ClassicQuiz
+                      game={game}
+                      setInGame={(v) => setInGame(v)}
+                      demo="Classic"
+                    />
+                  )}
+                />
+                <Route
+                  path="/game/survival"
+                  render={() => (
+                    <ClassicQuiz
+                      game={game}
+                      setInGame={(v) => setInGame(v)}
+                      demo="Survival"
+                    />
+                  )}
+                />
+                <Route
+                  path="/game"
+                  render={() => (
+                    <Game game={game} setInGame={(v) => setInGame(v)} />
+                  )}
+                />
+                <Route path="/trendboost/:id" render={() => <Trend />} />
+                <Route path="/nmspace" render={() => <NMPlay />} />
+                <Route
+                  path={"/" + activitypath}
+                  render={() => {
+                    Swal.fire({
+                      title: "You will be navigated to another website",
+                      text: "คุณกำลังจะออกจากเว็บไซต์น้ำมนต์ไปยังเว็บไซต์อื่น โดยเว็บไซต์น้ำมนต์เป็นแค่เพียงสื่อกลางในการประชาสัมพันธ์เท่านั้น",
+                      icon: "info",
+                    }).then(() => {
+                      window.location.href = eventurl;
+                    });
 
-                  return null;
-                }}
-              />
-              <Route path="*" render={() => <P404Page />} />
-            </BasicSwitch>
-          )}
+                    return null;
+                  }}
+                />
+                <Route path="*" render={() => <P404Page />} />
+              </BasicSwitch>
+            )}
+          </div>
+
           <footer className="card text-center" translate="no">
             <div className="card-body">
               <p className="card-title">

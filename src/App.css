@@ -346,3 +346,10 @@ iframe {
   transform: translateY(-100%);
   opacity: 0;
 }
+
+.bg-success {
+  background-color: #74f292 !important;
+}
+.bg-danger {
+  background-color: #f27474 !important;
+}

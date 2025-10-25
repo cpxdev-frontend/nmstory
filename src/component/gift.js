@@ -16,11 +16,13 @@ import {
   IconButton,
   Chip,
   Skeleton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  Divider,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
   DialogActions,
   CardActions,
   CardMedia,
@@ -290,10 +292,14 @@ const Gift = ({}) => {
                   </p>
                 }
                 action={
-                  <IconButton onClick={() => {
-                      navigator.clipboard.writeText("Independent Artist management Co., Ltd. (HQ) 3, Soi Rama Nine 34, Huamark, Bangkapi Bangkok 10240 THAILAND");
+                  <IconButton
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        "Independent Artist management Co., Ltd. (HQ) 3, Soi Rama Nine 34, Huamark, Bangkapi Bangkok 10240 THAILAND"
+                      );
                       alert("Receive Address has been copied");
-                    }}>
+                    }}
+                  >
                     <CopyAll />
                   </IconButton>
                 }
@@ -304,6 +310,71 @@ const Gift = ({}) => {
               </Typography>
             </Box>
           </CustomTabPanel>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <caption>
+                หมายเหตุ:
+                ของขวัญหรือจดหมายทุกชนิดจะมีการแกะซองหรือกล่องเพื่อคัดกรองโดยทีมงานก่อนส่งมอบให้น้ำมนต์และเมมเบอร์คนอื่นๆทุกชิ้น
+                หากพบว่าจดหมายหรือของขวัญชิ้นใดไม่เป็นไปตามข้อกำหนด
+                บริษัทอาจขอสงวนสิทธิ์ในการปฏิเสธการส่งมอบให้น้ำมนต์โดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+              </caption>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" variant="h3" width="50%">
+                    <h5>Do ✅</h5>
+                  </TableCell>
+                  <TableCell align="center">
+                    <h5>Don't ❌</h5>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="bg-success">
+                    จดหมายที่แสดงถึงการสนับสนุนที่ดีหรือทัศนคติเชิงบวกต่อน้ำมนต์
+                  </TableCell>
+                  <TableCell className="bg-danger">
+                    ระบุข้อความหรืออ้างอิงด้วยสิ่งต่างๆในจดหมายหรือของขวัญที่เจาะจงถึงตัวคุณ
+                    อาทิ การระบุชื่อคุณ แนบรูปถ่ายคุณไปพร้อมกับจดหมายหรือของขวัญ
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="bg-success">
+                    ของขวัญสินค้าใหม่และยังไม่มีร่องรอยการใช้งาน
+                    ที่มีมูลค่าไม่เกิน 3000 บาท และไม่ขัดต่อกฎระเบียบของบริษัท
+                  </TableCell>
+                  <TableCell className="bg-danger">
+                    ส่งของขวัญเป็นของกินทุกชนิด, เงินสด บัตรกำนัล เช็คเงินสด
+                    คูปองส่วนลด สิ่งของอันตรายและของผิดกฎหมาย
+                    และวัตถุไวไฟทุกชนิด เครื่องใช้ไฟฟ้าและแบตเตอรี่
+                    ต้นไม้หรือดอกไม้ทุกชนิด
+                    เครื่องสำอางค์และอุปกรณ์เสริมความงามทุกชนิด
+                    ชุดเครื่องแต่งกายที่ล่อแหลมทุกชนิด
+                    แผ่นซีดีและดีวีดีที่จัดทำด้วยตนเองทุกกรณี
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="bg-success">
+                    หากมีการส่งมากกว่า 1 เมมเบอร์ให้แยกกล่อง/ซอง
+                    และระบุที่อยู่พร้อมชื่อเมมที่จะส่งให้ถูกต้องเพื่อความสะดวกในการคัดแยก
+                  </TableCell>
+                  <TableCell className="bg-danger">
+                    ส่งจดหมายหรือของขวัญรวมไว้ในซอง/กล่องเดียวและจ่าหน้าถึงเมมเบอร์มากกว่าหนึ่งคน
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="bg-success">
+                    ของขวัญต้องไม่ใหญ่หรือมีน้ำหนักเกินไป
+                    (ความยาวหรือความสูงไม่เกิน 120 ซม. หรือน้ำหนักน้อยกว่า 5
+                    กิโลกรัม)
+                  </TableCell>
+                  <TableCell className="bg-danger">
+                    ส่งของขวัญจ่าหน้าโดยมีการระบุเก็บเงินปลายทาง (COD)
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Box>
       </Box>
     </Box>
