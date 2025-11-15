@@ -16,11 +16,12 @@ import {
   Slide,
   Switch,
   FormControlLabel,
-  Snackbar,
+  MenuItem,
   Alert,
   CardHeader,
   Backdrop,
-  Fab,
+  TextField,
+  DialogActions,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -81,6 +82,33 @@ const iconLink = "https://d3hhrps04devi8.cloudfront.net/nmstory/icon.png";
 const activitypath = "moonlight2025";
 const eventurl = "https://emmafans.vercel.app/moonlight";
 
+const currentYear = new Date();
+const years = Array.from(
+  { length: currentYear.getFullYear() - 2023 + 1 },
+  (_, i) => currentYear.getFullYear() - i // ไล่จากปีล่าสุดลงไป
+);
+const monthNames = [
+  "มกราคม",
+  "กุมภาพันธ์",
+  "มีนาคม",
+  "เมษายน",
+  "พฤษภาคม",
+  "มิถุนายน",
+  "กรกฎาคม",
+  "สิงหาคม",
+  "กันยายน",
+  "ตุลาคม",
+  "พฤศจิกายน",
+  "ธันวาคม",
+];
+
+// สร้าง list เดือนจากปัจจุบัน → ม.ค.
+const months = Array.from(
+  { length: currentYear.getMonth() + 1 },
+  (_, i) => currentYear.getMonth() - i
+);
+const allmonths = Array.from({ length: 12 }, (_, i) => 11 - i);
+
 function isElementVisible(el) {
   if (!el) return false; // no element
   const style = getComputedStyle(el);
@@ -124,6 +152,11 @@ function App() {
   const [game, setInGame] = React.useState(false);
   const [splash, setSplash] = React.useState(true);
   const [fire, setFire] = React.useState(false);
+  const [followtime, setfollowtime] = React.useState(false);
+  const [followValue, setFollowValue] = React.useState({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+  });
   const [offline, setOffline] = React.useState(null);
   const [words, setWord] = React.useState(["Nammonn BNK48 TH FC"]);
 
@@ -204,6 +237,9 @@ function App() {
     Aos.init({ duration: 900, once: true });
     fetchData();
     setTimeout(() => {
+      if (localStorage.getItem("followednm") === null) {
+        setfollowtime(true);
+      }
       setOverTure(true);
     }, 4800);
 
@@ -728,6 +764,101 @@ function App() {
             : "This screen size is not support on this device. Please rotate your device screen."}
         </h5>
       </div>
+
+      <Dialog open={followtime} maxWidth="md">
+        <DialogTitle id="alert-dialog-title">
+          Set your date started following Nammonn
+        </DialogTitle>
+        <DialogContent>
+          <Box className="d-flex mt-3">
+            <TextField
+              select
+              label="เลือกปี"
+              defaultValue={followValue.year}
+              onChange={(e) =>
+                setFollowValue({ ...followValue, year: Number(e.target.value) })
+              }
+              slotProps={{
+                select: {
+                  native: true,
+                },
+              }}
+            >
+              {years.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </TextField>
+            <TextField
+              select
+              label="เลือกเดือน"
+              defaultValue={followValue.month}
+              onChange={(e) =>
+                setFollowValue({
+                  ...followValue,
+                  month: Number(e.target.value) + 1,
+                })
+              }
+              sx={{ width: 200 }}
+              slotProps={{
+                select: {
+                  native: true,
+                },
+              }}
+            >
+              {(followValue.year == currentYear.getFullYear()
+                ? months
+                : allmonths
+              ).map((m) => (
+                <option key={m} value={m + 1}>
+                  {monthNames[m]}
+                </option>
+              ))}
+            </TextField>
+          </Box>
+          <Typography className="mt-5">
+            กรุณาเลือกเดือนและปีที่คุณเริ่มติดตามหรือโอชิน้ำมนต์
+            โดยระบบจะแสดงระยะเวลาที่คุณติดตามน้ำมนต์บนหน้าหลัก ทั้งนี้
+            ข้อมูลที่คุณเลือกจะถูกเก็บไว้ในเครื่องของคุณเท่านั้น
+            หากคุณยืนยันการบันทึกไปแล้วจะไม่สามารถแก้ไขในภายหลังได้
+            (ยกเว้นการรีเซ็ตการตั้งค่าบราวเซอร์ใหม่เท่านั้น)
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setfollowtime(false);
+            }}
+          >
+            ปิด
+          </Button>
+          <Button
+            onClick={() => {
+              localStorage.setItem("followednm", "");
+              setfollowtime(false);
+            }}
+          >
+            ไม่แสดงหน้าต่างนี้อีก
+          </Button>
+          <Button
+            onClick={() => {
+              localStorage.setItem(
+                "followednm",
+                btoa(
+                  followValue.year +
+                    "-" +
+                    String(followValue.month).padStart(2, "0") +
+                    "-01"
+                )
+              );
+              setfollowtime(false);
+            }}
+          >
+            บันทึก
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

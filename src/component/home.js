@@ -35,6 +35,22 @@ import {
   FacebookEmbed,
 } from "react-social-media-embed";
 
+function diffInYearsAndMonths(startDate, endDate) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+
+  // ถ้าเดือนติดลบ แปลว่ายังไม่ครบปี ให้ลดปีลง 1
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  return { years, months };
+}
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function compareTimestamps(timestamp1, timestamp2) {
@@ -372,6 +388,44 @@ const Home = () => {
 
       <section id="home" className="content">
         <Grid container className="d-flex justify-content-center" spacing={2}>
+          {localStorage.getItem("followednm") != null &&
+            localStorage.getItem("followednm") != "" && (
+              <Grid size={{ xs: 12, md: 10 }}>
+                <Card className="text-center">
+                  {diffInYearsAndMonths(
+                    atob(localStorage.getItem("followednm")),
+                    moment().local().format("YYYY-MM-DD")
+                  ).years < 1 &&
+                  diffInYearsAndMonths(
+                    atob(localStorage.getItem("followednm")),
+                    moment().local().format("YYYY-MM-DD")
+                  ).months < 1 ? (
+                    <CardContent>
+                      ดูเหมือนคุณเพิ่งมาโอชิน้ำมนต์ไม่นานนี้
+                      แต่คุณยังสามารถพบเจอน้ำมนต์ได้ในอีกหลายๆ กิจกรรมเลย!
+                    </CardContent>
+                  ) : (
+                    <CardContent>
+                      คุณได้โอชิน้ำมนต์มาแล้ว{" "}
+                      {diffInYearsAndMonths(
+                        atob(localStorage.getItem("followednm")),
+                        moment().local().format("YYYY-MM-DD")
+                      ).years > 0
+                        ? diffInYearsAndMonths(
+                            atob(localStorage.getItem("followednm")),
+                            moment().local().format("YYYY-MM-DD")
+                          ).years + " ปี กับอีก "
+                        : ""}
+                      {diffInYearsAndMonths(
+                        atob(localStorage.getItem("followednm")),
+                        moment().local().format("YYYY-MM-DD")
+                      ).months + " เดือน"}{" "}
+                      ติดตามทุกกิจกรรมและสนับสนุนน้ำมนต์ต่อไปนะ!
+                    </CardContent>
+                  )}
+                </Card>
+              </Grid>
+            )}
           <Grid size={{ xs: 12, md: 10 }}>
             <div className="card">
               <div className="card-body">
