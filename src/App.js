@@ -33,6 +33,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Confetti from "react-confetti";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import SettingsIcon from "@mui/icons-material/Settings";
+import KangarooEffect from "./modules/kangaroo12";
 import {
   useLocation,
   Switch as BasicSwitch,
@@ -733,6 +734,7 @@ function App() {
                 <Route path="*" render={() => <P404Page />} />
               </BasicSwitch>
             )}
+              <KangarooEffect />
           </div>
 
           <footer className="card text-center" translate="no">
