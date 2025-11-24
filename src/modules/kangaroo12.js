@@ -61,7 +61,7 @@ const KangarooEffect = () => {
         {showNewImage && (
           <Fab
             onClick={() => setReady(false)}
-            sx={{ position: "fixed", bottom: 30, right: 16 }}
+            sx={{ position: "fixed", bottom:60, right: 16 }}
           >
             <Close />
           </Fab>
