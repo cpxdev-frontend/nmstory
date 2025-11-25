@@ -74,10 +74,10 @@ const KangarooEffect = () => {
 
         @keyframes bounceAndAway {
           0% { transform: translateY(0) scale(1); opacity: 1; }
-          20% { transform: translateY(-150px) scale(1.1); }
-          40% { transform: translateY(0) scale(1); }
-          60% { transform: translateY(-150px) scale(1.05); }
-          80% { transform: translateY(0) scale(1); }
+          20% { transform: translateY(-150px) scale(1.1); opacity: 1; }
+          40% { transform: translateY(0) scale(1); opacity: 1; }
+          60% { transform: translateY(-150px) scale(1.05); opacity: 1; }
+          80% { transform: translateY(0) scale(1); opacity: 1; }
           90% { transform: translateY(-150px) scale(1.02); opacity: 0.5; }
           100% { transform: translateY(-10px) scale(0); opacity: 0; }
         }
