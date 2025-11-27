@@ -61,7 +61,7 @@ const KangarooEffect = () => {
         {showNewImage && (
           <Fab
             onClick={() => setReady(false)}
-            sx={{ position: "fixed", bottom:60, right: 16 }}
+            sx={window.innerWidth > 700 ? { position: "fixed", top:16, right: 16 } : { position: "fixed", bottom:60, right: 16 }}
           >
             <Close />
           </Fab>
