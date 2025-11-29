@@ -52,7 +52,7 @@ const KangarooEffect = () => {
         ) : (
           <Zoom in={showNewImage} timeout={800}>
             <img
-              src="https://pbs.twimg.com/media/G623dUTbkAMba4D?format=jpg&name=4096x4096"
+              src="https://pbs.twimg.com/media/G623dUTbkAMba4D?format=jpg&name=large"
               alt="nm"
               style={newImageStyle}
             />
