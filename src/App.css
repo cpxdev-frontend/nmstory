@@ -359,5 +359,5 @@ iframe {
   inset: 0;
   z-index: 1101; /* อยู่บนสุด */
   pointer-events: none; /* ไม่บังการคลิก */
-  backdrop-filter: grayscale(0.5);
+  backdrop-filter: grayscale(0.4);
 }
