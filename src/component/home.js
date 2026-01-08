@@ -183,10 +183,6 @@ const Home = () => {
         }, 10000);
       });
 
-    if (moment().unix() >= 1754006400) {
-      setNewHome(true);
-    }
-
     fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", {
       method: "post",
     })
@@ -317,8 +313,12 @@ const Home = () => {
       <div className="cover" data-aos="fade-in">
         <div className="profile-pic col-md-4 justify-content-end">
           <Avatar
+            onMouseEnter={() => setNewHome(true)}
+            onMouseLeave={() => setNewHome(false)}
             src={
-              "https://d3hhrps04devi8.cloudfront.net/bnk48profile/nammonn.jpg"
+              newHome
+                ? "https://d3hhrps04devi8.cloudfront.net/nmstory/toferofnm.jpg"
+                : "https://d3hhrps04devi8.cloudfront.net/bnk48profile/nammonn.jpg"
             }
             className="prof h-100"
           />
@@ -327,63 +327,116 @@ const Home = () => {
 
       <div className="container row profile-info" translate="no">
         <div className="col-md-4"></div>
-        <div className="col-md w-100 ml-md-5">
-          {nicknameslide == 2 ? (
-            <h1 style={{ fontSize: 26 }}>
-              <b>{data != null ? "ナムモン" : <Skeleton />}</b>
-            </h1>
-          ) : nicknameslide == 1 ? (
-            <h1 style={{ fontSize: 27 }}>
-              <b>{data != null ? "น้ำมนต์" : <Skeleton />}</b>
-            </h1>
-          ) : (
-            <h1 style={{ fontSize: 26 }}>
-              <b>{data != null ? data.name.toUpperCase() : <Skeleton />}</b>
-            </h1>
-          )}
-          <hr />
-          {nicknameslide == 2 ? (
-            <h3 style={{ fontSize: 19 }}>
-              {data != null ? (
-                <div>ナットタモン&nbsp;&nbsp;ソンティット</div>
-              ) : (
-                <Skeleton />
-              )}
-            </h3>
-          ) : nicknameslide == 1 ? (
-            <h3 style={{ fontSize: 19 }}>
-              {data != null ? (
-                data.fullnameTh[0] + " " + data.fullnameTh[1]
-              ) : (
-                <Skeleton />
-              )}
-            </h3>
-          ) : (
-            <h3 style={{ fontSize: 19 }}>
-              {data != null ? (
-                data.fullnameEn[0] + " " + data.fullnameEn[1]
-              ) : (
-                <Skeleton />
-              )}
-            </h3>
-          )}
-          {nicknameslide == 2 ? (
-            <p>{data != null ? "バンコク, タイ" : <Skeleton />}</p>
-          ) : nicknameslide == 1 ? (
-            <p>{data != null ? "กรุงเทพ, ประเทศไทย" : <Skeleton />}</p>
-          ) : (
-            <p>{data != null ? data.province + ", TH" : <Skeleton />}</p>
-          )}
-          {nicknameslide == 2 ? (
-            <i>
-              {data != null ? '"オタクがアイドルやっています"' : <Skeleton />}
-            </i>
-          ) : nicknameslide == 1 ? (
-            <i>{data != null ? '"โอตะคุที่กำลังเป็นไอดอล"' : <Skeleton />}</i>
-          ) : (
-            <i>{data != null ? '"The otaku-turned-idol"' : <Skeleton />}</i>
-          )}
-        </div>
+        {newHome ? (
+          <div className="col-md w-100 ml-md-5">
+            {nicknameslide == 2 ? (
+              <h1 style={{ fontSize: 26 }}>
+                <b>{data != null ? "トファー (微笑み一つ)" : <Skeleton />}</b>
+              </h1>
+            ) : nicknameslide == 1 ? (
+              <h1 style={{ fontSize: 27 }}>
+                <b>{data != null ? "โตเฟ่อ" : <Skeleton />}</b>
+              </h1>
+            ) : (
+              <h1 style={{ fontSize: 26 }}>
+                <b>{data != null ? "Tofer" : <Skeleton />}</b>
+              </h1>
+            )}
+            <hr />
+            {nicknameslide == 2 ? (
+              <h3 style={{ fontSize: 19 }}>
+                {data != null ? (
+                  <div>
+                    ナムモンの歩む一歩一歩に寄り添う、小さなナマケモノの相棒
+                  </div>
+                ) : (
+                  <Skeleton />
+                )}
+              </h3>
+            ) : nicknameslide == 1 ? (
+              <h3 style={{ fontSize: 19 }}>
+                {data != null ? (
+                  <div>
+                    คู่หูสลอธตัวน้อยของน้ำมนต์ที่เคียงข้างทุกก้าวเดินของเธอ
+                  </div>
+                ) : (
+                  <Skeleton />
+                )}
+              </h3>
+            ) : (
+              <h3 style={{ fontSize: 19 }}>
+                {data != null ? (
+                  <div>
+                    Nammonn's sloth doll which stands by her side every step of
+                    the way.
+                  </div>
+                ) : (
+                  <Skeleton />
+                )}
+              </h3>
+            )}
+            <p>&nbsp;</p>
+            <i>&nbsp;</i>
+          </div>
+        ) : (
+          <div className="col-md w-100 ml-md-5">
+            {nicknameslide == 2 ? (
+              <h1 style={{ fontSize: 26 }}>
+                <b>{data != null ? "ナムモン" : <Skeleton />}</b>
+              </h1>
+            ) : nicknameslide == 1 ? (
+              <h1 style={{ fontSize: 27 }}>
+                <b>{data != null ? "น้ำมนต์" : <Skeleton />}</b>
+              </h1>
+            ) : (
+              <h1 style={{ fontSize: 26 }}>
+                <b>{data != null ? data.name.toUpperCase() : <Skeleton />}</b>
+              </h1>
+            )}
+            <hr />
+            {nicknameslide == 2 ? (
+              <h3 style={{ fontSize: 19 }}>
+                {data != null ? (
+                  <div>ナットタモン&nbsp;&nbsp;ソンティット</div>
+                ) : (
+                  <Skeleton />
+                )}
+              </h3>
+            ) : nicknameslide == 1 ? (
+              <h3 style={{ fontSize: 19 }}>
+                {data != null ? (
+                  data.fullnameTh[0] + " " + data.fullnameTh[1]
+                ) : (
+                  <Skeleton />
+                )}
+              </h3>
+            ) : (
+              <h3 style={{ fontSize: 19 }}>
+                {data != null ? (
+                  data.fullnameEn[0] + " " + data.fullnameEn[1]
+                ) : (
+                  <Skeleton />
+                )}
+              </h3>
+            )}
+            {nicknameslide == 2 ? (
+              <p>{data != null ? "バンコク, タイ" : <Skeleton />}</p>
+            ) : nicknameslide == 1 ? (
+              <p>{data != null ? "กรุงเทพ, ประเทศไทย" : <Skeleton />}</p>
+            ) : (
+              <p>{data != null ? data.province + ", TH" : <Skeleton />}</p>
+            )}
+            {nicknameslide == 2 ? (
+              <i>
+                {data != null ? '"オタクがアイドルやっています"' : <Skeleton />}
+              </i>
+            ) : nicknameslide == 1 ? (
+              <i>{data != null ? '"โอตะคุที่กำลังเป็นไอดอล"' : <Skeleton />}</i>
+            ) : (
+              <i>{data != null ? '"The otaku-turned-idol"' : <Skeleton />}</i>
+            )}
+          </div>
+        )}
       </div>
 
       <section id="home" className="content">
