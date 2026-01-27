@@ -734,7 +734,7 @@ function App() {
                 <Route path="*" render={() => <P404Page />} />
               </BasicSwitch>
             )}
-              <KangarooEffect />
+              {/* <KangarooEffect /> */}
           </div>
 
           <footer className="card text-center" translate="no">
