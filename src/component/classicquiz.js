@@ -929,7 +929,7 @@ const GameApp = ({ game, setInGame, demo }) => {
             )}
             {/* <QRCode
               value={qrCode}
-              logoImage="https://d3hhrps04devi8.cloudfront.net/kf/thqr.webp"
+              logoImage="https://d1ygujs1u54o16.cloudfront.net/kf/thqr.webp"
               logoWidth={100}
               logoHeight={100}
               size={300}

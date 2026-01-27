@@ -85,7 +85,7 @@
 .cover {
   width: 100%;
   height: 75vh;
-  background-image: url("https://d3hhrps04devi8.cloudfront.net/nmstory/nm_pcbg.jpg"); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
+  background-image: url("https://d1ygujs1u54o16.cloudfront.net/nmstory/nm_pcbg.jpg"); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -94,7 +94,7 @@
   .cover {
     width: 100%;
     height: 60vh;
-    background-image: url("https://d3hhrps04devi8.cloudfront.net/nmstory/nm_mobilebg.jpg"); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
+    background-image: url("https://d1ygujs1u54o16.cloudfront.net/nmstory/nm_mobilebg.jpg"); /* เปลี่ยนเป็น URL รูป cover ที่ต้องการ */
     background-size: cover;
     background-position: center;
     position: relative;

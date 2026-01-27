@@ -78,7 +78,7 @@ const navItemsIcon = [
   <SportsEsportsIcon />,
 ];
 
-const iconLink = "https://d3hhrps04devi8.cloudfront.net/nmstory/icon.png";
+const iconLink = "https://d1ygujs1u54o16.cloudfront.net/nmstory/icon.png";
 
 const activitypath = "moonlight2025";
 const eventurl = "https://emmafans.vercel.app/moonlight";

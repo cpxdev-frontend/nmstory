@@ -317,8 +317,8 @@ const Home = () => {
             onMouseLeave={() => setNewHome(false)}
             src={
               newHome
-                ? "https://d3hhrps04devi8.cloudfront.net/nmstory/toferofnm.jpg"
-                : "https://d3hhrps04devi8.cloudfront.net/bnk48profile/nammonn.jpg"
+                ? "https://d1ygujs1u54o16.cloudfront.net/nmstory/toferofnm.jpg"
+                : "https://d1ygujs1u54o16.cloudfront.net/bnk48profile/nammonn.jpg"
             }
             className="prof h-100"
           />
