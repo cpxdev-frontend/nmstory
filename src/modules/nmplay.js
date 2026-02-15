@@ -60,7 +60,7 @@ const NMPlay = () => {
   const [data, setData] = React.useState(null);
   const [clip, setClip] = React.useState(null);
   React.useEffect(() => {
-    fetch("https://cpxdevweb.azurewebsites.net/api/nm/ytplay", {
+    fetch("https://cpxdevweb.koyeb.app/api/nm/ytplay", {
       method: "POST",
     })
       .then((response) => response.json())

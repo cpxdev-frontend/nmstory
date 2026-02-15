@@ -238,7 +238,7 @@ const Event = ({}) => {
     if (moment().unix() > 1754758800) {
       setNewsLayout(true);
     }
-    fetch("https://cpxdevweb.azurewebsites.net/api/nm/getcurrenttime", {
+    fetch("https://cpxdevweb.koyeb.app/api/nm/getcurrenttime", {
       method: "post",
     })
       .then((response) => response.text())

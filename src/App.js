@@ -212,7 +212,7 @@ function App() {
 
   async function fetchData() {
     const urls = [
-      "https://cpxdevweb.azurewebsites.net",
+      "https://cpxdevweb.koyeb.app",
       "https://cpxdevweb.koyeb.app",
     ];
 

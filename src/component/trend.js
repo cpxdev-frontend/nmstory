@@ -45,7 +45,7 @@ const Trend = () => {
     let num = Math.floor(Math.random() * 100) + 1;
     const url =
       num % 2 === 0
-        ? "https://cpxdevweb.azurewebsites.net"
+        ? "https://cpxdevweb.koyeb.app"
         : "https://cpxdevweb.koyeb.app";
 
     fetch(url + "/api/nm/trend?trendid=" + id, requestOptions)

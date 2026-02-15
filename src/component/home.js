@@ -183,7 +183,7 @@ const Home = () => {
         }, 10000);
       });
 
-    fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", {
+    fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", {
       method: "post",
     })
       .then((response) => response.json())

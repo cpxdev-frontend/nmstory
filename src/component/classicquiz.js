@@ -321,7 +321,7 @@ const GameApp = ({ game, setInGame, demo }) => {
     var url = new URL(window.location.href);
     var c = url.searchParams.get("testbyadmin");
     fetch(
-      "https://cpxdevweb.azurewebsites.net/api/nm/fetchquiz",
+      "https://cpxdevweb.koyeb.app/api/nm/fetchquiz",
       requestOptions
     )
       .then((response) => response.json())
