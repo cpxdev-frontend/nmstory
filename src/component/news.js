@@ -218,7 +218,7 @@ const Event = ({}) => {
     setInterval(() => {
       setOpen(notiCheck());
     }, 1000);
-    fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", requestOptions)
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setGetData(undefined);
@@ -238,7 +238,7 @@ const Event = ({}) => {
     if (moment().unix() > 1754758800) {
       setNewsLayout(true);
     }
-    fetch("https://cpxdevweb.koyeb.app/api/nm/getcurrenttime", {
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/getcurrenttime", {
       method: "post",
     })
       .then((response) => response.text())

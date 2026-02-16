@@ -64,7 +64,7 @@ const NMSound = () => {
   const [d, setDirect] = React.useState("r");
   const [highlight, setHigh] = React.useState(true);
   React.useEffect(() => {
-    fetch("https://cpxdevweb.koyeb.app/api/nm/nmsound", {
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/nmsound", {
       method: "POST",
     })
       .then((response) => response.json())

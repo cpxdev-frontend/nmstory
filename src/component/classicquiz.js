@@ -321,7 +321,7 @@ const GameApp = ({ game, setInGame, demo }) => {
     var url = new URL(window.location.href);
     var c = url.searchParams.get("testbyadmin");
     fetch(
-      "https://cpxdevweb.koyeb.app/api/nm/fetchquiz",
+      "https://cpxdevweb.azurewebsites.net/api/nm/fetchquiz",
       requestOptions
     )
       .then((response) => response.json())
@@ -558,7 +558,7 @@ const GameApp = ({ game, setInGame, demo }) => {
       });
       clearInterval(gameInterval);
       timepopupapi(true);
-      fetch("https://cpxdevweb.koyeb.app/api/nm/quizprocess", {
+      fetch("https://cpxdevweb.azurewebsites.net/api/nm/quizprocess", {
         method: "put",
         headers: {
           "Content-Type": "application/json",

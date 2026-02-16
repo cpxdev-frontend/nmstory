@@ -172,7 +172,7 @@ const Home = () => {
 
   React.useEffect(() => {
     setUnix(moment().unix());
-    fetch("https://cpxdevweb.koyeb.app/api/nm/getmember", {
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/getmember", {
       method: "post",
     })
       .then((response) => response.json())
@@ -183,7 +183,7 @@ const Home = () => {
         }, 10000);
       });
 
-    fetch("https://cpxdevweb.koyeb.app/api/nm/listevent", {
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/listevent", {
       method: "post",
     })
       .then((response) => response.json())
@@ -194,7 +194,7 @@ const Home = () => {
           setReady(true);
         }, 1000);
       });
-    fetch("https://cpxdevweb.koyeb.app/api/nm/nmupdateFloat", {
+    fetch("https://cpxdevweb.azurewebsites.net/api/nm/nmupdateFloat", {
       method: "post",
     })
       .then((response) => response.json())
